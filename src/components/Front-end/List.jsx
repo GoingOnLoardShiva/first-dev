@@ -1,18 +1,19 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "react-datetime/css/react-datetime.css";
-import { Toast } from "primereact/toast";
-import { useLocation } from "react-router-dom";
+import "./list.scss";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import TimeAgo from "timeago-react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 
 const Hero = () => {
-  const toast = useRef(null);
-  const location = useLocation();
   const API_BASE_URL = process.env.REACT_APP_HOST_URL;
-  const API_KEY = process.env.REACT_APP_APIKEY;
+  const key = process.env.REACT_APP_APIKEY;
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
@@ -21,7 +22,7 @@ const Hero = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/trending`, {
           headers: {
-            "access-key": API_KEY, // Send API Key in headers
+            "access-key": key, // Send API Key in headers
           },
         });
         if (response.status === 200) {
@@ -37,23 +38,36 @@ const Hero = () => {
     };
 
     fetchBlogs();
-    if (location.state?.successMessage) {
-      toast.current.show({ severity: "success", summary: "Success", detail: location.state.successMessage, life: 3000 });
-    }
-  }, [location]);
+  }, []);
   return (
-    <div className="hero  bg-primary text-white d-flex gap-2 width-100% ">
-      <Toast ref={toast} />
-        {data.map((user) => (
-          <div className="hero__container d-grid" >
-            <h4 className="fs-bold">{user._id}</h4> 
-            <div className="d-flex gap-2">
-             <p>{user.blog_title}</p>
-             <p>{user.blog_h1}</p>
-             <p>{user.orderDate}</p>
+    <div className="hero text-white width-100% ">
+      <h1>Trending</h1>
+      <div className="itsflexandgrid">
+        <div className="trending">
+          {data.map((user) => (
+            <div className="heroa container d-grid">
+              <a href={user.link}>
+                <img src={user.img} alt="" />
+                <h3>{user.blog_title}</h3>
+                <div className=" gap-2">
+                  <p className="mb-2">{user.blog_h1}</p>
+                  <p>{user.orderDate}</p>
+                  <TimeAgo datetime={user.createdAt} locale="en-US" />
+                </div>
+                <a href={user.link}>Read more</a>
+              </a>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+      {/* <Container>
+        <Row>
+          <Col xs={{ order: "last" }}>First, but last</Col>
+          <Col xs>Second, but unordered</Col>
+          <Col xs={{ order: "first" }}>Third, but first</Col>
+          <Col xs={{ order: "first" }}>Third, but first</Col>
+        </Row>
+      </Container> */}
     </div>
   );
 };

@@ -1,0 +1,9 @@
+.flex{
+  .heada{
+    grid-template-columns: repeat(4, 1fr); 
+    .TrendingBlogdataa{
+      width: 50%;
+      grid-template-columns: repeat(4, 1fr); 
+    }
+  }
+}

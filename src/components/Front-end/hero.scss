@@ -1,0 +1,49 @@
+.pd{
+    padding-left: 50px;
+    padding-right: 50px;
+    color: red;
+    .dropdowna{
+        padding-left: 10px;
+        padding-right: 10px;
+        justify-content: space-between;
+        .dropdown{
+            color: white;
+            a{
+                border-width: 0px;
+                background-color: black;
+            }
+        }
+    }
+    .trending{
+        margin-top: 100px;
+        display: grid;
+    }
+}
+@media (max-width: 567px) {
+    .pd{
+        padding-left: 10px;
+        padding-right: 10px;
+        .dropdowna{
+            margin-left: 0%;
+            gap: 0px;
+
+            .dropdown{
+                color: white;
+                a{
+                    font-size: 10px;
+                    border-width: 0px;
+                    background-color: black;
+                }
+            }
+        }
+        .trending{
+            margin-top: 100px;
+        }
+    }
+
+}
+.abb{
+    padding: 30px;
+    color: white;
+    gap: 20px;
+}
