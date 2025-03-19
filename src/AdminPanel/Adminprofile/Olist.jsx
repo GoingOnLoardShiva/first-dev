@@ -38,7 +38,9 @@ const Alllist = () => {
               <h2>{all.blog_title}</h2>
               <p>{all.blog_h1}</p>
               <TimeAgo datetime={all.createdAt} locale="en-US" />
+             
             </div>
+            <a className="atag" href={all.link}>Read more</a>
           </div>
         ))}
       </div>

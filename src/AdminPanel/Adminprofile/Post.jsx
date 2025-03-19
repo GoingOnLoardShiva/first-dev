@@ -49,24 +49,19 @@ const Profile = () => {
     }
   };
   useEffect(() => {
-    // ✅ Get user data from cookies
+
     const userData = Cookies.get("user");
 
     if (userData) {
-      const parsedUser = JSON.parse(userData);
+      const cookiData = JSON.parse(userData);
 
-      // ❌ If the user is NOT an admin, redirect to login
-      if (parsedUser.role !== "admin") {
-        alert("❌ Access Denied! Admins Only.");
+
+      if (cookiData.role !== "admin") {
+        alert(" Access Denied Admins Only.");
         navigate("/login");
-      } else {
-        setUser(parsedUser); // ✅ Set user data if admin
-      }
-    } else {
-      // ❌ If no user data, redirect to login
-      navigate("/login");
+      } 
     }
-  }, [navigate]);
+  }, []);
   return (
     <div>
       <Toast ref={toast} />

@@ -1,18 +1,46 @@
+.h1text{
+  margin-left: 15px;
+}
 .trending {
   display: grid;
   grid-template-columns: repeat(4, 1fr); 
-  gap: 20px; 
-  padding-right: 10px;
-  padding-left: 10px;
+  gap: 40px; 
+  padding-right: 20px;
+  padding-left: 20px;
+  width: 300px;
   .heroa {
-    padding: 15px;
+    
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     justify-content: space-between;
+    animation: skleteon-loading 1s linear infinite alternate;
+    box-shadow: #0051ffb6 1px 1px 2px;
+    text-align: justify;
+    .atag{
+      color: #0051ffb6;
+    }
+    
+  }
+
+  .heroa:hover{
+    scale: 1.01;
+    transition: 0.5s;
+    box-shadow: #0051ffb6 1px 1px 10px;
+    
   }
 }
+@keyframes skleteon-loading {
+  0% {
+    background-color: rgba(25, 0, 255, 0.1);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+}
 h1{
-  color: red;
+  color: #0051ffb6;
 }
 
 

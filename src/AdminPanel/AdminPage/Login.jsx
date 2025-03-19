@@ -16,48 +16,39 @@ const Login = () => {
   const [value, setValue] = useState("");
   const toast = useRef(null);
 
-  useEffect(() => {
-    const userData = Cookies.get("user");
+  // useEffect(() => {
+  //   const userData = Cookies.get("user");
 
-    if (userData) {
-      const parsedUser = JSON.parse(userData);
+  //   if (userData) {
+  //     const parsedUser = JSON.parse(userData);
 
-      if (parsedUser.role !== "User") {
-        alert(" Access Denied! User Only.");
-        navigate("/");
-      } else {
-        setUser(parsedUser);
-      }
-    } else {
-      navigate("/Login");
-    }
-  }, [navigate]);
+  //     if (parsedUser.role !== "User") {
+  //       alert(" Access Denied! User Only.");
+  //       navigate("/Login");
+  //     } else {
+  //       setUser(parsedUser);
+  //     }
+  //   } else {
+  //     navigate("/Login");
+  //   }
+  // }, [navigate]);
 
   const handleLogin = async () => {
-    try {
-      const res = await axios.post(url + "/LoginData", { email_id, user_Pass });
+    const res = await axios.post(url + "/LoginData", { email_id, user_Pass });
 
-      if (res.status === 200) {
-        Cookies.set("user", JSON.stringify(res.data), { expires: 7 });
-        toast.current.show({
-          severity: "success",
-          summary: "Ligin Success",
-          detail: "Thanks For Login!",
-          life: 2000, // Show toast for 2 seconds
+    if (res.status === 200) {
+      Cookies.set("user", JSON.stringify(res.data), { expires: 7 });
+      toast.current.show({
+        severity: "success",
+        summary: "Ligin Success",
+        detail: "Thanks For Login!",
+        life: 2000, // Show toast for 2 seconds
+      });
+      setTimeout(() => {
+        navigate("/admin/", {
+          state: { successMessage: "Thanks for lgin my admin!" },
         });
-        setTimeout(() => {
-          navigate("/Profile", {
-            state: { successMessage: "Thanks for lgin my admin!" },
-          });
-        }, 3050);
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        navigate("/user-not-found");
-      } else {
-        alert(" Something went wrong!");
-        navigate("/");
-      }
+      }, 3050);
     }
   };
 

@@ -15,7 +15,7 @@ const Footer = () => {
     });
   };
   const [usermail, setEmail] = useState([]);
-  const [massege, setmas] = useState([]);
+  const [massege, setmasage] = useState([]);
   const toast = useRef(null);
   const url = process.env.REACT_APP_HOST_URL;
 
@@ -75,7 +75,7 @@ const Footer = () => {
             type="text"
             className="at"
             placeholder="Tel me your Feedback"
-            onChange={(e)=> setmas(e.target.value)}
+            onChange={(e)=> setmasage(e.target.value)}
           />
           <button
             label="Submit"

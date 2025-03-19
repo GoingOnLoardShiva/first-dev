@@ -1,9 +1,19 @@
 .flex{
   .heada{
-    grid-template-columns: repeat(4, 1fr); 
+    display: flex;
+    grid-template-columns: repeat(4, 1fr);  
     .TrendingBlogdataa{
       width: 50%;
       grid-template-columns: repeat(4, 1fr); 
     }
+    
+
   }
+  @media (max-width: 600px) {
+    .heada {
+     display: grid;
+    }
+  }
+
+  
 }

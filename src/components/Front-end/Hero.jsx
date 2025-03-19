@@ -9,7 +9,7 @@ import Ol from "../../AdminPanel/Adminprofile/Olist";
 
 const Hero = () => {
   return (
-    <div className="pd bg-black ">
+    <div className="pd">
       <div className="dropdowna d-flex gap-50">
         <div class="dropdown">
           <a
@@ -177,6 +177,7 @@ const Hero = () => {
         </div>
       </div>
       <div className="trending">
+        
         <List />
       </div>
       <div className="abb">

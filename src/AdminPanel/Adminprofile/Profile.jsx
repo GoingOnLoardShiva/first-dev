@@ -55,7 +55,7 @@ const Profile = () => {
   };
 
   const handleDelete = async (id) => {
-    const de = await axios.delete(`${url}/Delete/${id}`);
+    const de = await axios.delete(url+"/Delete",{id});
     console.log("Deleted successfully");
     if (de.status === 200) {
       toast.current.show({
@@ -70,7 +70,7 @@ const Profile = () => {
 
   const updateUser = async () => {
     const response = await axios.put(
-      `${url}/updateData/${userId}`,
+      url+"/updateData",{userId},
       {
         img,
         blog_title,
@@ -83,9 +83,6 @@ const Profile = () => {
     if (response.status === 200) {
       navigate(0);
     }
-    if (response.status === 500) {
-      alert(response);
-    }
   };
 
   useEffect(() => {
@@ -97,25 +94,20 @@ const Profile = () => {
       });
       if (res.status === 200) {
         setData(res.data.trending);
-        const username = Cookies.get("username");
-        setusername(username); // Output: Hiren
+        // const username = Cookies.get("username");
+        // setusername(username);
       }
     };
     const userData = Cookies.get("user");
 
     if (userData) {
-      const parsedUser = JSON.parse(userData);
+      const cookiData = JSON.parse(userData);
 
-      // ❌ If the user is NOT an admin, redirect to login
-      if (parsedUser.role !== "admin") {
-        alert("❌ Access Denied! Admins Only.");
+
+      if (cookiData.role !== "admin") {
+        alert(" Access Denied Admins Only.");
         navigate("/login");
-      } else {
-        setUser(parsedUser); // ✅ Set user data if admin
-      }
-    } else {
-      // ❌ If no user data, redirect to login
-      navigate("/login");
+      } 
     }
     // const afetchdata = async () => {
     //   const res = await axios.get(url + "/list", {
@@ -156,8 +148,8 @@ const Profile = () => {
                       severity="success"
                       rounded
                       onClick={() => {
-                        setSelectedBlogId(all._id); // Set only the ID
-                        setVisiblea(true); // Open the dialog
+                        setSelectedBlogId(all._id);
+                        setVisiblea(true);
                       }}
                     />
                     <Button

@@ -41,7 +41,8 @@ const Hero = () => {
   }, []);
   return (
     <div className="hero text-white width-100% ">
-      <h1>Trending</h1>
+      <h1 className="h1text">Trending  Post</h1>
+      <br />
       <div className="itsflexandgrid">
         <div className="trending">
           {data.map((user) => (
@@ -54,7 +55,9 @@ const Hero = () => {
                   <p>{user.orderDate}</p>
                   <TimeAgo datetime={user.createdAt} locale="en-US" />
                 </div>
-                <a href={user.link}>Read more</a>
+                <a className="atag" href={user.link}>
+                  Read more
+                </a>
               </a>
             </div>
           ))}
