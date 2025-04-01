@@ -76,32 +76,48 @@ const Login = () => {
           />
           <h2> Login</h2>
         </div>
+        {step === 1 && (
+          <>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email_id}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email_id}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={user_Pass}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <div className="extraauth">
-          <div className="g pi pi-google">
-            <a href="/"> Google</a>
-          </div>
-          <div className="f pi pi-facebook">
-            <a href="/"> Facbook</a>
-          </div>
-        </div>
-        <Button label="Login" severity="success" onClick={handleLogin} />
-        <button>
-          <a href="/">Back</a>
-        </button>
+            <input
+              type="password"
+              placeholder="Password"
+              value={user_Pass}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div className="extraauth">
+              <div className="g pi pi-google">
+                <a href="/"> Google</a>
+              </div>
+              <div className="f pi pi-facebook">
+                <a href="/"> Facbook</a>
+              </div>
+            </div>
+            <Button label="Login" severity="success" onClick={handleLogin} />
+            <button>
+              <a href="/">Back</a>
+            </button>
+          </>
+        )}
+        {step === 2 && (
+          <>
+            <h2>Enter OTP</h2>
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+            />
+            <button onClick={handleVerifyOTP}>Verify OTP</button>
+            <button onClick={() => setStep(1)}>Back</button>
+          </>
+        )}
       </div>
     </div>
   );
