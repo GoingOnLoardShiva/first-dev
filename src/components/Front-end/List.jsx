@@ -41,7 +41,7 @@ const Hero = () => {
       <div className="gridcontnent">
         <div className="trpost">
           {data.map((user) => (
-            <div className="pcontent container d-grid">
+            <div className="pcontent container d-grid" key={user.id}>
               <a href={user.link}>
                 <img src={user.img} alt="" />
                 <h3>{user.blog_title}</h3>
