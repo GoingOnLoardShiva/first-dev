@@ -1,39 +1,42 @@
-.hero{
+.heroa{
   padding: 20px;
-  .gridcontnent{
-    
-    .trpost{
+  color: white;
+  .gridcontenta{
+    .trposta{
       display: grid;
       gap: 40px;
       grid-template-columns: repeat(4, 1fr); 
       .pcontent{
         background: linear-gradient(rgba(255, 255, 255, 0),rgba(255, 255, 255, 0));
         box-shadow: 1px 2px 10px inset rgba(98, 1, 255, 0.267);
-        width: fit-content;
         height: fit-content;
+        width: 330px;
         a{
           width: 300px;
         }
       }
     }
     @media (max-width: 1200px) {
-      .trpost{
+      .trposta{
         grid-template-columns: repeat(3, 1fr); 
       }
     }
     @media (max-width: 1000px) {
-      .trpost{
+      .trposta{
         grid-template-columns: repeat(2, 1fr); 
       }
     }
     @media (max-width: 700px) {
-      .trpost{
+      .trposta{
         grid-template-columns: repeat(1, 1fr); 
       }
     }
     @media (max-width: 500px) {
-      .trpost{
+      .trposta{
         grid-template-columns: repeat(1, 1fr); 
+        .pcontent{
+          width: 330px;
+        }
       }
     }
   }

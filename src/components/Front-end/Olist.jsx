@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "react-datetime/css/react-datetime.css";
-import "./list.scss";
+import "./list.scss"
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -44,14 +44,14 @@ const List = () => {
   }
 
   return (
-    <div className="hero text-white width-100%">
-      <h1 className="h1text">Trending Post</h1>
+    <div className="heroa">
+      <h1 className="h1text">All Post</h1>
       <br />
-      <div className="gridcontent">
-        <div className="trpost">
+      <div className="gridcontenta">
+        <div className="trposta">
           {data.length > 0 ? (
             data.map((user) => (
-              <div className="pcontent container d-grid" key={user.id}>
+              <div className="pcontent container" key={user.id}>
                 <a href={user.link}>
                   <img src={user.img} alt={user.blog_title} />
                   <h3>{user.blog_title}</h3>
