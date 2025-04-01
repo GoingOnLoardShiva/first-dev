@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
 import { Toast } from "primereact/toast";
-import './Adm.scss'
+import "./Adm.scss";
 
 const Hero = () => {
   const showMessage = (severity, detail) => {
@@ -28,9 +28,10 @@ const Hero = () => {
   const handleSubmit = async () => {
     const resp = await axios.post(
       url + "/addData",
-      { id, name,basic,cpass }, // Correct: Data should be separate from headers
+      { id, name, basic, cpass }, // Correct: Data should be separate from headers
       { headers: { "skip-auth": "true" } } // Headers must be in a separate object
     );
+
     if (resp.status === 200) {
       toast.current.show({
         severity: "success",
@@ -44,15 +45,13 @@ const Hero = () => {
         });
       }, 3050);
     }
-
   };
 
   return (
     <div>
       <Toast ref={toast} />
-      
+
       <div className="li">
-        
         <div className="mdg  d-grid">
           <InputText
             className="Ina"

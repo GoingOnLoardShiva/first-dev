@@ -114,13 +114,13 @@ const Alllist = () => {
     <div>
       <Toast ref={toast} />
       <Accordion activeIndex={0}>
-        <AccordionTab header="All Blog" className="heada">
-          <div className="TrendingBlogdataa d-grid gap-2">
+        <AccordionTab header="All Blog" className="profilehead">
+          <div className="profilecontent d-grid gap-2">
             {data.map((all) => (
               <div id="bd" className="b gap-2">
-                <div className="flexpostiona  d-grid">
+                <div className="profilecontainer  d-grid">
                   <img src={all.img} alt="" />
-                  <div className="text">
+                  <div className="protext">
                     <h2>{all.blog_title}</h2>
                     <p>{all.blog_h1}</p>
                     <TimeAgo datetime={all.createdAt} locale="en-US" />

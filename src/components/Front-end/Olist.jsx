@@ -1,38 +1,32 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.css";
-import "primereact/resources/themes/lara-light-cyan/theme.css";
-import "react-datetime/css/react-datetime.css";
-import "./list.scss";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import './O.scss'
+import { useNavigate } from "react-router-dom";
+import "primeicons/primeicons.css";
 import TimeAgo from "timeago-react";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 
-const Hero = () => {
-  const API_BASE_URL = process.env.REACT_APP_HOST_URL;
+
+const Alllist = () => {
+
+  const url = process.env.REACT_APP_HOST_URL;
   const key = process.env.REACT_APP_APIKEY;
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      const response = await axios.get(`${API_BASE_URL}/trending`, {
+    const fetchdata = async () => {
+      const res = await axios.get(url + "/list", {
         headers: {
-          "access-key": key, // Send API Key in headers
+          "access-key": key,
         },
       });
-      
-      if (response.status === 200) {
-        setData(response.data.trending);
-        const shuffledData = response.data.trending.sort(() => Math.random() - 0.5); // Shuffle data
+      if (res.status === 200) {
+        setData(res.data.list);
+        const shuffledData = res.data.list.sort(() => Math.random() - 0.5); // Shuffle data
         setData(shuffledData);
-      } 
+      }
     };
 
-    fetchBlogs();
+    fetchdata();
   }, []);
   return (
     <div className="hero text-white width-100% ">
@@ -70,4 +64,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Alllist;

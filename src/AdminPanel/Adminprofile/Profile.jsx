@@ -55,7 +55,7 @@ const Profile = () => {
   };
 
   const handleDelete = async (id) => {
-    const de = await axios.delete(url+"/Delete",{id});
+    const de = await axios.delete(url + "/Delete", { id });
     console.log("Deleted successfully");
     if (de.status === 200) {
       toast.current.show({
@@ -70,7 +70,8 @@ const Profile = () => {
 
   const updateUser = async () => {
     const response = await axios.put(
-      url+"/updateData",{userId},
+      url + "/updateData",
+      { userId },
       {
         img,
         blog_title,
@@ -103,11 +104,10 @@ const Profile = () => {
     if (userData) {
       const cookiData = JSON.parse(userData);
 
-
       if (cookiData.role !== "admin") {
         alert(" Access Denied Admins Only.");
         navigate("/login");
-      } 
+      }
     }
     // const afetchdata = async () => {
     //   const res = await axios.get(url + "/list", {
@@ -129,18 +129,20 @@ const Profile = () => {
     <div>
       <Toast ref={toast} />
       <ConfirmDialog group="templating" />
-      <div className="flex">
+      <div className="profile">
         <Accordion activeIndex={0}>
-          <AccordionTab header="Trending" className="heada" >
-            <div className="TrendingBlogdataa d-flex gap-2">
+          <AccordionTab header="TrendingContent" className="profilehead">
+            <div className="profilecontent d-flex gap-2">
               {data.map((all) => (
                 <div className="b d-grid">
-                  <img src={all.img} alt="" />
-                  <div className="text">
-                    <h2>{all.blog_title}</h2>
-                    <p>{all.blog_h1}</p>
-                    {/* <p>{all.createdAt}</p> */}
-                    <TimeAgo datetime={all.createdAt} locale="en-US" />
+                  <div className="profilecontainer">
+                    <img src={all.img} alt="" />
+                    <div className="protext">
+                      <h2>{all.blog_title}</h2>
+                      <p>{all.blog_h1}</p>
+                      {/* <p>{all.createdAt}</p> */}
+                      <TimeAgo datetime={all.createdAt} locale="en-US" />
+                    </div>
                   </div>
                   <div className="function d-fixed">
                     <Button
@@ -220,7 +222,6 @@ const Profile = () => {
             </div>
           </AccordionTab>
         </Accordion>
-        <Alllist />
         <Post />
       </div>
 

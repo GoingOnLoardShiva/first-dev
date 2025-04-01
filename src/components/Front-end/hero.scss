@@ -1,50 +1,80 @@
 .pd{
-    padding-left: 50px;
-    padding-right: 50px;
-    color: #ff0000b6;
+    padding: 5px;
     background-color: black;
+    .line{
+        background-color: white;
+        width: 100%;
+        border-width: 2px;
+        color: white;
+    }
     .dropdowna{
-        padding-left: 10px;
-        padding-right: 10px;
         justify-content: space-between;
+        padding-left: 100px;
+        padding-right: 100px;
         .dropdown{
-            color: white;
-            a{
-                border-width: 0px;
-                background-color: black;
+
+            
+            .btn{
+                background-color: transparent;
+                color: white;
             }
         }
-    }
-    .trending{
-        margin-top: 30px;
-        display: grid;
-    }
-}
-@media (max-width: 567px) {
-    .pd{
-        padding-left: 10px;
-        padding-right: 10px;
-        .dropdowna{
-            margin-left: 0%;
-            gap: 0px;
-
-            .dropdown{
-                color: white;
+        .dropdownab{
+            .btn{
+                background-color: rgba(0, 128, 0, 0.527);
+                border-color: transparent;
                 a{
-                    font-size: 10px;
-                    border-width: 0px;
-                    background-color: black;
+                    text-decoration: none;
+                    color: white;
                 }
             }
         }
-        .trending{
-            margin-top: 100px;
+        .dropdownac{
+            .btn{
+                background-color: rgba(255, 0, 0, 0.473);
+                border-color: transparent;
+                a{
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+        }
+        .dropdown-menu{
+            display: none;
         }
     }
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    @media (max-width: 950px) {
+        .dropdowna{
+            padding-left: 10px;
+            padding-right: 10px;
+            .dropdownab{
+                display: none;
 
-}
-.abb{
-    padding: 30px;
-    color: white;
-    gap: 20px;
+            }
+            .dropdownac{
+                display: none;
+            }
+        }
+    }
+    @media (max-width: 500px) {
+        .dropdowna{
+            padding-left: 10px;
+            padding-right: 10px;
+            .dropdown{
+                .btn{
+                    font-size: 10px;
+                }
+            }
+            .dropdownab{
+                display: none;
+
+            }
+            .dropdownac{
+                display: none;
+            }
+        }
+    }
 }

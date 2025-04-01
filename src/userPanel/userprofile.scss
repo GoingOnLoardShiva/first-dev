@@ -1,0 +1,42 @@
+.usercontent{
+    padding-top: 50px;
+    background-color: black;
+    .useritem{
+        margin-left: auto;
+        margin-right: auto;
+        color: white;
+    }
+    .userdetails{
+        text-align: center;
+        color: white;
+        .userpost{
+            padding-left: 400px;
+            padding-right: 400px;
+            .userpostdetailswithpost{
+                display: flex;
+                gap: 30px;
+                ul{
+                    gap: 30px;
+                    .userpostwithgap{
+                        gap: 30px;
+                        li{
+                            width: fit-content;
+                            display: flex;
+                            gap: 20px;
+                            text-align: start;
+                            font-size: 25px;
+                            p{
+                                font-size: 15px;
+                            }
+                            img{
+                                width: 100px;
+                                height: 100px;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}

@@ -32,8 +32,8 @@ const Header = () => {
     </div>
   );
   return (
-    <div className="bg-black">
-      <div className="a">
+    <div className="header bg-black">
+      <div className="headercontentnt">
         <Sidebar
           header={customHeader}
           visible={visible}
@@ -54,12 +54,14 @@ const Header = () => {
         </Sidebar>
       </div>
       <div className="logo d-flex">
-        <img src={window.location.origin + "/Code.png"} alt="" />
+        <a href="/"><img className="ologo" src={window.location.origin + "/Code.png"} alt="" /></a>
         <div className="login d-flex">
           <div className="text">
-            <a href="Login">Login</a>
+            <a className="texta" href="Login">Login</a>
           </div>
-          <Button icon="pi pi-user" onClick={() => setVisible(true)} />
+          <div className="text">
+            <a className="texta" href="sign">Sign In</a>
+          </div>
         </div>
       </div>
     </div>

@@ -1,31 +1,24 @@
 import "./App.css";
 import Layout from "./components/Layout/Layout";
+import ULayout from "./components/Layout/userlayoutfile";
 import Hero from "./components/Front-end/Hero";
 import Li from "./components/Front-end/List";
-import AdminDashboard from "./AdminPanel/AdminPage/Admin";
 import Profile from "./AdminPanel/Adminprofile/Profile";
 import Post from "./AdminPanel/Adminprofile/Post";
 import Update from "./AdminPanel/Adminprofile/Update";
-import Login from './AdminPanel/AdminPage/Login'
-import All from './AdminPanel/Adminprofile/Alllist'
-import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
-
+import Login from "./AdminPanel/Authuntication/Loginverify";
+import All from "./AdminPanel/Adminprofile/Alllist";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Adminprofile from "./AdminPanel/Adminprofile/Adminprofile";
+import ProtectedRoute from "./AdminPanel/Authuntication/ProtectedRoute";
+import Userhome from "./userPanel/Userhome";
+import UserProfile from "./userPanel/UserProfile";
+import UserSign from "./AdminPanel/Authuntication/userSign"
 
 function App() {
-  const HomeLayout = () => {
-    return (
-      <div>
-        <Layout />
-      </div>
-    );
-  };
-  const UserLayout = () => {
-    return (
-      <div>
-        <Layout />
-      </div>
-    );
-  };
+  const HomeLayout = () => <Layout />;
+  const UserLayout = () => <ULayout />;
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -33,22 +26,41 @@ function App() {
       children: [
         { path: "/", element: <Hero /> },
         { path: "/Login", element: <Login /> },
+        { path: "/sign", element: <UserSign /> },
       ],
     },
     {
       path: "/admin",
-      element: <UserLayout />,
+      element: (
+        <ProtectedRoute role="admin">
+          <UserLayout />
+        </ProtectedRoute>
+      ),
       children: [
-        { path: "/admin/", element: <Profile /> },
-        { path: "/admin/Alllist", element: <All /> },
-        { path: "/admin/Update", element: <Update /> },
-        { path: "/admin/Post", element: <Post /> },
-        { path: "/admin/List", element: <Li /> },
+        { path: "/admin/:uid", element: <Adminprofile /> },
+        { path: "/admin/:uid/Profile", element: <Profile /> },
+        { path: "/admin/:uid/Alllist", element: <All /> },
+        { path: "/admin/:uid/Update", element: <Update /> },
+        { path: "/admin/:uid/Post", element: <Post /> },
+        { path: "/admin/:uid/List", element: <Li /> },
+      ],
+    },
+    {
+      path: "/user",
+      element: (
+        <ProtectedRoute role="user">
+          <UserLayout />
+        </ProtectedRoute>
+      ),
+      children: [
+        { path: "/user/:uid", element: <Userhome /> },
+        { path: "/user/:uid/myprofile", element: <UserProfile /> }
 
       ],
     },
-  ])
-  return <RouterProvider router={router} />;;
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
