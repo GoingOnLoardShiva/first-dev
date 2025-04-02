@@ -56,9 +56,17 @@ const List = () => {
               <div className="pcontent container" key={user.id}>
                 <a href={user.link}>
                   <img src={user.img} alt={user.blog_title} />
-                  <h3>{user.blog_title}</h3>
+                  <h3>
+                    {user.blog_title
+                      ? user.blog_title.substring(0, 80)
+                      : "Loading"}
+                  </h3>
                   <div className="pblogcontent gap-2">
-                    <p className="mb-2">{user.blog_h1}</p>
+                    <p className="mb-2">
+                      {user.blog_h1
+                        ? user.blog_h1.substring(0, 120)
+                        : "Loading"}
+                    </p>
                     <p>{user.orderDate}</p>
                     <TimeAgo datetime={user.createdAt} locale="en-US" />
                   </div>
@@ -70,7 +78,13 @@ const List = () => {
                         : ""
                     }`}
                     onClick={() => console.log("Navigating to:", user?._id)}
-                  >Read more</a>
+                  >
+                    Read more
+                  </a>
+                  <br />
+                  <p className="pi pi-check-circle ">
+                    {user.email_id ? user.email_id.substring(0, 5) : "Loading"}
+                  </p>
                 </a>
               </div>
             ))

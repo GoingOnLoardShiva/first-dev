@@ -25,13 +25,18 @@ const Profile = () => {
   const [image, setId] = useState([]);
   const [title, setTi] = useState([]);
   const [heading, setName] = useState([]);
+  const [title2, setTi2] = useState([]);
+  const [heading2, setName2] = useState([]);
+  const [title3, setTi3] = useState([]);
+  const [heading3, setName3] = useState([]);
   const [trending, setBasic] = useState([]);
+  const [email, setEmail] = useState([]);
   const [Link, SetLink] = useState([]);
 
   const handleSubmit = async () => {
     const resp = await axios.post(
       url + "/addBlog",
-      { image, title, heading, trending },
+      { image, title, heading, title2, heading2,title3, heading3,  trending,email },
       { headers: { "skip-auth": "true" } }
     );
     if (resp.status === 200) {
@@ -81,7 +86,7 @@ const Profile = () => {
             type="text"
             name=""
             id=""
-            placeholder="Enter Your Link"
+            placeholder="Enter Your Image Link"
           />
           <input
             onChange={(e) => setTi(e.target.value)}
@@ -94,6 +99,38 @@ const Profile = () => {
           <input
             onChange={(e) => setName(e.target.value)}
             value={heading}
+            type="text"
+            name=""
+            id=""
+            placeholder="Enter Blog paragraph"
+          />
+          <input
+            onChange={(e) => setTi2(e.target.value)}
+            value={title2}
+            type="text"
+            name=""
+            id=""
+            placeholder="Enter Blog Title"
+          />
+          <input
+            onChange={(e) => setName2(e.target.value)}
+            value={heading2}
+            type="text"
+            name=""
+            id=""
+            placeholder="Enter Blog paragraph"
+          />
+          <input
+            onChange={(e) => setTi3(e.target.value)}
+            value={title3}
+            type="text"
+            name=""
+            id=""
+            placeholder="Enter Blog Title"
+          />
+          <input
+            onChange={(e) => setName3(e.target.value)}
+            value={heading3}
             type="text"
             name=""
             id=""
@@ -114,6 +151,14 @@ const Profile = () => {
             name=""
             id=""
             placeholder="Enter Nevegate Link"
+          />
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            type="text"
+            name=""
+            id=""
+            placeholder="Please Admin Enter Your Email "
           />
           <Button
             label="Submit"

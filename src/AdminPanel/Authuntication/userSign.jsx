@@ -10,16 +10,14 @@ import { InputText } from "primereact/inputtext";
 import "./Loginv.scss";
 
 const Sigin = () => {
-  const [email_id, setEmail] = useState("");
+  const [useremail_id, setEmail] = useState("");
   const [user_password, setPassword] = useState("");
   const [user_conform_password, setConformPassword] = useState("");
   const [user_dob, setDob] = useState("");
-  const [role, setRole] = useState("user"); // Default role is "user"
+  const [role, setRole] = useState("user");  // Default role is "user"
   const toast = useRef(null);
   const navigate = useNavigate();
   const url = process.env.REACT_APP_HOST_URL;
-  const [o_tp, setOtp] = useState("");
-   const [step, setStep] = useState(1); 
 
   const roles = [
     { label: "User", value: "user" },
@@ -29,13 +27,12 @@ const Sigin = () => {
   const handleLogin = async () => {
     try {
       const res = await axios.post(`${url}/aluserLogin`, {
-        email_id,
+        useremail_id,
         user_password,
         user_conform_password,
         user_dob,
-        role,
-        o_tp,
-      },{ headers: { "skip-auth": "true" } } );
+        role,  // Send role in request
+      });
 
       if (res.status === 200) {
         const secureUID = uuidv4();
@@ -46,15 +43,14 @@ const Sigin = () => {
 
         toast.current.show({
           severity: "success",
-          summary: "Send Otp on Email",
+          summary: "Login Successful",
           detail: "Redirecting...",
           life: 2000,
         });
+
         setTimeout(() => {
-          setStep(2);
-
+          navigate("/Login");
         }, 2000);
-
       }
     } catch (error) {
       toast.current.show({
@@ -65,98 +61,58 @@ const Sigin = () => {
       });
     }
   };
-  const signVerifyOTP = async ()=>{
-    const senduserOtp = await axios.post(url +"/useotp",{
-      email_id,
-      user_password,
-      user_conform_password,
-      user_dob,
-      role,
-      o_tp,
-    })
-    if(senduserOtp.status === 200){
-      setTimeout(() => {
-        navigate("/Login");
-      }, 2000);
-    }
-  }
+
   return (
     <div className="login-container">
       <Toast ref={toast} />
       <div className="logincontent">
         <div className="logos">
-          <img
-            className="ologo"
-            src={window.location.origin + "/Code.png"}
-            alt="Logo"
-          />
+          <img className="ologo" src={window.location.origin + "/Code.png"} alt="Logo" />
           <h2>Register</h2>
         </div>
-        {step === 1 && (
-          <>
-            <Dropdown
-              value={role}
-              options={roles}
-              onChange={(e) => setRole(e.value)}
-              placeholder="Select Role"
-            />
 
-            <InputText
-              type="email"
-              placeholder="Enter Your Email"
-              value={email_id}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+        <Dropdown 
+          value={role} 
+          options={roles} 
+          onChange={(e) => setRole(e.value)} 
+          placeholder="Select Role" 
+        />
 
-            <InputText
-              type="date"
-              placeholder="Enter Your Date Of Birth"
-              value={user_dob}
-              onChange={(e) => setDob(e.target.value)}
-            />
+        <InputText 
+          type="email" 
+          placeholder="Enter Your Email" 
+          value={useremail_id} 
+          onChange={(e) => setEmail(e.target.value)} 
+        />
 
-            <InputText
-              type="password"
-              placeholder="Enter Your Password"
-              value={user_password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+        <InputText 
+          type="date" 
+          placeholder="Enter Your Date Of Birth" 
+          value={user_dob} 
+          onChange={(e) => setDob(e.target.value)} 
+        />
 
-            <InputText
-              type="password"
-              placeholder="Enter Your Confirm Password"
-              value={user_conform_password}
-              onChange={(e) => setConformPassword(e.target.value)}
-            />
+        <InputText 
+          type="password" 
+          placeholder="Enter Your Password" 
+          value={user_password} 
+          onChange={(e) => setPassword(e.target.value)} 
+        />
 
-            <div className="extraauth">
-              <div className="g pi pi-google">
-                <a href="/">Google</a>
-              </div>
-              <div className="f pi pi-facebook">
-                <a href="/">Facebook</a>
-              </div>
-            </div>
+        <InputText 
+          type="password" 
+          placeholder="Enter Your Confirm Password" 
+          value={user_conform_password} 
+          onChange={(e) => setConformPassword(e.target.value)} 
+        />
 
-            <Button label="Register" severity="success" onClick={handleLogin} />
-            <button>
-              <a href="/">Back</a>
-            </button>
-          </>
-        )}
-        {step === 2 && (
-          <>
-            <h2>Enter OTP</h2>
-            <input
-              type="text"
-              placeholder="Enter OTP"
-              value={o_tp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-            <button onClick={signVerifyOTP}>Verify OTP</button>
-            <button onClick={() => setStep(1)}>Back</button>
-          </>
-        )}
+        <div className="extraauth">
+          <div className="g pi pi-google"><a href="/">Google</a></div>
+          <div className="f pi pi-facebook"><a href="/">Facebook</a></div>
+        </div>
+
+        <Button label="Register" severity="success" onClick={handleLogin} />
+        <button><a href="/">Back</a></button>
       </div>
     </div>
   );
