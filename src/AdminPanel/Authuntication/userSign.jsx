@@ -46,7 +46,7 @@ const Sigin = () => {
 
         toast.current.show({
           severity: "success",
-          summary: "Login Successful",
+          summary: "Send Otp on Email",
           detail: "Redirecting...",
           life: 2000,
         });

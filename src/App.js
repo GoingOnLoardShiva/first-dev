@@ -14,6 +14,7 @@ import ProtectedRoute from "./AdminPanel/Authuntication/ProtectedRoute";
 import Userhome from "./userPanel/Userhome";
 import UserProfile from "./userPanel/UserProfile";
 import UserSign from "./AdminPanel/Authuntication/userSign"
+import UserPostPage from "./userPanel/UserPostPage";
 
 function App() {
   const HomeLayout = () => <Layout />;
@@ -27,6 +28,7 @@ function App() {
         { path: "/", element: <Hero /> },
         { path: "/Login", element: <Login /> },
         { path: "/sign", element: <UserSign /> },
+        { path: "/user/blogpage/:_id", element: <UserPostPage /> }
       ],
     },
     {
@@ -54,8 +56,8 @@ function App() {
       ),
       children: [
         { path: "/user/:uid", element: <Userhome /> },
-        { path: "/user/:uid/myprofile", element: <UserProfile /> }
-
+        { path: "/user/:uid/myprofile", element: <UserProfile /> },
+        { path: "/user/blogpage/:_id", element: <UserPostPage /> }
       ],
     },
   ]);

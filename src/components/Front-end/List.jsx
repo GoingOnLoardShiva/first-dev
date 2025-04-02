@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "react-datetime/css/react-datetime.css";
-import "./list.scss"
+import "./list.scss";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -26,7 +26,9 @@ const List = () => {
 
         // Check if the response contains data
         if (response.status === 200 && response.data.trending) {
-          const shuffledData = response.data.trending.sort(() => Math.random() - 0.5); // Shuffle data
+          const shuffledData = response.data.trending.sort(
+            () => Math.random() - 0.5
+          ); // Shuffle data
           setData(shuffledData);
         } else {
           setError("No data found");
@@ -60,9 +62,15 @@ const List = () => {
                     <p>{user.orderDate}</p>
                     <TimeAgo datetime={user.createdAt} locale="en-US" />
                   </div>
-                  <a className="atag" href={user.link}>
-                    Read more
-                  </a>
+                  <a
+                    className="atag"
+                    href={`/user/blogpage/${
+                      user?._id
+                        ? encodeURIComponent(user._id.toString().trim())
+                        : ""
+                    }`}
+                    onClick={() => console.log("Navigating to:", user?._id)}
+                  >Read more</a>
                 </a>
               </div>
             ))

@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Ol from "./Olist";
 import Ai from "../features/Aichat";
 import 'primeicons/primeicons.css';
+import Useralldatapostrecived from "../../AdminPanel/Adminprofile/Useralldatapostrecived";
 
 
 
@@ -182,6 +183,9 @@ const Hero = () => {
       </div>
       <div className="abb">
         <Ol />
+      </div>
+      <div className="abb">
+        <Useralldatapostrecived />
       </div>
       {/* <div className="ai">
         <Ai/>

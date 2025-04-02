@@ -1,0 +1,29 @@
+.diloagbox{
+    width: 700px;
+    background: black;
+    .userpostdata{
+        // width: fit-content;
+        gap: 20px;
+        // display: grid;
+        textarea{
+            // padding-top: 50px;
+            height: 200px;
+            background-color: lightblue;
+        }
+        .in{
+            input{
+                width: 100%;
+                background-color: black;
+            }
+            // width: 500px ;
+        }
+    
+    }
+}
+@media (max-width: 500px) {
+    .diloagbox{
+        width: 400px;
+
+
+    }
+}

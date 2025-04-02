@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import axios from "axios";
 import Cookies from "js-cookie";
+import "./userpostd.scss";
 
 const UserPost = () => {
   const toast = useRef(null);
@@ -11,10 +12,18 @@ const UserPost = () => {
   const [blogTitle, setBlogTitle] = useState("");
   const [blogDescription, setBlogDescription] = useState("");
   const [blogImg, setBlogImg] = useState("");
+
+  const [blogTitle2, setBlogTitle2] = useState("");
+  const [blogDescription2, setBlogDescription2] = useState("");
+  const [blogImg2, setBlogImg2] = useState("");
+
+  const [blogTitle3, setBlogTitle3] = useState("");
+  const [blogDescription3, setBlogDescription3] = useState("");
+  const [blogImg3, setBlogImg3] = useState("");
   const url = process.env.REACT_APP_HOST_URL;
   const userCookie = Cookies.get("user");
   const user = userCookie ? JSON.parse(userCookie) : null;
-  const userEmail = user ? user.email : null; 
+  const userEmail = user ? user.email : null;
 
   // Submit the user post
   const userPostsubmit = async () => {
@@ -24,12 +33,19 @@ const UserPost = () => {
     }
 
     const postData = {
-      blog_img: blogImg,
       blog_title: blogTitle,
       blog_Description: blogDescription,
+      blog_img: blogImg,
+
+      blog_title2: blogTitle2,
+      blog_Description2: blogDescription2,
+      blog_img2: blogImg2,
+
+      blog_title3: blogTitle3,
+      blog_Description3: blogDescription3,
+      blog_img3: blogImg3,
       email: userEmail,
     };
-
 
     try {
       const response = await axios.post(`${url}/userPosta`, postData, {
@@ -79,7 +95,7 @@ const UserPost = () => {
   );
 
   return (
-    <div>
+    <div className="diloag">
       <Button
         label="Create Post"
         icon="pi pi-external-link"
@@ -87,19 +103,30 @@ const UserPost = () => {
       />
       <Dialog
         header="Create Post"
+        className="diloagbox"
         visible={visible}
-        style={{ width: "50vw" }}
+        // style={{ width: "50vw" }}
         onHide={() => setVisible(false)}
         footer={footerContent}
       >
-        <div>
-          <input
+        <div className="userpostdata bg-balck">
+          <div className="in">
+            <input
+              type="text"
+              value={blogImg}
+              onChange={(e) => setBlogImg(e.target.value)}
+              placeholder="Image URL"
+              className="p-inputtext p-component"
+            />
+          </div>
+          <textarea
             type="text"
             value={blogTitle}
             onChange={(e) => setBlogTitle(e.target.value)}
             placeholder="Blog Title"
             className="p-inputtext p-component"
           />
+
           <textarea
             value={blogDescription}
             onChange={(e) => setBlogDescription(e.target.value)}
@@ -107,16 +134,59 @@ const UserPost = () => {
             rows={4}
             className="p-inputtext p-component"
           />
-          <input
+          <br />
+          <br />
+          <div className="in">
+            <input
+              type="text"
+              value={blogImg2}
+              onChange={(e) => setBlogImg2(e.target.value)}
+              placeholder="Image URL"
+              className="p-inputtext p-component"
+            />
+          </div>
+          <textarea
             type="text"
-            value={blogImg}
-            onChange={(e) => setBlogImg(e.target.value)}
-            placeholder="Image URL"
+            value={blogTitle2}
+            onChange={(e) => setBlogTitle2(e.target.value)}
+            placeholder="Blog Title"
+            className="p-inputtext p-component"
+          />
+          <textarea
+            value={blogDescription2}
+            onChange={(e) => setBlogDescription2(e.target.value)}
+            placeholder="Blog Description"
+            rows={4}
+            className="p-inputtext p-component"
+          />
+
+          <br />
+          <br />
+          <div className="in">
+            <input
+              type="text"
+              value={blogImg3}
+              onChange={(e) => setBlogImg3(e.target.value)}
+              placeholder="Image URL"
+              className="p-inputtext p-component"
+            />
+          </div>
+          <textarea
+            type="text"
+            value={blogTitle3}
+            onChange={(e) => setBlogTitle3(e.target.value)}
+            placeholder="Blog Title"
+            className="p-inputtext p-component"
+          />
+          <textarea
+            value={blogDescription3}
+            onChange={(e) => setBlogDescription3(e.target.value)}
+            placeholder="Blog Description"
+            rows={4}
             className="p-inputtext p-component"
           />
         </div>
-        <div>
-      </div>
+        <div></div>
       </Dialog>
       <Toast ref={toast}></Toast>
     </div>

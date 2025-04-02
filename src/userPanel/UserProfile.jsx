@@ -109,11 +109,11 @@ const UserProfile = () => {
                   )}
                 </div>
               </TabPanel>
-              <TabPanel header="My Blogs" leftIcon="pi pi-th-large ml-2">
-                <p>My Blogs</p>
+              <TabPanel header="Likes" leftIcon="pi pi-heart ml-2">
+                <p>Like</p>
               </TabPanel>
-              <TabPanel header="My Like" leftIcon="pi pi-heart ml-2">
-                <p>My Blogs Like</p>
+              <TabPanel header="_Monetization"  className = "icon " leftIcon="pi  pi-indian-rupee ml-7">
+                <p>Monitaigetion</p>
               </TabPanel>
             </TabView>
           </div>
