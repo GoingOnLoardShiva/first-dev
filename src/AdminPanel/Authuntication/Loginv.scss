@@ -5,7 +5,7 @@
     padding-bottom: 100px;
     border-width: 5px;
     border-color: black;
-    background: black;
+    background-color: #14281D;
     color: white;
     display: flex;
     .logos{
@@ -31,7 +31,7 @@
         margin-right: auto;
         border-radius: 30px;
         padding: 50px;
-        background: linear-gradient(rgba(0, 0, 255, 0.24),black);
+        background: linear-gradient(#14281D,black);
         .extraauth{
             display: flex;
             gap: 100px;
@@ -40,7 +40,7 @@
             margin-right: auto;
             color: black;
             .g{
-                background-color: white;
+                background: linear-gradient(150deg,#14281D,#00ff73);
                 text-align: center;
                 padding: 10px;
                 border-radius: 5px;
@@ -50,7 +50,7 @@
                 }
             }
             .f{
-                background-color: white;
+                background: linear-gradient(150deg,#14281D,#00ff73);
                 text-align: center;
                 padding: 10px;
                 border-radius: 5px;
@@ -60,7 +60,7 @@
             }
         }
         Button{
-            background-color: blue;
+            background: linear-gradient(150deg,#14281D,#00ff73);
         }
 
         a{
