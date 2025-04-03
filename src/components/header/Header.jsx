@@ -56,10 +56,10 @@ const Header = () => {
       <div className="logo d-flex">
         <a href="/"><img className="ologo" src={window.location.origin + "/Code.png"} alt="" /></a>
         <div className="login d-flex">
-          <div className="text">
+          <div className="textab ">
             <a className="texta" href="Login">Login</a>
           </div>
-          <div className="text">
+          <div className="textab">
             <a className="texta" href="sign">Sign In</a>
           </div>
         </div>

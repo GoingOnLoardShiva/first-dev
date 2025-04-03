@@ -11,8 +11,8 @@
         .login{
             align-items: center;
             gap: 50px;
-            .text{
-                background-color: blue;
+            .textab{
+                background-color: #112c1d;
                 text-align: center;
                 height: fit-content;
                 width: fit-content;
@@ -22,7 +22,19 @@
                 padding-bottom: 5px;
                 border-radius: 5px;
                 .texta{
+                    // background-color: black;
                     color: white;
+                    text-decoration: none;
+                }
+            }
+            .textab:hover{
+                background-color: white;
+                color: black;
+                transform: 2;
+                scale: 1.1;
+                .texta{
+                    // background-color: black;
+                    color: black;
                     text-decoration: none;
                 }
             }
