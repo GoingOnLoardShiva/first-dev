@@ -7,11 +7,9 @@ import "./hero.scss";
 import "bootstrap/dist/css/bootstrap.css";
 import Ol from "./Olist";
 import Ai from "../features/Aichat";
-import 'primeicons/primeicons.css';
+import "primeicons/primeicons.css";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Useralldatapostrecived from "../../AdminPanel/Adminprofile/Useralldatapostrecived";
-
-
-
 
 const Hero = () => {
   return (
@@ -19,6 +17,7 @@ const Hero = () => {
       <hr className="line" />
       <div className="dropdowna d-flex gap-50">
         <div class="dropdown">
+          <SpeedInsights />
           <a
             class="btn btn-secondary "
             href="#"
@@ -103,7 +102,9 @@ const Hero = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <a href="" className="pi-eraser">Background Remover</a>
+            <a href="" className="pi-eraser">
+              Background Remover
+            </a>
           </a>
         </div>
         <div class="dropdownac ">
@@ -114,7 +115,9 @@ const Hero = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-           <a href="" className="pi-comments">1 to 1 Chat</a>
+            <a href="" className="pi-comments">
+              1 to 1 Chat
+            </a>
           </a>
         </div>
         <div class="dropdown">
@@ -178,7 +181,6 @@ const Hero = () => {
       </div>
       <hr className="line" />
       <div className="trending">
-        
         <List />
       </div>
       <div className="abb">
@@ -194,7 +196,6 @@ const Hero = () => {
       {/* <div className="f">
         <BackgroundRemover/>
       </div> */}
-  
     </div>
   );
 };
