@@ -95,4 +95,28 @@
     
         }
     }
+    @media (max-width:400px) {
+        .postview{
+            .usercontent{
+                gap: 20px;
+                text-align: justify;
+                margin-left: 0%;
+                margin-right: 0%;
+                width: 350px;
+                padding: 30px;
+                .userfirstcontentback{
+                    color: rgb(85, 81, 81);
+                }
+                .userfirstcontentdev{
+                    font-size: 30px;
+                }
+                .userfirstcontentimg{
+                    margin-left: 10%;
+                    
+                }
+            }
+    
+    
+        }
+    }
 }
