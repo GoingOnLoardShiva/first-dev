@@ -180,12 +180,12 @@ const Hero = () => {
         </div>
       </div>
       <hr className="line" />
-      <div className="trending">
+      {/* <div className="trending">
         <List />
       </div>
       <div className="abb">
         <Ol />
-      </div>
+      </div> */}
       <div className="abb">
         <Useralldatapostrecived />
       </div>

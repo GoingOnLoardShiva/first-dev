@@ -11,6 +11,7 @@ import "./Loginv.scss";
 
 const Sigin = () => {
   const [useremail_id, setEmail] = useState("");
+  const [useName, SetUname] = useState("");
   const [user_password, setPassword] = useState("");
   const [user_conform_password, setConformPassword] = useState("");
   const [user_dob, setDob] = useState("");
@@ -31,7 +32,8 @@ const Sigin = () => {
         user_password,
         user_conform_password,
         user_dob,
-        role,  // Send role in request
+        role, 
+        useName, // Send role in request
       });
 
       if (res.status === 200) {
@@ -83,6 +85,12 @@ const Sigin = () => {
           placeholder="Enter Your Email" 
           value={useremail_id} 
           onChange={(e) => setEmail(e.target.value)} 
+        />
+        <InputText 
+          type="email" 
+          placeholder="Enter Your Full Name" 
+          value={useName} 
+          onChange={(e) => SetUname(e.target.value)} 
         />
 
         <InputText 

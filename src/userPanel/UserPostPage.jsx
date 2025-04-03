@@ -53,6 +53,7 @@ const UserPostPage = () => {
           console.error("Error fetching user posts:", error);
         }
       };
+      
 
       fetchBlog();
       fetchBloga();
@@ -70,7 +71,7 @@ const UserPostPage = () => {
               <div className="userfirstcontentback pi pi-check-circle">
                 {" "}
                 Post By -{" "}
-                {user.email_id ? user.email_id.substring(0, 5) : ""}{" "}{data.email_id ? data.email_id.substring(0, 5) : "Loading"}{" "}
+                {user.user_fName}
               </div>
               <div className="userfirstcontentdev">
                 {user.blog_title}{data.blog_title}

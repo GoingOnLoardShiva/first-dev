@@ -14,25 +14,55 @@
         padding: 10px;
         border-radius: 20px;
         .usertickandname{
-          gap: 30px;
-          img{
-            width: 30px;
-            height: 30px;
-            border-radius: 30px;
-            color: black;
-            background-color: white;
+          // display: flex;
+          // justify-content: space-between;
+          // text-align: start;
+          .userfirstdetails{
+            display: flex;
+            img{
+              width: 30px;
+              height: 30px;
+              margin-top: 5px;
+              // margin-bottom:px;
+              border-radius: 30px;
+              color: black;
+              background-color: white;
+            }
+            p{
+              margin-left: 10px;
+              color: white;
+              // margin-top: 5px;
+            }
+            button{
+              background-color: transparent;
+              color: blue;
+            }
+            .pfodate{
+              color: white;
+            }
           }
-          p{
-            margin-left: 10px;
+          hr{
+            color: wheat;
+          }
+
+          .timestyle{
+            margin-left: 0px;
+            // margin-top: 20px;
+            font-size: 10px;
           }
         }
-        a{
+        .alikcontent{
           width: 300px;
+          text-decoration: none;
+          color: white;
+
         }
+
       }
       img{
         border-radius: 20px;
       }
+
     }
     .card{
       margin-left: 40%;

@@ -24,6 +24,7 @@ const UserPost = () => {
   const userCookie = Cookies.get("user");
   const user = userCookie ? JSON.parse(userCookie) : null;
   const userEmail = user ? user.email : null;
+  const userName = user ? user.useName : null;
 
   // Submit the user post
   const userPostsubmit = async () => {
@@ -45,6 +46,7 @@ const UserPost = () => {
       blog_Description3: blogDescription3,
       blog_img3: blogImg3,
       email: userEmail,
+      useName:userName,
     };
 
     try {
