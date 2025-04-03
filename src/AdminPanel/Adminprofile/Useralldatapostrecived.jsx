@@ -84,7 +84,7 @@ const Useralldatapostrecived = () => {
               </div>
             ))
           ) : (
-            <p>Loading or No Data Available</p>
+            <p></p>
           )}
         </div>
       </div>
