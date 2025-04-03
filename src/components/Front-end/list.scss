@@ -7,13 +7,31 @@
       gap: 40px;
       grid-template-columns: repeat(4, 1fr); 
       .pcontent{
-        background: linear-gradient(rgba(255, 255, 255, 0),rgba(255, 255, 255, 0));
-        box-shadow: 1px 2px 10px inset rgba(98, 1, 255, 0.267);
+        background: linear-gradient(rgba(255, 255, 255, 0),rgb(8, 1, 1),);
+        box-shadow: 1px 2px 10px inset rgba(21, 32, 92, 0),rgba(0, 0, 0, 0.685);
         height: fit-content;
         width: 330px;
+        padding: 10px;
+        border-radius: 20px;
+        .usertickandname{
+          gap: 30px;
+          img{
+            width: 30px;
+            height: 30px;
+            border-radius: 30px;
+            color: black;
+            background-color: white;
+          }
+          p{
+            margin-left: 10px;
+          }
+        }
         a{
           width: 300px;
         }
+      }
+      img{
+        border-radius: 20px;
       }
     }
     .card{

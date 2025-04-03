@@ -55,10 +55,18 @@ const List = () => {
             data.map((user) => (
               <div className="pcontent container" key={user.id}>
                 <a href={user.link}>
-                  <img src={user.img} alt={user.blog_title} />
+                  <div className="usertickandname">
+                    <img  src={user.user_tick} alt="" />
+                    <p className="pi">
+                      {user.email_id
+                        ? user.email_id.substring(0, 5)
+                        : "User"}
+                    </p>
+                  </div>
+                  <img src={user.img ? user.img: "U"} alt="" />
                   <h3>
                     {user.blog_title
-                      ? user.blog_title.substring(0, 80)
+                      ? user.blog_title.substring(0, 30)
                       : "Loading"}
                   </h3>
                   <div className="pblogcontent gap-2">
@@ -82,9 +90,6 @@ const List = () => {
                     Read more
                   </a>
                   <br />
-                  <p className="pi pi-check-circle ">
-                    {user.email_id ? user.email_id.substring(0, 5) : "Loading"}
-                  </p>
                 </a>
               </div>
             ))
