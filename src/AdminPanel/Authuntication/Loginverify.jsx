@@ -9,13 +9,13 @@ import "./Loginv.scss";
 
 const Login = () => {
   const [email_id, setEmail] = useState("");
-  const [user_Pass, setPassword] = useState("");
+  const [pass_word, setPassword] = useState("");
   const toast = useRef(null);
   const navigate = useNavigate();
   const url = process.env.REACT_APP_HOST_URL;
 
   const handleLogin = async () => {
-    if (!email_id || !user_Pass) {
+    if (!email_id || !pass_word) {
       toast.current.show({
         severity: "warn",
         summary: "Validation Error",
@@ -28,7 +28,7 @@ const Login = () => {
     try {
       const res = await axios.post(
         url + "/LoginData",
-        { email_id, user_Pass },
+        { email_id, pass_word },
         { headers: { "skip-auth": "true" } }
         // { withCredentials: true }
       );
@@ -87,7 +87,7 @@ const Login = () => {
         <input
           type="password"
           placeholder="Password"
-          value={user_Pass}
+          value={pass_word}
           onChange={(e) => setPassword(e.target.value)}
         />
         <div className="extraauth">
