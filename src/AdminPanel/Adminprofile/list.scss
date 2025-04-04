@@ -17,6 +17,15 @@
             width: 300px;
             height: 200px;
           }
+          .toptoolfe{
+            display: flex;
+            .like-button{
+              background-color: transparent;
+            }
+            p{
+              margin-top: 15px;
+            }
+          }
         }
       }
     }
