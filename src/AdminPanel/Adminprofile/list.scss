@@ -19,10 +19,14 @@
           }
           .toptoolfe{
             display: flex;
+            gap: 10px;
             .like-button{
               background-color: transparent;
             }
-            p{
+            .like-button{
+              display: flex;
+            }
+            #views{
               margin-top: 15px;
             }
           }

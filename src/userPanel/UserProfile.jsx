@@ -17,6 +17,7 @@ const UserProfile = () => {
   const firstLetter = user?.name?.charAt(0).toUpperCase() || "?";
   const userEmail = user ? user.email : null; // User email from cookies
   const url = process.env.REACT_APP_HOST_URL;
+  const key = process.env.REACT_APP_APIKEY;
 
   const toast = useRef(null);
 
@@ -47,7 +48,7 @@ const UserProfile = () => {
       try {
         const response = await axios.get(`${url}/getUserpost`, {
           params: { email }, // Send the email to the backend to fetch posts
-        });
+        },{ headers: { "access-key": key } });
 
         if (response.status === 200) {
           setUserPosts(response.data.posts); // Set the posts to the state
@@ -146,6 +147,10 @@ const UserProfile = () => {
                                     : "Loading"}
                                 </p>
                                 <br />
+                                <div className="likeview d-flex gap-3">
+                                <p>{post.likes}Likes</p>
+                                <p>{post.views}Views</p>
+                                </div>
                               </div>
                             </a>
                           </li>

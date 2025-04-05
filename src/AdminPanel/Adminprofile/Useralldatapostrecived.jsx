@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 
 const Useralldatapostrecived = () => {
   const url = process.env.REACT_APP_HOST_URL;
+  const key = process.env.REACT_APP_APIKEY;
   const [data, setUserdata] = useState([]); // Store posts
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -27,7 +28,7 @@ const Useralldatapostrecived = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${url}/recivedUserallPost?page=${currentPage}&limit=5`
+        `${url}/recivedUserallPost?page=${currentPage}&limit=5`,{ headers: { "access-key": key } }
       );
 
       if (Array.isArray(response.data)) {
@@ -137,8 +138,10 @@ const Useralldatapostrecived = () => {
                       >
                         {likedPosts.has(user._id) ? "💙" : "🤍"}
                       </motion.span>
+                      <p>{user.likes} <b></b></p> 
                     </motion.button>
-                    <p>{user.likes} Likes</p> 
+                    
+                    <p className=" pi pi-chart-bar" id="views"> {user.views}</p> 
                   </div>
                 </a>
               </div>
