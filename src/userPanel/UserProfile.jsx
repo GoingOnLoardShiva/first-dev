@@ -6,10 +6,13 @@ import UserPost from "./UserPost";
 import axios from "axios";
 import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
+import { ProgressBar } from "primereact/progressbar";
+import { Button } from 'primereact/button';
 
 const UserProfile = () => {
   const [Userimage, setUserimage] = useState("");
   const [userPosts, setUserPosts] = useState([]); // Initialize as an empty array
+  const [data, setudata] = useState({}); // Initialize as an empty array
   const [thisemail, setUserEmail] = useState(""); // Track email state
   const userData = Cookies.get("user");
   const user = userData ? JSON.parse(userData) : null;
@@ -18,6 +21,20 @@ const UserProfile = () => {
   const userEmail = user ? user.email : null; // User email from cookies
   const url = process.env.REACT_APP_HOST_URL;
   const key = process.env.REACT_APP_APIKEY;
+  const valueTemplate = (value) => {
+    return (
+      <React.Fragment>
+        {value}/<b>200</b>
+      </React.Fragment>
+    );
+  };
+  const valueTemplatea = (valuea) => {
+    return (
+      <React.Fragment>
+        {valuea}/<b>200</b>
+      </React.Fragment>
+    );
+  };
 
   const toast = useRef(null);
 
@@ -46,9 +63,13 @@ const UserProfile = () => {
       }
 
       try {
-        const response = await axios.get(`${url}/getUserpost`, {
-          params: { email }, // Send the email to the backend to fetch posts
-        },{ headers: { "access-key": key } });
+        const response = await axios.get(
+          `${url}/getUserpost`,
+          {
+            params: { email }, // Send the email to the backend to fetch posts
+          },
+          { headers: { "access-key": key } }
+        );
 
         if (response.status === 200) {
           setUserPosts(response.data.posts); // Set the posts to the state
@@ -57,6 +78,19 @@ const UserProfile = () => {
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
+      }
+      const responsea = await axios.get(
+        `${url}/getUserpost`,
+        {
+          params: { email }, // Send the email to the backend to fetch posts
+        },
+        { headers: { "access-key": key } }
+      );
+
+      if (responsea.status === 200) {
+        setudata(responsea.data.posts); // Set the posts to the state
+      } else {
+        console.error("Failed to fetch posts");
       }
     };
 
@@ -111,7 +145,7 @@ const UserProfile = () => {
           </div>
           <div className="userpost">
             <hr className="bg-red" />
-            <TabView>
+            <TabView style={{ background: "transparent" }}>
               <TabPanel header="My Post" leftIcon="pi pi-desktop mr-2">
                 <div className="userpostdetailswithpost gap-5">
                   {userPosts.length === 0 ? (
@@ -119,7 +153,7 @@ const UserProfile = () => {
                   ) : (
                     <ul>
                       {userPosts.map((post, index) => (
-                        <div className="userpostwithgap flex">
+                        <div className="userpostwithgap d-flex">
                           <li className="flex" key={index._id}>
                             <a
                               className="atag"
@@ -148,8 +182,8 @@ const UserProfile = () => {
                                 </p>
                                 <br />
                                 <div className="likeview d-flex gap-3">
-                                <p>{post.likes}Likes</p>
-                                <p>{post.views}Views</p>
+                                  <p>{post.likes}Likes</p>
+                                  <p>{post.views}Views</p>
                                 </div>
                               </div>
                             </a>
@@ -160,15 +194,51 @@ const UserProfile = () => {
                   )}
                 </div>
               </TabPanel>
-              <TabPanel header="Likes" leftIcon="pi pi-heart ml-2">
+              {/* <TabPanel header="Likes" leftIcon="pi pi-heart ml-2">
                 <p>Like</p>
-              </TabPanel>
+              </TabPanel> */}
               <TabPanel
                 header="_Monetization"
                 className="icon "
                 leftIcon="pi  pi-indian-rupee ml-7"
               >
-                <p>Monitaigetion</p>
+                {
+                  <div>
+                    <div className="monetizationfirst">
+                      <div className="monete">
+                        <p className="mon">Monetization</p>
+                        <p>Earn money with your blog</p>
+                      </div>
+                      <div className="fstep">
+                        <h1>1st Step</h1>
+                        <div className="fsstepdes">
+                          <div className="card">
+                            <ProgressBar
+                              value={0}
+                              displayValueTemplate={valueTemplate}
+                            ></ProgressBar>
+                          </div>
+                          <p>200 Follower Required / 0 Follower </p>
+                          <p>Hurry Up Get Your Monetize Account</p>
+                        </div>
+                      </div>
+                      <div className="Sstep">
+                        <h1>2nd Step</h1>
+                        <div className="fsstepdes">
+                          <div className="card">
+                            <ProgressBar
+                              value={0}
+                              displayValueTemplate={valueTemplatea}
+                            ></ProgressBar>
+                          </div>
+                          <p>1000 views Required / {data.views} 0 views </p>
+                          <p>Hurry Up Get Your Monetize Account</p>
+                        </div>
+                      </div>
+                      <Button icon="pi pi-check" disabled tooltip="You are Not eligible" tooltipOptions={{ showOnDisabled: true }} label="Apply" />
+                    </div>
+                  </div>
+                }
               </TabPanel>
             </TabView>
           </div>
