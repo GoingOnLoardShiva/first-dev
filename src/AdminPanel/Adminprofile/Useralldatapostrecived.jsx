@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./list.scss";
+import { Skeleton } from "@mui/material";
 import TimeAgo from "timeago-react";
-import moment from "moment";
-import { Provider, LikeButton } from "@lyket/react";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 
@@ -86,71 +85,101 @@ const Useralldatapostrecived = () => {
   };
   
 
+
+  const renderSkeleton = () => {
+    return Array.from({ length: 3 }).map((_, i) => (
+      <div className="pcontent container" key={i}>
+        <a className="alikcontent">
+          <div className="usertickandname">
+            <div className="userfirstdetails">
+              <Skeleton variant="circular" width={40} height={40} />
+              <div className="pi flex" style={{ marginLeft: "10px" }}>
+                <Skeleton variant="text" width={100} />
+                <Skeleton variant="text" width={60} />
+              </div>
+            </div>
+            <hr />
+          </div>
+          <Skeleton variant="rectangular" width="100%" height={200} />
+          <Skeleton variant="text" width="80%" height={30} />
+          <Skeleton variant="text" width="40%" height={20} />
+          <div className="toptoolfe" style={{ marginTop: "10px" }}>
+            <Skeleton variant="rectangular" width={80} height={30} />
+            <Skeleton variant="text" width={40} />
+          </div>
+        </a>
+      </div>
+    ));
+  };
+
+
   return (
     <div className="heroa">
       <h1 className="h1text"></h1>
       <br />
       <div className="gridcontenta">
-        <div className="trposta">
-          {data.length > 0 ? (
-            data.map((user) => (
-              <div className="pcontent container" key={user._id}>
-                <a className="alikcontent">
-                  <div className="usertickandname">
-                    <div className="userfirstdetails">
-                      <img src={user.user_tick || defaultAvatar} alt="" />
-                      <p className="pi flex">
-                        {user.user_fName}
-                        <br />
-                        <TimeAgo
-                          className="timestyle"
-                          datetime={user.createdAt}
-                          locale="en-US"
-                        />
-                      </p>
-                    </div>
-                    <hr />
+      <div className="trposta">
+        {data.length > 0 ? (
+          data.map((user) => (
+            <div className="pcontent container" key={user._id}>
+              <a className="alikcontent">
+                <div className="usertickandname">
+                  <div className="userfirstdetails">
+                    <img src={user.user_tick || defaultAvatar} alt="" />
+                    <p className="pi flex">
+                      {user.user_fName}
+                      <br />
+                      <TimeAgo
+                        className="timestyle"
+                        datetime={user.createdAt}
+                        locale="en-US"
+                      />
+                    </p>
                   </div>
-                  <img src={user.blog_img} alt="Blog" />
-                  <h3>{user.blog_title?.substring(0, 40) || "Loading"}</h3>
-                  <a
-                    className="atag"
-                    href={`/user/blogpage/${encodeURIComponent(user._id)}`}
-                  >
-                    Read more
-                  </a>
-
-                  <div className="toptoolfe">
-                    <motion.button
-                      className={`like-button ${
-                        likedPosts.has(user._id) ? "liked" : ""
-                      }`}
-                      whileTap={{ scale: 1.3 }}
-                      whileHover={{ scale: 1.1 }}
-                      onClick={() => handleLike(user._id)} // ✅ Pass user._id correctly
-                    >
-                      <motion.span
-                        className="heart"
-                        initial={{ scale: 0.8 }}
-                        animate={
-                          likedPosts.has(user._id) ? { scale: [1, 1.4, 1] } : {}
-                        }
-                      >
-                        {likedPosts.has(user._id) ? "💙" : "🤍"}
-                      </motion.span>
-                      <p>{user.likes} <b></b></p> 
-                    </motion.button>
-                    
-                    <p className=" pi pi-chart-bar" id="views"> {user.views}</p> 
-                  </div>
+                  <hr />
+                </div>
+                <img src={user.blog_img} alt="Blog" />
+                <h3>{user.blog_title?.substring(0, 40) || "Loading"}</h3>
+                <a
+                  className="atag"
+                  href={`/user/blogpage/${encodeURIComponent(user._id)}`}
+                >
+                  Read more
                 </a>
-              </div>
-            ))
-          ) : (
-            <p></p>
-          )}
-        </div>
+
+                <div className="toptoolfe">
+                  <motion.button
+                    className={`like-button ${
+                      likedPosts.has(user._id) ? "liked" : ""
+                    }`}
+                    whileTap={{ scale: 1.3 }}
+                    whileHover={{ scale: 1.1 }}
+                    onClick={() => handleLike(user._id)}
+                  >
+                    <motion.span
+                      className="heart"
+                      initial={{ scale: 0.8 }}
+                      animate={
+                        likedPosts.has(user._id) ? { scale: [1, 1.4, 1] } : {}
+                      }
+                    >
+                      {likedPosts.has(user._id) ? "💙" : "🤍"}
+                    </motion.span>
+                    <p>{user.likes}</p>
+                  </motion.button>
+
+                  <p className="pi pi-chart-bar" id="views">
+                    {user.views}
+                  </p>
+                </div>
+              </a>
+            </div>
+          ))
+        ) : (
+          renderSkeleton()
+        )}
       </div>
+    </div>
 
       {/* Load More Button */}
       <div className="text-center mt-6">
