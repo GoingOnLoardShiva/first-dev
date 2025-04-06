@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./userall.scss";
-
 import "primeicons/primeicons.css";
 
 const UserPostPage = () => {
@@ -77,12 +76,12 @@ const UserPostPage = () => {
   );
 
   return (
-    <div>
+    <div className="p">
       <div className="p ">
         <p></p>
         <div className="postview">
           <div>
-            <div className="usercontent color-white">
+            <div className="usercontenta color-white">
               <div className="userfirstcontentback pi pi-check-circle">
                 {" "}
                 Post By - {user.user_fName},

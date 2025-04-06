@@ -1,6 +1,6 @@
 .usercontent {
   padding-top: 50px;
-  color: black;
+  color: white;
   background: linear-gradient(#00ff73, rgba(255, 255, 255, 0));
   .useritem {
     margin-left: auto;
@@ -45,7 +45,7 @@
 
             li {
                 
-              width: 350px;
+              width: 300px;
               display: flex;
               gap: 20px;
               text-align: start;
@@ -61,7 +61,7 @@
                 // background-color: black;
                 padding: 10px;
                 img {
-                  width: 300px;
+                  width: 280px;
                   height: 200px;
                 }
               }
