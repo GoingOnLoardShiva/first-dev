@@ -5,6 +5,8 @@ import { Skeleton } from "@mui/material";
 import TimeAgo from "timeago-react";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
+// import moment from "moment";
+import moment from "moment-timezone";
 
 const Useralldatapostrecived = () => {
   const url = process.env.REACT_APP_HOST_URL;
@@ -14,6 +16,9 @@ const Useralldatapostrecived = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [likedPosts, setLikedPosts] = useState(new Set());
+  const formatDate = (rowData) => {
+    return moment(rowData.do_b).format("DD-MM-YYYY");
+  };
   const defaultAvatar =
     "https://img.freepik.com/premium-photo/png-cartoon-adult-white-background-photography_53876-905932.jpg?uid=R188847859&ga=GA1.1.1946957145.1736441514&semt=ais_hybrid&w=740";
 
@@ -27,7 +32,8 @@ const Useralldatapostrecived = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${url}/recivedUserallPost?page=${currentPage}&limit=5`,{ headers: { "access-key": key } }
+        `${url}/recivedUserallPost?page=${currentPage}&limit=5`,
+        { headers: { "access-key": key } }
       );
 
       if (Array.isArray(response.data)) {
@@ -57,12 +63,12 @@ const Useralldatapostrecived = () => {
     }
     try {
       const isLiked = likedPosts.has(_id); // ✅ Check if post is already liked
-  
-      const response = await axios.post(`${url}/likePost`, { 
-        postId: _id, 
-        action: isLiked ? "unlike" : "like" // ✅ Send correct action
+
+      const response = await axios.post(`${url}/likePost`, {
+        postId: _id,
+        action: isLiked ? "unlike" : "like", // ✅ Send correct action
       });
-  
+
       setLikedPosts((prev) => {
         const updatedLikes = new Set(prev);
         if (isLiked) {
@@ -72,7 +78,7 @@ const Useralldatapostrecived = () => {
         }
         return updatedLikes;
       });
-  
+
       // ✅ Update likes count in posts state
       setUserdata((prevData) =>
         prevData.map((post) =>
@@ -83,8 +89,6 @@ const Useralldatapostrecived = () => {
       console.error("Error updating like:", error);
     }
   };
-  
-
 
   const renderSkeleton = () => {
     return Array.from({ length: 3 }).map((_, i) => (
@@ -112,74 +116,78 @@ const Useralldatapostrecived = () => {
     ));
   };
 
-
   return (
     <div className="heroa">
       <h1 className="h1text"></h1>
       <br />
       <div className="gridcontenta">
-      <div className="trposta">
-        {data.length > 0 ? (
-          data.map((user) => (
-            <div className="pcontent container" key={user._id}>
-              <a className="alikcontent">
-                <div className="usertickandname">
-                  <div className="userfirstdetails">
-                    <img src={user.user_tick || defaultAvatar} alt="" />
-                    <p className="pi flex">
-                      {user.user_fName}
-                      <br />
-                      <TimeAgo
-                        className="timestyle"
-                        datetime={user.createdAt}
-                        locale="en-US"
-                      />
-                    </p>
-                  </div>
-                  <hr />
-                </div>
-                <img src={user.blog_img} alt="Blog" />
-                <h3>{user.blog_title?.substring(0, 40) || "Loading"}</h3>
-                <a
-                  className="atag"
-                  href={`/user/blogpage/${encodeURIComponent(user._id)}`}
-                >
-                  Read more
-                </a>
-
-                <div className="toptoolfe">
-                  <motion.button
-                    className={`like-button ${
-                      likedPosts.has(user._id) ? "liked" : ""
-                    }`}
-                    whileTap={{ scale: 1.3 }}
-                    whileHover={{ scale: 1.1 }}
-                    onClick={() => handleLike(user._id)}
-                  >
-                    <motion.span
-                      className="heart"
-                      initial={{ scale: 0.8 }}
-                      animate={
-                        likedPosts.has(user._id) ? { scale: [1, 1.4, 1] } : {}
-                      }
+        <div className="trposta">
+          {data.length > 0
+            ? data.map((user) => (
+                <div className="pcontent container" key={user._id}>
+                  <a className="alikcontent">
+                    <div className="usertickandname">
+                      <div className="userfirstdetails">
+                        <img src={user.user_tick || defaultAvatar} alt="" />
+                        <p className="pi flex">
+                          {user.user_fName}
+                          <br />
+                          {/* <div className="time "  moment="true">
+                            {user.createdAt}
+                            
+                          </div> */}
+                          <TimeAgo
+                            className="timestyle"
+                            datetime={user.createdAt}
+                            locale="en-US"
+                          />
+                          {/* <TimeAgo date="Aug 29, 2014" /> */}
+                        </p>
+                      </div>
+                      <hr />
+                    </div>
+                    <img src={user.blog_img} alt="Blog" />
+                    <h3>{user.blog_title?.substring(0, 40) || "Loading"}</h3>
+                    <a
+                      className="atag"
+                      href={`/user/blogpage/${encodeURIComponent(user._id)}`}
                     >
-                      {likedPosts.has(user._id) ? "💙" : "🤍"}
-                    </motion.span>
-                    <p>{user.likes}</p>
-                  </motion.button>
+                      Read more
+                    </a>
 
-                  <p className="pi pi-chart-bar" id="views">
-                    {user.views}
-                  </p>
+                    <div className="toptoolfe">
+                      <motion.button
+                        className={`like-button ${
+                          likedPosts.has(user._id) ? "liked" : ""
+                        }`}
+                        whileTap={{ scale: 1.3 }}
+                        whileHover={{ scale: 1.1 }}
+                        onClick={() => handleLike(user._id)}
+                      >
+                        <motion.span
+                          className="heart"
+                          initial={{ scale: 0.8 }}
+                          animate={
+                            likedPosts.has(user._id)
+                              ? { scale: [1, 1.4, 1] }
+                              : {}
+                          }
+                        >
+                          {likedPosts.has(user._id) ? "💙" : "🤍"}
+                        </motion.span>
+                        <p>{user.likes}</p>
+                      </motion.button>
+
+                      <p className="pi pi-chart-bar" id="views">
+                        <b></b> {user.views}
+                      </p>
+                    </div>
+                  </a>
                 </div>
-              </a>
-            </div>
-          ))
-        ) : (
-          renderSkeleton()
-        )}
+              ))
+            : renderSkeleton()}
+        </div>
       </div>
-    </div>
 
       {/* Load More Button */}
       <div className="text-center mt-6">

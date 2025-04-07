@@ -8,7 +8,7 @@ import { Skeleton } from "@mui/material";
 const UserPostPage = ({ isLoading }) => {
   const API_BASE_URL = process.env.REACT_APP_HOST_URL;
   const key = process.env.REACT_APP_APIKEY;
-  const { _id } = useParams(); // Get blog_title from URL
+  const { _id } = useParams(); 
   const [data, setData] = useState([]);
   const [user, setdataUser] = useState([]);
   const [views, setViews] = useState(0);
@@ -38,7 +38,7 @@ const UserPostPage = ({ isLoading }) => {
       const fetchBlog = async () => {
         try {
           const response = await axios.get(
-            `${API_BASE_URL}/userpostRecived/${_id}`,
+            API_BASE_URL + "/userpostRecived/"+{_id},
             { headers: { "access-key": key } }
           );
 
@@ -156,7 +156,7 @@ const UserPostPage = ({ isLoading }) => {
                 </div>
                 <br />
                 <div className="userfirstcontent">
-                 2. {user.blog_Description}
+                 {user.blog_Description}
                   {data.blog_h1}
                 </div>
                 <br />

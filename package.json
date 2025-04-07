@@ -22,6 +22,7 @@
         "javascript-time-ago": "^2.5.11",
         "js-cookie": "^3.0.5",
         "moment": "^2.30.1",
+        "moment-timezone": "^0.5.48",
         "nodemailer": "^6.10.0",
         "primeicons": "^7.0.0",
         "primereact": "^10.9.2",
