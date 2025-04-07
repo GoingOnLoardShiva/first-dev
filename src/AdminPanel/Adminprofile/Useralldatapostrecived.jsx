@@ -147,6 +147,10 @@ const Useralldatapostrecived = () => {
                       <hr />
                     </div>
                     <img src={user.blog_img} alt="Blog" />
+                    {/* <div className="gapss"></div>
+                     */}
+                     <br />
+                     <br />
                     <h3>{user.blog_title?.substring(0, 40) || "Loading"}</h3>
                     <a
                       className="atag"
