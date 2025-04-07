@@ -32,7 +32,7 @@ const Useralldatapostrecived = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${url}/recivedUserallPost?page=${currentPage}&limit=5`,
+        `${url}/recivedUserallPost?page=${currentPage}&limit=8`,
         { headers: { "access-key": key } }
       );
 
