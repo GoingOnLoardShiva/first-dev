@@ -1,0 +1,53 @@
+.userprofileaccesPage{
+    background: linear-gradient(#14281D, rgba(0, 128, 0, 0.527));
+    display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+    width: 100%;
+    // height: 100vh;
+    background-color: #f0f0f0;
+    text-align: center;
+    .useraccesContent{
+        
+        .useraccesContent1{
+            .useraccesContent2{
+                margin-top: 50px;
+                img{
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 30px;
+                }
+            }
+        }
+        .useraccesContent4{
+            background: linear-gradient(#00ff73, rgba(255, 255, 255, 0));
+            border-radius: 20px;
+            .useracdetailscontainer{
+                // background: linear-gradient(#00ff73, rgba(255, 255, 255, 0));
+                .alikcontentac{
+                    text-align: start;
+                    text-decoration: none;
+                    color: black;
+                    img{
+                        width: 250px;
+                        height: 150px;
+                        border-radius: 20px;
+                    }
+                    .atagac{
+                        text-decoration: none;
+                        text-align: start;
+                    }
+                    .toptoolfe{
+                        gap: 10px;
+                        .views{
+                            margin-top: 3px;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+}

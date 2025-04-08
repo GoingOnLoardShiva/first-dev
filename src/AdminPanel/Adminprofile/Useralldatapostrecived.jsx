@@ -62,11 +62,11 @@ const Useralldatapostrecived = () => {
       return;
     }
     try {
-      const isLiked = likedPosts.has(_id); // ✅ Check if post is already liked
+      const isLiked = likedPosts.has(_id);
 
       const response = await axios.post(`${url}/likePost`, {
         postId: _id,
-        action: isLiked ? "unlike" : "like", // ✅ Send correct action
+        action: isLiked ? "unlike" : "like",
       });
 
       setLikedPosts((prev) => {
@@ -127,30 +127,44 @@ const Useralldatapostrecived = () => {
                 <div className="pcontent container" key={user._id}>
                   <a className="alikcontent">
                     <div className="usertickandname">
-                      <div className="userfirstdetails">
-                        <img src={user.user_tick || defaultAvatar} alt="" />
-                        <p className="pi flex">
-                          {user.user_fName}
-                          <br />
-                          {/* <div className="time "  moment="true">
+                      <a className="allaccespostuser"
+                        href={`/user/userid/${encodeURIComponent(
+                          user.user_fName
+                        )}`}
+                      >
+                        <div className="userfirstdetails">
+                          <img src={user.user_tick || defaultAvatar} alt="" />
+                          <p className="pi flex">
+                            {user.user_fName}{" "}
+                            <a
+                              href={`/user/userid/${encodeURIComponent(
+                                user.user_fName
+                              )}`}
+                            >
+                              Follow
+                            </a>
+                            <br />
+                            {/* <div className="time "  moment="true">
                             {user.createdAt}
                             
                           </div> */}
-                          <TimeAgo
-                            className="timestyle"
-                            datetime={user.createdAt}
-                            locale="en-US"
-                          />
-                          {/* <TimeAgo date="Aug 29, 2014" /> */}
-                        </p>
-                      </div>
+                            <TimeAgo
+                              className="timestyle"
+                              datetime={user.createdAt}
+                              locale="en-US"
+                            />
+                            {/* <TimeAgo date="Aug 29, 2014" /> */}
+                          </p>
+                        </div>
+                      </a>
+
                       <hr />
                     </div>
                     <img src={user.blog_img} alt="Blog" />
                     {/* <div className="gapss"></div>
                      */}
-                     <br />
-                     <br />
+                    <br />
+                    <br />
                     <h3>{user.blog_title?.substring(0, 40) || "Loading"}</h3>
                     <a
                       className="atag"
