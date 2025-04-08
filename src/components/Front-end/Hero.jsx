@@ -102,7 +102,7 @@ const Hero = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <a href="" className="pi-eraser">
+            <a href="" className="pi pi-eraser">
               Background Remover
             </a>
           </a>
@@ -115,7 +115,7 @@ const Hero = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <a href="" className="pi-comments">
+            <a href="" className="pi pi-comments">
               1 to 1 Chat
             </a>
           </a>
