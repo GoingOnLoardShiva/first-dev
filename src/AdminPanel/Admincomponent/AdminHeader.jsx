@@ -73,7 +73,7 @@ const Header = () => {
       <div className="logo d-flex">
         <img
           className="ologo"
-          src={window.location.origin + "/Code.png"}
+          src={window.location.origin + "/codetech.svg"}
           alt=""
         />
         <div className="login d-flex">
