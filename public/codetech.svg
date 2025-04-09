@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="250" viewBox="0 0 600 250">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 55px;
+        fill: #fff;
+        font-family: "Lucy the Cat";
+      }
+    </style>
+  </defs>
+  <text id="CodetechInfo" class="cls-1" transform="matrix(2.023, 0, 0, 2.023, 6.582, 161.247)">CodetechInfo</text>
+</svg>

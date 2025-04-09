@@ -11,20 +11,9 @@
         .login{
             align-items: center;
             gap: 50px;
-            .text{
-                background-color: white;
-                text-align: center;
-                height: fit-content;
-                width: fit-content;
-                padding-left: 20px;
-                padding-right: 20px;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                border-radius: 5px;
-                .texta{
-                    color: black;
-                    text-decoration: none;
-                }
+            .texta{
+                color: white;
+                text-decoration: none;
             }
             .pi{
                 border-radius: 10px;

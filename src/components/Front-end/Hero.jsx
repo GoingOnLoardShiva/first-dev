@@ -9,7 +9,10 @@ import Ol from "./Olist";
 import Ai from "../features/Aichat";
 import "primeicons/primeicons.css";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+// import { Analytics } from "@vercel/analytics/react"
 import Useralldatapostrecived from "../../AdminPanel/Adminprofile/Useralldatapostrecived";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 const Hero = () => {
   return (
@@ -18,14 +21,15 @@ const Hero = () => {
       <div className="dropdowna d-flex gap-50">
         <div class="dropdown">
           <SpeedInsights />
+          {/* <Analytics /> */}
           <a
-            class="btn btn-secondary "
+            // class="btn btn-secondary "
             href="#"
-            role="button"
+            // role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Trending
+            <Chip variant="outlined" color="success" className="btclass" label="Trending" />
           </a>
 
           <ul class="dropdown-menu">
@@ -67,13 +71,13 @@ const Hero = () => {
         </div>
         <div class="dropdown">
           <a
-            class="btn btn-secondary"
+            // class="btn btn-secondary "
             href="#"
-            role="button"
+            // role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Feature
+            <Chip variant="outlined" color="success" className="btclass" label="Bengali" />
           </a>
 
           <ul class="dropdown-menu">
@@ -94,70 +98,36 @@ const Hero = () => {
             </li>
           </ul>
         </div>
-        <div class="dropdownab ">
-          <a
-            class="btn btn-secondary"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <a href="" className="pi pi-eraser">
-              Background Remover
-            </a>
-          </a>
-        </div>
-        <div class="dropdownac ">
-          <a
-            class="btn btn-secondary"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <a href="" className="pi pi-comments">
-              1 to 1 Chat
-            </a>
-          </a>
-        </div>
+        <a
+          // class="btn btn-secondary "
+          href="#"
+          // role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          color="success"
+          disable
+        >
+          <Chip variant="outlined" disabled className="btclass" label="Upcomming" />
+        </a>
+        <a
+          // class="btn btn-secondary "
+          href="#"
+          // role="button"
+          color="success"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <Chip variant="outlined" disabled className="btclass" label="Upcomming" />
+        </a>
         <div class="dropdown">
           <a
-            class="btn btn-secondary "
+            // class="btn btn-secondary "
             href="#"
-            role="button"
+            // role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Software tech
-          </a>
-
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item bg-white" href="#">
-                Action
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item bg-white" href="#">
-                Another action
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item bg-white" href="#">
-                Something else here
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="dropdown">
-          <a
-            class="btn btn-secondary "
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Ios tech
+            <Chip variant="outlined" color="success" className="btclass" label="Feature" />
           </a>
 
           <ul class="dropdown-menu">

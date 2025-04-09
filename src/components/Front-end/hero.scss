@@ -1,27 +1,28 @@
 .pd{
     padding: 5px;
-    background-color: #14281D;
+    background-color: black;
     .line{
-        background-color: white;
+        background-color: black;
         width: 100%;
         border-width: 2px;
-        color: white;
+        color: black;
     }
     .dropdowna{
         justify-content: space-between;
         padding-left: 100px;
         padding-right: 100px;
+        .btclass{
+            color: white;
+        }
         .dropdown{
-
-            
-            .btn{
-                background-color: transparent;
-                color: white;
+            color: white;
+            .btclass{
+                // color: black;
             }
         }
         .dropdownab{
             .btn{
-                background-color: rgba(0, 128, 0, 0.527);
+                // background-color: rgba(0, 128, 0, 0.527);
                 border-color: transparent;
                 a{
                     text-decoration: none;
@@ -31,11 +32,11 @@
         }
         .dropdownac{
             .btn{
-                background-color: rgba(255, 0, 0, 0.473);
+                // background-color: rgba(255, 0, 0, 0.473);
                 border-color: transparent;
                 a{
                     text-decoration: none;
-                    color: white;
+                    color: black;
                 }
             }
         }

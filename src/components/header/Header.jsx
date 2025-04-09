@@ -8,6 +8,7 @@ import { Avatar } from "primereact/avatar";
 import { Outlet, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import Chip from "@mui/material/Chip";
 
 const Header = () => {
   const userData = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : true;
@@ -16,23 +17,18 @@ const Header = () => {
   const navigate = useNavigate();
   const customIcons = (
     <React.Fragment>
-      <button className="p-sidebar-icon p-link mr-2">
-        
-      </button>
+      <button className="p-sidebar-icon p-link mr-2"></button>
     </React.Fragment>
   );
 
   const customHeader = (
     <div className=" d-flex align-items-center gap-2">
-      <Avatar
-        image={userData.img}
-        shape="circle"
-      />
+      <Avatar image={userData.img} shape="circle" />
       <span className="font-bold">{userData.name}</span>
     </div>
   );
   return (
-    <div className="header bg-black">
+    <div className="header ">
       <div className="headercontentnt">
         <Sidebar
           header={customHeader}
@@ -54,14 +50,45 @@ const Header = () => {
         </Sidebar>
       </div>
       <div className="logo d-flex">
-        <a href="/"><img className="ologo" src={window.location.origin + "/Code.png"} alt="" /></a>
+        <a href="/">
+          <img
+            className="ologo"
+            src="/codetech.svg"
+            alt=""
+          />
+        </a>
         <div className="login d-flex">
-          <div className="textab ">
-            <a className="texta" href="Login">Login</a>
-          </div>
-          <div className="textab">
-            <a className="texta" href="sign">Sign In</a>
-          </div>
+          <Chip
+            label="Login"
+            // icon={<FaceIcon />}
+            color="primary"
+            className="texta"
+            component="a"
+            href="Login"
+            variant="outlined"
+            clickable
+          />
+          <Chip
+            label="Sign In"
+            // icon={<FaceIcon />}
+            className="texta"
+            component="a"
+            href="sign"
+            variant="outlined"
+            color="success"
+            clickable
+          />
+          {/* <div className="textab ">
+            
+            <a className="texta" href="Login">
+              Login
+            </a>
+          </div> */}
+          {/* <div className="textab">
+            <a className="texta" href="sign">
+              Sign In
+            </a>
+          </div> */}
         </div>
       </div>
     </div>

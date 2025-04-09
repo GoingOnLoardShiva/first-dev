@@ -7,7 +7,7 @@
       gap: 40px;
       grid-template-columns: repeat(4, 1fr); 
       .pcontent{
-        background: linear-gradient(rgb(8, 1, 1),rgba(255, 255, 255, 0),);
+        background: linear-gradient(rgba(54, 253, 97, 0.473),rgb(0, 0, 0),);
         box-shadow: 1px 2px 10px inset rgba(21, 32, 92, 0),rgba(0, 0, 0, 0.685);
         height: fit-content;
         width: 330px;
@@ -16,6 +16,12 @@
           .usertickandname{
             a{
               text-decoration: none;
+            }
+            .folowbutton{
+              // padding-right: 120px;
+              color: white;
+              // margin-bottom: 1px;
+              background-color: transparent;
             }
           }
           img{

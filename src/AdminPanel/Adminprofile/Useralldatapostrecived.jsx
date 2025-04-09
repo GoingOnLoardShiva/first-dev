@@ -7,6 +7,10 @@ import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 // import moment from "moment";
 import moment from "moment-timezone";
+import { green } from "@mui/material/colors";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 const Useralldatapostrecived = () => {
   const url = process.env.REACT_APP_HOST_URL;
@@ -16,6 +20,7 @@ const Useralldatapostrecived = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [likedPosts, setLikedPosts] = useState(new Set());
+  const [followingAuthors, setFollowingAuthors] = useState([]);
   const formatDate = (rowData) => {
     return moment(rowData.do_b).format("DD-MM-YYYY");
   };
@@ -78,8 +83,6 @@ const Useralldatapostrecived = () => {
         }
         return updatedLikes;
       });
-
-      // ✅ Update likes count in posts state
       setUserdata((prevData) =>
         prevData.map((post) =>
           post._id === _id ? { ...post, likes: response.data.likes } : post
@@ -87,6 +90,32 @@ const Useralldatapostrecived = () => {
       );
     } catch (error) {
       console.error("Error updating like:", error);
+    }
+  };
+  const followbutton = async (user_fName) => {
+    const userCookie = Cookies.get("user");
+    const user = userCookie ? JSON.parse(userCookie) : null;
+
+    if (!user) {
+      alert("You must be logged in to follow users.");
+      return;
+    }
+
+    const userEmail = user.email;
+
+    try {
+      const response = await axios.post(url + "/followuser", {
+        userEmail,
+        user_fName,
+      });
+      setFollowingAuthors((prev) => [...prev, user_fName]);
+    } catch (error) {
+      if (error.response?.data?.message === "You have already followed") {
+        alert("You have already followed this user.");
+      } else {
+        console.error("Follow failed:", error);
+        alert("Something went wrong.");
+      }
     }
   };
 
@@ -126,24 +155,20 @@ const Useralldatapostrecived = () => {
             ? data.map((user) => (
                 <div className="pcontent container" key={user._id}>
                   <a className="alikcontent">
-                    <div className="usertickandname">
-                      <a className="allaccespostuser"
+                    <div className="usertickandname d-flex">
+                      <a
+                        className="allaccespostuser"
                         href={`/user/userid/${encodeURIComponent(
                           user.user_fName
                         )}`}
                       >
                         <div className="userfirstdetails">
-                          <img src={user.user_tick || defaultAvatar} alt="" />
+                          <Avatar sx={{ bgcolor: green[400] }}>
+                            {user.user_fName?.substring(0, 1)}
+                          </Avatar>
+                          {/* <img src={user.user_tick || defaultAvatar} alt="" /> */}
                           <p className="pi flex">
-                            {user.user_fName}{" "}
-                            <a
-                              href={`/user/userid/${encodeURIComponent(
-                                user.user_fName
-                              )}`}
-                            >
-                              Follow
-                            </a>
-                            <br />
+                            {user.user_fName} <br />
                             {/* <div className="time "  moment="true">
                             {user.createdAt}
                             
@@ -157,6 +182,31 @@ const Useralldatapostrecived = () => {
                           </p>
                         </div>
                       </a>
+                      <Chip
+                        className="folowbutton"
+                        color="primary"
+                        label={followingAuthors.includes(user.user_fName)
+                          ? "Following"
+                          : "Follow"}
+                        variant="outlined"
+                        onClick={() => followbutton(user.user_fName)}
+                        disabled={followingAuthors.includes(user.user_fName)}
+                      >
+                        {/* <label htmlFor="">
+                          {" "}
+                          {followingAuthors.includes(user.user_fName)
+                            ? "Following"
+                            : "Follow"}
+                        </label> */}
+                      </Chip>
+                      {/* <button
+                        onClick={() => followbutton(user.user_fName)}
+                        disabled={followingAuthors.includes(user.user_fName)}
+                      >
+                        {followingAuthors.includes(user.user_fName)
+                          ? "Following"
+                          : "Follow"}
+                      </button> */}
 
                       <hr />
                     </div>
