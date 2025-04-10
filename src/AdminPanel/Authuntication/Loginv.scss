@@ -30,7 +30,7 @@
     .logincontent{
         gap: 20px;
         display: grid;
-        width: 400px;
+        width: 450px;
         align-content: center;
         text-align: center;
         margin-left: auto;
@@ -72,6 +72,12 @@
         a{
             text-decoration: none;
             color: white;
+        }
+        
+    }
+    @media (max-width: 400px) {
+        .logincontent{
+            width: 300px;
         }
         
     }
