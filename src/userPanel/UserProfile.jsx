@@ -4,10 +4,12 @@ import { TabView, TabPanel } from "primereact/tabview";
 import "./userprofile.scss";
 import UserPost from "./UserPost";
 import axios from "axios";
+import Avatar from "@mui/material/Avatar";
+import { green } from "@mui/material/colors";
 import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
 import { ProgressBar } from "primereact/progressbar";
-import { Button } from 'primereact/button';
+import { Button } from "primereact/button";
 
 const UserProfile = () => {
   const [Userimage, setUserimage] = useState("");
@@ -119,15 +121,9 @@ const UserProfile = () => {
           }}
         >
           <div className="div">
-            {avatar ? (
-              <img
-                src={avatar}
-                alt="User Avatar"
-                style={{ width: "100%", height: "100%", borderRadius: "50%" }}
-              />
-            ) : (
-              firstLetter
-            )}
+            <Avatar sx={{ bgcolor: green[400] }}>
+              {user.email?.substring(0, 1)}
+            </Avatar>
           </div>
         </div>
 
@@ -235,7 +231,13 @@ const UserProfile = () => {
                           <p>Hurry Up Get Your Monetize Account</p>
                         </div>
                       </div>
-                      <Button icon="pi pi-check" disabled tooltip="You are Not eligible" tooltipOptions={{ showOnDisabled: true }} label="Apply" />
+                      <Button
+                        icon="pi pi-check"
+                        disabled
+                        tooltip="You are Not eligible"
+                        tooltipOptions={{ showOnDisabled: true }}
+                        label="Apply"
+                      />
                     </div>
                   </div>
                 }
