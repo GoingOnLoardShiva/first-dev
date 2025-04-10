@@ -5,11 +5,14 @@
     background: rgb(3, 71, 34);
     .logo{
         justify-content: space-between;
-
+        .ologo{
+            width: 300px;
+            height: 100px;
+        }
         .login{
             align-items: center;
             gap: 50px;
-            .texta{
+            .text{
                 color: white;
                 text-decoration: none;
             }
@@ -18,9 +21,15 @@
             }
  
         }
+        @media (max-width: 500px) {
+            .ologo{
+                width: 100px;
+                height: 70px;
+            }
+        }
     }
     .line{
-        background-color: white;
+        // background-color: white;
         width: 100%;
         height: 2px;
         border-width: 1px;

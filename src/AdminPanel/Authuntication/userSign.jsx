@@ -69,7 +69,7 @@ const Sigin = () => {
       <Toast ref={toast} />
       <div className="logincontent">
         <div className="logos">
-          <img className="ologo" src={window.location.origin + "/Code.png"} alt="Logo" />
+          <img className="ologo" src={window.location.origin + "/codetech.svg"} alt="Logo" />
           <h2>Register</h2>
         </div>
 

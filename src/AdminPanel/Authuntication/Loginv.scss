@@ -9,9 +9,15 @@
     color: white;
     display: flex;
     .logos{
-        display: flex;
+        // display: flex;
         margin-left: auto;
         margin-right: auto;
+        .ologo{
+            width: 300px;
+            height: 100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
         img{
             width: 50px;
             height: 50px;
