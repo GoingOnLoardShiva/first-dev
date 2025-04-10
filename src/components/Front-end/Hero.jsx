@@ -119,12 +119,12 @@ const Hero = () => {
         >
           <Chip variant="outlined" disabled className="btclass" label="Upcomming" />
         </a>
-        <div class="dropdown">
+        {/* <div class="dropdown">
           <a
             // class="btn btn-secondary "
             href="#"
             // role="button"
-            data-bs-toggle="dropdown"
+            data-bs-toggle="dropdownt"
             aria-expanded="false"
           >
             <Chip variant="outlined" color="success" className="btclass" label="Feature" />
@@ -147,7 +147,7 @@ const Hero = () => {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
       <hr className="line" />
       {/* <div className="trending">

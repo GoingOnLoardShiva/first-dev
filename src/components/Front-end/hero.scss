@@ -16,6 +16,9 @@
         }
         .dropdown{
             color: white;
+            a{
+                text-decoration: none;
+            }
             .btclass{
                 // color: black;
             }
@@ -68,7 +71,11 @@
                 .btn{
                     font-size: 10px;
                 }
+                .dropdownt{
+                    display: none;
+                }
             }
+            
             .dropdownab{
                 display: none;
 
