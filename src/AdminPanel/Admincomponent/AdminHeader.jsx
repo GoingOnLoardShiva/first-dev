@@ -37,7 +37,7 @@ const Header = () => {
     </div>
   );
   return (
-    <div className="header bg-black">
+    <div className="header">
       <div className="headercontentnt">
         <Sidebar
           header={customHeader}

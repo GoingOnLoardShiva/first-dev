@@ -10,6 +10,7 @@ import moment from "moment-timezone";
 import { green } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
+import { DateTime } from "luxon"; // Import Luxon
 import Stack from "@mui/material/Stack";
 
 const Useralldatapostrecived = () => {
@@ -21,9 +22,7 @@ const Useralldatapostrecived = () => {
   const [hasMore, setHasMore] = useState(true);
   const [likedPosts, setLikedPosts] = useState(new Set());
   const [followingAuthors, setFollowingAuthors] = useState([]);
-  const formatDate = (rowData) => {
-    return moment(rowData.do_b).format("DD-MM-YYYY");
-  };
+
   const defaultAvatar =
     "https://img.freepik.com/premium-photo/png-cartoon-adult-white-background-photography_53876-905932.jpg?uid=R188847859&ga=GA1.1.1946957145.1736441514&semt=ais_hybrid&w=740";
 
@@ -57,8 +56,10 @@ const Useralldatapostrecived = () => {
       console.error("Error fetching user posts:", error);
     }
     setLoading(false);
+
   };
 
+  console.log(data.createdAt)
   const handleLike = async (_id) => {
     const user = Cookies.get("user"); // Retrieve user cookie
 
@@ -173,6 +174,14 @@ const Useralldatapostrecived = () => {
                             {user.createdAt}
                             
                           </div> */}
+                            {user.createdAt ? (
+                              <span className="timestyle">
+                                {DateTime.fromISO(user.createdAt).toRelative()}
+                              </span>,
+                              console.log(user.createdAt)
+                            ) : (
+                              "Unknown date"
+                            )}
                             <TimeAgo
                               className="timestyle"
                               datetime={user.createdAt}
@@ -185,9 +194,11 @@ const Useralldatapostrecived = () => {
                       <Chip
                         className="folowbutton"
                         color="primary"
-                        label={followingAuthors.includes(user.user_fName)
-                          ? "Following"
-                          : "Follow"}
+                        label={
+                          followingAuthors.includes(user.user_fName)
+                            ? "Following"
+                            : "Follow"
+                        }
                         variant="outlined"
                         onClick={() => followbutton(user.user_fName)}
                         disabled={followingAuthors.includes(user.user_fName)}

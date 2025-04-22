@@ -2,7 +2,7 @@
     padding-left: 10px;
     padding-right: 10px;
     justify-content: space-between;
-    background: rgb(0, 0, 0);
+    background: rgb(0, 255, 55);
     .logo{
         justify-content: space-between;
         a{
@@ -17,7 +17,7 @@
             align-items: center;
             gap: 50px;
             .textab{
-                background: linear-gradient(150deg,#14281D,#00ff73);
+                background: linear-gradient(150deg,#14281D,#000000);
                 text-align: center;
                 height: fit-content;
                 width: fit-content;
@@ -28,12 +28,12 @@
                 border-radius: 5px;
                 .texta{
                     // background-color: black;
-                    color: white;
+                    color: rgb(0, 0, 0);
                     text-decoration: none;
                 }
             }
             .textab:hover{
-                background-color: white;
+                background-color: rgb(0, 0, 0);
                 color: black;
                 transform: 2;
                 scale: 1.1;

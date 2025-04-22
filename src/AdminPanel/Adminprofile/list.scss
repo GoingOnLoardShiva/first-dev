@@ -1,13 +1,13 @@
 .heroa{
   padding: 20px;
-  color: white;
+  color: rgb(0, 0, 0);
   .gridcontenta{
     .trposta{
       display: grid;
       gap: 40px;
       grid-template-columns: repeat(4, 1fr); 
       .pcontent{
-        background: linear-gradient(rgba(54, 253, 97, 0.473),rgb(0, 0, 0),);
+        background: #fff6f5;
         box-shadow: 1px 2px 10px inset rgba(21, 32, 92, 0),rgba(0, 0, 0, 0.685);
         height: fit-content;
         width: 330px;
@@ -19,7 +19,7 @@
             }
             .folowbutton{
               // padding-right: 120px;
-              color: white;
+              color: rgb(54, 124, 255);
               // margin-bottom: 1px;
               background-color: transparent;
             }

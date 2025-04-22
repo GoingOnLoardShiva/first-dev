@@ -9,9 +9,15 @@ import { green } from "@mui/material/colors";
 import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
 import { ProgressBar } from "primereact/progressbar";
-import { Button } from "primereact/button";
+// import { Button } from "primereact/button";
+import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import Chip from "@mui/material/Chip";
+import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const UserProfile = () => {
+  const [loading, setLoading] = useState(false);
   const [Userimage, setUserimage] = useState("");
   const [userPosts, setUserPosts] = useState([]); // Initialize as an empty array
   const [data, setudata] = useState({}); // Initialize as an empty array
@@ -23,6 +29,9 @@ const UserProfile = () => {
   const userEmail = user ? user.email : null; // User email from cookies
   const url = process.env.REACT_APP_HOST_URL;
   const key = process.env.REACT_APP_APIKEY;
+  const [userimg, setUserimg] = useState({});
+  // console.log(userimg, "userimg");
+
   const valueTemplate = (value) => {
     return (
       <React.Fragment>
@@ -40,18 +49,48 @@ const UserProfile = () => {
 
   const toast = useRef(null);
 
-  const onUpload = () => {
-    toast.current.show({
-      severity: "info",
-      summary: "Success",
-      detail: "File Uploaded",
-    });
+  const fileUploadRef = useRef(null);
+  const triggerFileUpload = () => {
+    
   };
 
-  const imageSub = async () => {
-    const sub = await axios.post(url + "/submitimage", {
-      Userimage,
-    });
+  const handleUpload = async ({ files }) => {
+    const file = files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("email_id", userEmail);
+
+    try {
+      const res = await axios.post(`${url}/uploadProfileImage`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "access-key": key,
+        },
+      });
+
+      if (res.data.imageUrl) {
+        setUserimage(res.data.imageUrl);
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Profile picture updated!",
+          life: 3000,
+        });
+
+        // Optional: Update cookie with new image URL
+        Cookies.set(
+          "user",
+          JSON.stringify({ ...user, img: res.data.imageUrl })
+        );
+      }
+    } catch (err) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Image upload failed!",
+        life: 3000,
+      });
+    }
   };
 
   useEffect(() => {
@@ -99,44 +138,84 @@ const UserProfile = () => {
     if (userEmail) {
       fetchUserPosts();
     }
-  }, [userEmail]); // Dependency on userEmail to refetch when it changes
+
+    const fetchUserImage = async () => {
+      try {
+        const response = await axios.get(`${url}/userimagerc/${userEmail}`, {
+          headers: { "access-key": key },
+        });
+        if (response.code === 200) {
+          setUserimage(response.data.user);
+          Cookies.set(
+            "userimg",
+            JSON.stringify({ ...user, img: response.data.user })
+          );
+        }
+        setUserimg(response.data.user);
+      } catch (error) {
+        console.error("Error fetching user image:", error);
+      }
+      setLoading(false);
+    };
+    fetchUserImage();
+  }, [userEmail]);
+  
 
   return (
     <div>
       <div className="usercontent">
-        <div
-          className="useritem d-flex align-items-center gap-2"
-          style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: avatar ? "transparent" : "#007bff",
-            color: "white",
-            fontSize: "18px",
-            fontWeight: "bold",
-            overflow: "hidden",
-          }}
-        >
-          <div className="div">
-            <Avatar sx={{ bgcolor: green[400] }}>
-              {user.email?.substring(0, 1)}
-            </Avatar>
-          </div>
-        </div>
-
         <div className="userdetails">
           <div className="userftext">
-            {/* <div className="card flex justify-content-center bg-black ">
-              <Toast ref={toast}></Toast>
-              <input type="file" onChange={imageSub} accept="image/*" />
-            </div> */}
-            <p>{user?.email}</p>
+            <div className="useritem gap-2">
+              {loading && (
+                <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10 rounded-lg">
+                  <div className="text-gray-700 font-semibold text-lg">
+                    Uploading...
+                  </div>
+                </div>
+              )}
+              <Toast ref={toast} />
+              <div className="usersetup d-flex gap-3  justify-content-center">
+                <Avatar
+                  className="imageavt"
+                  src={userimg.img || avatar}
+                  alt="Profile"
+                  sx={{ width: 64, height: 64, bgcolor: green[400] }}
+                >
+                  {user.email?.substring(0, 1)}
+                </Avatar>
+                <p className="useremailp">
+                  {user?.email} <p>{user?.role}</p>
+                </p>
+                <SettingsSuggestIcon className="usericon" />
+              </div>
+            </div>
+
             <div className="userdtext">
-              <p>{user?.role}</p>
-              <UserPost />
+              <div className="se d-flex gap-2 align-items-center justify-content-center">
+                <UserPost />
+                <Chip
+                  label="Upload Profile Picture"
+                  className="texta"
+                  variant="outlined"
+                  color="success"
+                  clickable
+                  onClick={triggerFileUpload} // Trigger file upload dialog
+                />
+
+                {/* Hidden FileUpload Component */}
+                <FileUpload
+                  ref={fileUploadRef}
+                  name="avatar"
+                  accept="image/*"
+                  maxFileSize={1000000}
+                  customUpload
+                  uploadHandler={handleUpload}
+                  mode="basic"
+                  auto
+                  style={{ display: "none" }} // Hide the FileUpload component
+                />
+              </div>
             </div>
           </div>
           <div className="userpost">

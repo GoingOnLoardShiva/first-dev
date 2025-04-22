@@ -2,23 +2,27 @@
   padding-top: 50px;
   color: black;
   // background: linear-gradient(#00ff73, rgba(255, 255, 255, 0));
-  .useritem {
-    margin-left: auto;
-    margin-right: auto;
-    color: black;
-    // background-color: #00ff73;
-    .div {
-      // background-color: #14281d;
-    }
-  }
+
   .userdetails {
-    text-align: center;
-    // color: white;
-    // background-color: #00ff73;
-    // background-color: black;
+
     .userftext {
-      // background-color: black;
-      //   background-color: #00ff73;
+      .useritem {
+        color: black;
+        .usersetup{
+          .useremailp{
+            margin-top: 5px;
+            font-style: bold;
+          }
+        }
+    
+      }
+      .userdtext{
+        .se{
+          .userpup{
+            color: black;
+          }
+        }
+      }
     }
     .userpost {
       // background-color: black;
@@ -75,7 +79,7 @@
       .monetizationfirst {
         text-align: start;
         padding: 20px;
-        background-color: #00ff73;
+        background-color: #ffffff;
         border-radius: 20px;
         padding: 10px;
         .monete{
@@ -84,6 +88,9 @@
                 text-align: center;
                 font-size: 30px;
             }
+        }
+        Button{
+          color: black;
         }
         .fstep{
             padding-top: 30px;

@@ -1,6 +1,6 @@
 .pd{
     padding: 5px;
-    background-color: black;
+    background-color: #fff6f5;
     .line{
         background-color: black;
         width: 100%;
@@ -12,10 +12,10 @@
         padding-left: 100px;
         padding-right: 100px;
         .btclass{
-            color: white;
+            color: rgb(0, 0, 0);
         }
         .dropdown{
-            color: white;
+            color: rgb(0, 0, 0);
             a{
                 text-decoration: none;
             }
@@ -29,7 +29,7 @@
                 border-color: transparent;
                 a{
                     text-decoration: none;
-                    color: white;
+                    color: rgb(0, 0, 0);
                 }
             }
         }

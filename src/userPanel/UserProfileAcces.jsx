@@ -120,7 +120,7 @@ const UserProfileAcces = () => {
         <div className="useraccesContent">
           <div className="useraccesContent1">
             <div className="useraccesContent2">
-            <img src={data.user_tick || defaultAvatar} alt="" />
+            <img src={data.img || defaultAvatar} alt="" />
               <p>{user_fName}</p>
             </div>
             <div className="useraccesContent3">
