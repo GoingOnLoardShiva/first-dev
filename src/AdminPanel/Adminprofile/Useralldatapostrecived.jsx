@@ -23,8 +23,25 @@ const Useralldatapostrecived = () => {
   const [likedPosts, setLikedPosts] = useState(new Set());
   const [followingAuthors, setFollowingAuthors] = useState([]);
 
-  const defaultAvatar =
-    "https://img.freepik.com/premium-photo/png-cartoon-adult-white-background-photography_53876-905932.jpg?uid=R188847859&ga=GA1.1.1946957145.1736441514&semt=ais_hybrid&w=740";
+  const defaultAvatar = (
+    <img
+      className="imagani"
+      style={{ width: "40px", height: "40px" }}
+      src="/lovea.gif"
+      alt=""
+    />
+  );
+  const defaultAvatarl = (
+    <img
+      className="imagani"
+      style={{ width: "40px", height: "40px" }}
+      src="/love.gif"
+      alt=""
+    />
+  );
+  const defaultAvatara = (
+    <img style={{ width: "30px", height: "30px" }} src="/growtha.gif" alt="" />
+  );
 
   useEffect(() => {
     fetchUserPosts(1, true); // Fetch new posts on refresh
@@ -56,10 +73,10 @@ const Useralldatapostrecived = () => {
       console.error("Error fetching user posts:", error);
     }
     setLoading(false);
-
+    
   };
 
-  console.log(data.createdAt)
+  console.log([{data}]);
   const handleLike = async (_id) => {
     const user = Cookies.get("user"); // Retrieve user cookie
 
@@ -153,41 +170,34 @@ const Useralldatapostrecived = () => {
       <div className="gridcontenta">
         <div className="trposta">
           {data.length > 0
-            ? data.map((user) => (
-                <div className="pcontent container" key={user._id}>
+            ? data.map((usera) => (
+                <div className="pcontent container" key={usera._id}>
                   <a className="alikcontent">
                     <div className="usertickandname d-flex">
                       <a
                         className="allaccespostuser"
                         href={`/user/userid/${encodeURIComponent(
-                          user.user_fName
+                          usera.user_fName
                         )}`}
                       >
                         <div className="userfirstdetails">
                           <Avatar sx={{ bgcolor: green[400] }}>
-                            {user.user_fName?.substring(0, 1)}
+                            {usera.user_fName?.substring(0, 1)}
                           </Avatar>
                           {/* <img src={user.user_tick || defaultAvatar} alt="" /> */}
                           <p className="pi flex">
-                            {user.user_fName} <br />
+                            {usera.user_fName} <br />
                             {/* <div className="time "  moment="true">
                             {user.createdAt}
                             
                           </div> */}
-                            {user.createdAt ? (
-                              <span className="timestyle">
-                                {DateTime.fromISO(user.createdAt).toRelative()}
-                              </span>,
-                              console.log(user.createdAt)
-                            ) : (
-                              "Unknown date"
-                            )}
-                            <TimeAgo
-                              className="timestyle"
-                              datetime={user.createdAt}
-                              locale="en-US"
-                            />
-                            {/* <TimeAgo date="Aug 29, 2014" /> */}
+                            <TimeAgo>
+                              datetime={moment([usera.createdAt]).tz(
+                                "Asia/Kolkata"
+                              )}
+                            </TimeAgo>
+                            <p>{[usera.createdAt]}</p>
+                            {/* <p>{DateTime.fromISO(usera.createdAt)}</p> */}
                           </p>
                         </div>
                       </a>
@@ -195,13 +205,13 @@ const Useralldatapostrecived = () => {
                         className="folowbutton"
                         color="primary"
                         label={
-                          followingAuthors.includes(user.user_fName)
+                          followingAuthors.includes(usera.user_fName)
                             ? "Following"
                             : "Follow"
                         }
                         variant="outlined"
-                        onClick={() => followbutton(user.user_fName)}
-                        disabled={followingAuthors.includes(user.user_fName)}
+                        onClick={() => followbutton(usera.user_fName)}
+                        disabled={followingAuthors.includes(usera.user_fName)}
                       >
                         {/* <label htmlFor="">
                           {" "}
@@ -221,15 +231,15 @@ const Useralldatapostrecived = () => {
 
                       <hr />
                     </div>
-                    <img src={user.blog_img} alt="Blog" />
+                    {/* <img src={user.blog_img} alt="Blog" /> */}
                     {/* <div className="gapss"></div>
                      */}
                     <br />
                     <br />
-                    <h3>{user.blog_title?.substring(0, 40) || "Loading"}</h3>
+                    <h3>{usera.blog_title?.substring(0, 40) || "Loading"}</h3>
                     <a
                       className="atag"
-                      href={`/user/blogpage/${encodeURIComponent(user._id)}`}
+                      href={`/user/blogpage/${encodeURIComponent(usera._id)}`}
                     >
                       Read more
                     </a>
@@ -237,28 +247,31 @@ const Useralldatapostrecived = () => {
                     <div className="toptoolfe">
                       <motion.button
                         className={`like-button ${
-                          likedPosts.has(user._id) ? "liked" : ""
+                          likedPosts.has(usera._id) ? "liked" : ""
                         }`}
                         whileTap={{ scale: 1.3 }}
                         whileHover={{ scale: 1.1 }}
-                        onClick={() => handleLike(user._id)}
+                        onClick={() => handleLike(usera._id)}
                       >
                         <motion.span
                           className="heart"
                           initial={{ scale: 0.8 }}
                           animate={
-                            likedPosts.has(user._id)
+                            likedPosts.has(usera._id)
                               ? { scale: [1, 1.4, 1] }
                               : {}
                           }
                         >
-                          {likedPosts.has(user._id) ? "💙" : "🤍"}
+                          {likedPosts.has(usera._id)
+                            ? defaultAvatarl
+                            : defaultAvatar}
                         </motion.span>
-                        <p>{user.likes}</p>
+                        <p>{usera.likes}</p>
                       </motion.button>
 
-                      <p className="pi pi-chart-bar" id="views">
-                        <b></b> {user.views}
+                      <p className="pi" id="views">
+                        {defaultAvatara}
+                        <b></b> {usera.views}
                       </p>
                     </div>
                   </a>
