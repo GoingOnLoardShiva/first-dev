@@ -243,7 +243,7 @@ const UserProfile = () => {
                                 console.log("Navigating to:", index?._id)
                               }
                             >
-                              <img src={post.blog_img} alt="" />
+                              {/* <img src={post.blog_img} alt="" /> */}
                               <div className="userdetailwithdata ">
                                 <div className="userafirsttext">
                                   {post.blog_title

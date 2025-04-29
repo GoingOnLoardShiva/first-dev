@@ -213,12 +213,6 @@ const Useralldatapostrecived = () => {
                         onClick={() => followbutton(usera.user_fName)}
                         disabled={followingAuthors.includes(usera.user_fName)}
                       >
-                        {/* <label htmlFor="">
-                          {" "}
-                          {followingAuthors.includes(user.user_fName)
-                            ? "Following"
-                            : "Follow"}
-                        </label> */}
                       </Chip>
                       {/* <button
                         onClick={() => followbutton(user.user_fName)}
@@ -266,12 +260,12 @@ const Useralldatapostrecived = () => {
                             ? defaultAvatarl
                             : defaultAvatar}
                         </motion.span>
-                        <p>{usera.likes}</p>
+                        <p className="color-black" id="viewsa"><b>{usera.likes}</b></p>
                       </motion.button>
 
                       <p className="pi" id="views">
                         {defaultAvatara}
-                        <b></b> {usera.views}
+                        <p id="viewsb"><b>{usera.views}</b> </p>
                       </p>
                     </div>
                   </a>

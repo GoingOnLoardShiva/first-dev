@@ -109,8 +109,7 @@ const UserProfileAcces = () => {
     ));
   };
   const defaultAvatar =
-  "https://img.freepik.com/premium-photo/png-cartoon-adult-white-background-photography_53876-905932.jpg?uid=R188847859&ga=GA1.1.1946957145.1736441514&semt=ais_hybrid&w=740";
-
+    "https://img.freepik.com/premium-photo/png-cartoon-adult-white-background-photography_53876-905932.jpg?uid=R188847859&ga=GA1.1.1946957145.1736441514&semt=ais_hybrid&w=740";
 
   return (
     <div>
@@ -120,7 +119,7 @@ const UserProfileAcces = () => {
         <div className="useraccesContent">
           <div className="useraccesContent1">
             <div className="useraccesContent2">
-            <img src={data.img || defaultAvatar} alt="" />
+              <img src={data.img || defaultAvatar} alt="" />
               <p>{user_fName}</p>
             </div>
             <div className="useraccesContent3">
@@ -145,20 +144,14 @@ const UserProfileAcces = () => {
                   ? userPosts.map((user) => (
                       <div className="useracdetailscontainer" key={user._id}>
                         <a className="alikcontentac">
-                          <img src={user.blog_img} alt="Blog" />
+                          {/* <img src={user.blog_img} alt="Blog" /> */}
                           {/* <div className="gapss"></div>
                            */}
                           <br />
                           {/* <br /> */}
-                          <h3>{user.blog_title?.substring(0, 20) || "Loading"}..</h3>
-                          <a
-                            className="atagac"
-                            href={`/user/blogpage/${encodeURIComponent(
-                              user._id
-                            )}`}
-                          >
-                            Read now
-                          </a>
+                          <h3>
+                            {user.blog_title?.substring(0, 20) || "Loading"}..
+                          </h3>
 
                           <div className="toptoolfe d-flex">
                             <b></b> <p>{user.likes} Like</p>
@@ -166,6 +159,14 @@ const UserProfileAcces = () => {
                             <p className="views pi pi-chart-bar " id="views">
                               <b></b> {user.views} <b></b>
                             </p>
+                            <a
+                              className="atagac"
+                              href={`/user/blogpage/${encodeURIComponent(
+                                user._id
+                              )}`}
+                            >
+                              Read now
+                            </a>
                           </div>
                         </a>
                       </div>

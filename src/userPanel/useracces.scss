@@ -6,7 +6,7 @@
     justify-content: center;
     width: 100%;
     // height: 100vh;
-    background-color: #f0f0f0;
+    background: #f0f0f0;
     text-align: center;
     .useraccesContent{
         
@@ -25,6 +25,12 @@
             background-color: white;
             border-radius: 20px;
             .useracdetailscontainer{
+                background-color: rgb(245, 239, 239);
+                border-radius: 30px;
+                padding-left: 10px ;
+                // padding-right: 10px ;
+                gap: 20px;
+                margin-top: 5px;
                 // background: linear-gradient(#00ff73, rgba(255, 255, 255, 0));
                 .alikcontentac{
                     text-align: start;
@@ -41,6 +47,7 @@
                     }
                     .toptoolfe{
                         gap: 10px;
+                        // background-color: #f0f0f0;
                         .views{
                             margin-top: 3px;
                         }

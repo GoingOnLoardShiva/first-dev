@@ -112,15 +112,6 @@ const UserPost = () => {
         footer={footerContent}
       >
         <div className="userpostdata bg-balck">
-          <div className="in">
-            <input
-              type="text"
-              value={blogImg}
-              onChange={(e) => setBlogImg(e.target.value)}
-              placeholder="Image URL"
-              className="p-inputtext p-component"
-            />
-          </div>
           <textarea
             type="text"
             value={blogTitle}
@@ -138,15 +129,6 @@ const UserPost = () => {
           />
           <br />
           <br />
-          <div className="in">
-            <input
-              type="text"
-              value={blogImg2}
-              onChange={(e) => setBlogImg2(e.target.value)}
-              placeholder="Image URL"
-              className="p-inputtext p-component"
-            />
-          </div>
           <textarea
             type="text"
             value={blogTitle2}
@@ -164,15 +146,6 @@ const UserPost = () => {
 
           <br />
           <br />
-          <div className="in">
-            <input
-              type="text"
-              value={blogImg3}
-              onChange={(e) => setBlogImg3(e.target.value)}
-              placeholder="Image URL"
-              className="p-inputtext p-component"
-            />
-          </div>
           <textarea
             type="text"
             value={blogTitle3}

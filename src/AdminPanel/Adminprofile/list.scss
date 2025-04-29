@@ -7,7 +7,7 @@
       gap: 40px;
       grid-template-columns: repeat(4, 1fr); 
       .pcontent{
-        background: #f7e1dd;
+        background: #FFFFFF;
         box-shadow: 1px 2px 10px inset rgba(21, 32, 92, 0),rgba(0, 0, 0, 0.685);
         height: fit-content;
         width: 330px;
@@ -30,6 +30,7 @@
           }
           .toptoolfe{
             display: flex;
+            color: black;
             gap: 10px;
             .like-button{
               background-color: transparent;
@@ -39,6 +40,16 @@
             }
             #views{
               margin-top: 20px;
+              display: flex;
+              gap: 5px;
+            }
+            #viewsa{
+              margin-top: 15px;
+              color: black;
+            }
+            #viewsb{
+              margin-top: 8px;
+              color: black;
             }
           }
         }
