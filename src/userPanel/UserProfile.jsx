@@ -240,7 +240,7 @@ const UserProfile = () => {
               <TabPanel header="My Post" leftIcon="pi pi-desktop mr-2">
                 <div className="userpostdetailswithpost gap-5">
                   {userPosts.length === 0 ? (
-                    <p>No posts available.</p>
+                    <p>Loading...</p>
                   ) : (
                     <ul>
                       {userPosts.map((post, index) => (
