@@ -19,6 +19,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [Userimage, setUserimage] = useState("");
+  const [Userviews, setUserviews] = useState([]);
   const [userPosts, setUserPosts] = useState([]); // Initialize as an empty array
   const [data, setudata] = useState({}); // Initialize as an empty array
   const [thisemail, setUserEmail] = useState(""); // Track email state
@@ -30,6 +31,8 @@ const UserProfile = () => {
   const url = process.env.REACT_APP_HOST_URL;
   const key = process.env.REACT_APP_APIKEY;
   const [userimg, setUserimg] = useState({});
+  const [userve, setUserv] = useState(0);
+  const [userac, setUserac] = useState(0);
   // console.log(userimg, "userimg");
 
   const valueTemplate = (value) => {
@@ -92,6 +95,7 @@ const UserProfile = () => {
       });
     }
   };
+  
 
   useEffect(() => {
     // Fetch posts for the logged-in user
@@ -152,11 +156,23 @@ const UserProfile = () => {
           );
         }
         setUserimg(response.data.user);
+        setUserac(response.data.followCount);
+        console.log(userac)
       } catch (error) {
         console.error("Error fetching user image:", error);
       }
       setLoading(false);
     };
+    const fetchUserViews = async () => {
+      const response = await axios.get(`${url}/userviews/${userEmail}`, {
+        headers: { "access-key": key },
+      });
+      if (response.status === 200) {
+        setUserv(response.data.user)
+        console.log(response.data.user)
+      }
+    };
+    fetchUserViews()
     fetchUserImage();
   }, [userEmail]);
   
@@ -289,11 +305,11 @@ const UserProfile = () => {
                         <div className="fsstepdes">
                           <div className="card">
                             <ProgressBar
-                              value={0}
+                              value={userac}
                               displayValueTemplate={valueTemplate}
                             ></ProgressBar>
                           </div>
-                          <p>200 Follower Required / 0 Follower </p>
+                          <p>200 Follower Required /{userimg.followAc?.length || 0} Follower </p>
                           <p>Hurry Up Get Your Monetize Account</p>
                         </div>
                       </div>
@@ -302,11 +318,11 @@ const UserProfile = () => {
                         <div className="fsstepdes">
                           <div className="card">
                             <ProgressBar
-                              value={0}
+                              value={userve}
                               displayValueTemplate={valueTemplatea}
                             ></ProgressBar>
                           </div>
-                          <p>1000 views Required / {data.views} 0 views </p>
+                          <p>1000 views Required / {userve} views </p>
                           <p>Hurry Up Get Your Monetize Account</p>
                         </div>
                       </div>
