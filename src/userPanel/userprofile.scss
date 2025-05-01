@@ -9,9 +9,20 @@
       .useritem {
         color: black;
         .usersetup{
+          .line{
+            background-color: #f8e3e3;
+            width: 2px;
+            height: 50px;
+            margin-top: 5px;
+          }
+          a{
+            text-decoration: none;
+            color: black;
+          }
           .useremailp{
             margin-top: 5px;
             font-style: bold;
+            text-decoration: none;
           }
         }
     

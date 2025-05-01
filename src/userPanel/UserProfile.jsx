@@ -14,6 +14,8 @@ import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import Chip from "@mui/material/Chip";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import { Dialog } from "primereact/dialog";
+
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const UserProfile = () => {
@@ -35,6 +37,30 @@ const UserProfile = () => {
   const [userac, setUserac] = useState(0);
   // console.log(userimg, "userimg");
 
+  const [visible, setVisible] = useState(false);
+  const [position, setPosition] = useState("center");
+  const footerContent = (
+    <div>
+      <Button
+        label="No"
+        icon="pi pi-times"
+        onClick={() => setVisible(false)}
+        className="p-button-text"
+      />
+      <Button
+        label="Yes"
+        icon="pi pi-check"
+        onClick={() => setVisible(false)}
+        autoFocus
+      />
+    </div>
+  );
+
+  const show = (position) => {
+    setPosition(position);
+    setVisible(true);
+  };
+
   const valueTemplate = (value) => {
     return (
       <React.Fragment>
@@ -45,7 +71,7 @@ const UserProfile = () => {
   const valueTemplatea = (valuea) => {
     return (
       <React.Fragment>
-        {valuea}/<b>200</b>
+        {valuea}/<b>1000</b>
       </React.Fragment>
     );
   };
@@ -53,9 +79,7 @@ const UserProfile = () => {
   const toast = useRef(null);
 
   const fileUploadRef = useRef(null);
-  const triggerFileUpload = () => {
-    
-  };
+  const triggerFileUpload = () => {};
 
   const handleUpload = async ({ files }) => {
     const file = files[0];
@@ -95,7 +119,6 @@ const UserProfile = () => {
       });
     }
   };
-  
 
   useEffect(() => {
     // Fetch posts for the logged-in user
@@ -157,7 +180,7 @@ const UserProfile = () => {
         }
         setUserimg(response.data.user);
         setUserac(response.data.followCount);
-        console.log(userac)
+        console.log(userac);
       } catch (error) {
         console.error("Error fetching user image:", error);
       }
@@ -168,14 +191,13 @@ const UserProfile = () => {
         headers: { "access-key": key },
       });
       if (response.status === 200) {
-        setUserv(response.data.user)
-        console.log(response.data.user)
+        setUserv(response.data.user);
+        console.log(response.data.user);
       }
     };
-    fetchUserViews()
+    fetchUserViews();
     fetchUserImage();
   }, [userEmail]);
-  
 
   return (
     <div>
@@ -201,8 +223,27 @@ const UserProfile = () => {
                   {user.email?.substring(0, 1)}
                 </Avatar>
                 <p className="useremailp">
-                  {user?.email} <p>{user?.role}</p>
+                  {user ? `${user.email.substring(0, 5)}....` : ""}{" "}
+                  <p>{user?.role}</p>
                 </p>
+                <p className="line"></p>
+                <hr />
+                <a
+                  // href=""
+                  label="Bottom"
+                  icon="pi pi-arrow-up"
+                  onClick={() => show("bottom")}
+                  className="p-button-success"
+                  style={{ minWidth: "10rem" }}
+                >
+                  <div className="useremailp">
+                    <p className="userf">
+                      Followers <p>{userac}</p>
+                    </p>
+                  </div>
+                </a>
+
+                <p className="line"></p>
                 <SettingsSuggestIcon className="usericon" />
               </div>
             </div>
@@ -309,7 +350,10 @@ const UserProfile = () => {
                               displayValueTemplate={valueTemplate}
                             ></ProgressBar>
                           </div>
-                          <p>200 Follower Required /{userimg.followAc?.length || 0} Follower </p>
+                          <p>
+                            200 Follower Required /
+                            {userimg.followAc?.length || 0} Follower{" "}
+                          </p>
                           <p>Hurry Up Get Your Monetize Account</p>
                         </div>
                       </div>
@@ -341,6 +385,29 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
+      <Dialog
+        header="My Folllowers"
+        visible={visible}
+        position={position}
+        style={{ width: "60vw" }}
+        onHide={() => {
+          if (!visible) return;
+          setVisible(false);
+        }}
+        footer={footerContent}
+        draggable={false}
+        resizable={false}
+      >
+        <div className="fac">
+          {/* {userimg.followAc} */}
+          {userimg?.followAc?.map((user, index) => (
+            <div key={index} className="follow-card d-flex gap-2">
+              <Avatar label={user.substring(0,1)} className="mr-5" size="xlarge" />
+              <p className="username">{user}...</p>
+            </div>
+          ))}
+        </div>
+      </Dialog>
     </div>
   );
 };
