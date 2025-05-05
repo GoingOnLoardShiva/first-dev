@@ -60,8 +60,8 @@ function App() {
       ),
       children: [
         { path: "/user/:uid", element: <Userhome /> },
-        // { path: "/user/:uid/myprofile", element: <UserProfile /> },
-        { path: "/user/:uid/myprofile", element: <Useracount /> },
+        { path: "/user/:uid/myprofile", element: <UserProfile /> },
+        // { path: "/user/:uid/myprofile", element: <Useracount /> },
         { path: "/user/blogpage/:_id", element: <UserPostPage /> },
         { path: "/user/userid/:user_fName", element: <UserProfileAcces /> },
       ],
