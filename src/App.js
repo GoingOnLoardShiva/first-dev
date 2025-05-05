@@ -16,6 +16,7 @@ import UserProfile from "./userPanel/UserProfile";
 import UserSign from "./AdminPanel/Authuntication/userSign";
 import UserPostPage from "./userPanel/UserPostPage";
 import UserProfileAcces from "./userPanel/UserProfileAcces";
+import Useracount from "./userPanel/Useacount"
 
 function App() {
   const HomeLayout = () => <Layout />;
@@ -59,7 +60,8 @@ function App() {
       ),
       children: [
         { path: "/user/:uid", element: <Userhome /> },
-        { path: "/user/:uid/myprofile", element: <UserProfile /> },
+        // { path: "/user/:uid/myprofile", element: <UserProfile /> },
+        { path: "/user/:uid/myprofile", element: <Useracount /> },
         { path: "/user/blogpage/:_id", element: <UserPostPage /> },
         { path: "/user/userid/:user_fName", element: <UserProfileAcces /> },
       ],
