@@ -103,8 +103,6 @@ const UserProfile = () => {
           detail: "Profile picture updated!",
           life: 3000,
         });
-
-        // Optional: Update cookie with new image URL
         Cookies.set(
           "user",
           JSON.stringify({ ...user, img: res.data.imageUrl })
@@ -121,9 +119,8 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    // Fetch posts for the logged-in user
     const fetchUserPosts = async () => {
-      const email = userEmail; // Get email from the state
+      const email = userEmail; 
 
       if (!email) {
         console.error("No email found for user.");
@@ -132,34 +129,34 @@ const UserProfile = () => {
 
       try {
         const response = await axios.get(
-          `${url}/getUserpost`,
+          url + /getUserpost/,
           {
-            params: { email }, // Send the email to the backend to fetch posts
+            params: { email }, 
           },
           { headers: { "access-key": key } }
         );
 
         if (response.status === 200) {
-          setUserPosts(response.data.posts); // Set the posts to the state
+          setUserPosts(response.data.posts); 
         } else {
           console.error("Failed to fetch posts");
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
-      const responsea = await axios.get(
-        `${url}/getUserpost`,
-        {
-          params: { email }, // Send the email to the backend to fetch posts
-        },
-        { headers: { "access-key": key } }
-      );
+      // const responsea = await axios.get(
+      //   `${url}/getUserpost`,
+      //   {
+      //     params: { email }, // Send the email to the backend to fetch posts
+      //   },
+      //   { headers: { "access-key": key } }
+      // );
 
-      if (responsea.status === 200) {
-        setudata(responsea.data.posts); // Set the posts to the state
-      } else {
-        console.error("Failed to fetch posts");
-      }
+      // if (responsea.status === 200) {
+      //   setudata(responsea.data.posts); // Set the posts to the state
+      // } else {
+      //   console.error("Failed to fetch posts");
+      // }
     };
 
     if (userEmail) {
@@ -168,7 +165,7 @@ const UserProfile = () => {
 
     const fetchUserImage = async () => {
       try {
-        const response = await axios.get(`${url}/userimagerc/${userEmail}`, {
+        const response = await axios.get(url +/userimagerc/+ userEmail, {
           headers: { "access-key": key },
         });
         if (response.code === 200) {
@@ -187,7 +184,7 @@ const UserProfile = () => {
       setLoading(false);
     };
     const fetchUserViews = async () => {
-      const response = await axios.get(`${url}/userviews/${userEmail}`, {
+      const response = await axios.get(url +/userviews/ + userEmail, {
         headers: { "access-key": key },
       });
       if (response.status === 200) {
@@ -227,14 +224,15 @@ const UserProfile = () => {
                   <p>{user?.role}</p>
                 </p>
                 <p className="line"></p>
-                <hr />
+                {/* <hr /> */}
                 <a
                   // href=""
                   label="Bottom"
                   icon="pi pi-arrow-up"
                   onClick={() => show("bottom")}
                   className="p-button-success"
-                  style={{ minWidth: "10rem" }}
+                  // style={{ minWidth: "10rem" }}
+                  id="a"
                 >
                   <div className="useremailp">
                     <p className="userf">

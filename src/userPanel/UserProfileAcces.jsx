@@ -69,7 +69,7 @@ const UserProfileAcces = () => {
     const useproaccPost = async () => {
       try {
         const responsea = await axios.get(
-          `${API_BASE_URL}/accespost/${user_fName}`,
+          API_BASE_URL + /accespost/ + user_fName,
           {
             headers: { "access-key": key },
           }
