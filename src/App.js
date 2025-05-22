@@ -17,6 +17,8 @@ import UserSign from "./AdminPanel/Authuntication/userSign";
 import UserPostPage from "./userPanel/UserPostPage";
 import UserProfileAcces from "./userPanel/UserProfileAcces";
 import Useracount from "./userPanel/Useacount"
+import AdminLogin from "./AdminPanel/Authuntication/AdminLogin";
+import Ssucess from "./AdminPanel/Authuntication/Ssucess";
 
 function App() {
   const HomeLayout = () => <Layout />;
@@ -31,6 +33,8 @@ function App() {
         { path: "/Login", element: <Login /> },
         { path: "/sign", element: <UserSign /> },
         { path: "/user/blogpage/:_id", element: <UserPostPage /> },
+        { path: "/AdminLogin", element: <AdminLogin /> },
+        { path: "/Ssucess", element: <Ssucess /> },
 
         { path: "/user/userid/:user_fName", element: <UserProfileAcces /> },
       ],

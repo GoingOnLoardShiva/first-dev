@@ -35,7 +35,7 @@ const Hero = () => {
           <ul class="dropdown-menu">
             <div>
               <li>
-                <a class="dropdown-item bg-white" href="#">
+                <a class="dropdown-item bg-white" href="AdminLogin">
                   Top Trending
                 </a>
               </li>

@@ -15,7 +15,7 @@ const UserPostPage = ({ isLoading }) => {
   useEffect(() => {
     const countView = async () => {
       try {
-        const res = await axios.get(API_BASE_URL + "/UserpostViews/" + _id, {
+        const res = await axios.get(API_BASE_URL + "/UserpostViews" + _id, {
           headers: { "access-key": key },
         });
         setViews(res.data.views);
