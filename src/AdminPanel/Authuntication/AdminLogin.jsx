@@ -4,7 +4,7 @@ const AdminLogin = () => {
   const handleGitHubLogin = () => {
     account.createOAuth2Session(
       "github",
-      "https://codetech-tau.vercel.app/AdminLogin",
+      "https://codetech-tau.vercel.app/Ssucess",
       "https://codetech-tau.vercel.app/Ssucess"
     );
   };
