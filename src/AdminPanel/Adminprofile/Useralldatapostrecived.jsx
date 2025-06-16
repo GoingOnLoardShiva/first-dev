@@ -254,7 +254,7 @@ const Useralldatapostrecived = () => {
                     </p>
                   </div>
                 </a>
-                <Dialog className="dilogbox" visible={visible} style={{ width: '21vw', margin: '0px', padding: "0px" }} onHide={() => { if (!visible) return; setVisible(false); }}>
+                <Dialog className="dilogbox" visible={visible} style={{ width: '100vw', margin: '0px', padding: "0px" }} onHide={() => { if (!visible) return; setVisible(false); }}>
                   <div className="posttoat d-flex gap-5" style={{ margin: '0px' }}>
                     <a
                       className="allaccespostuser"
