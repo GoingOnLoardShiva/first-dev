@@ -12,6 +12,7 @@ import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
 import { DateTime } from "luxon"; // Import Luxon
 import Stack from "@mui/material/Stack";
+import { Dialog } from "primereact/dialog";
 
 const Useralldatapostrecived = () => {
   const url = process.env.REACT_APP_HOST_URL;
@@ -22,6 +23,13 @@ const Useralldatapostrecived = () => {
   const [hasMore, setHasMore] = useState(true);
   const [likedPosts, setLikedPosts] = useState(new Set());
   const [followingAuthors, setFollowingAuthors] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const [position, setPosition] = useState('center');
+  const show = (position) => {
+    setPosition(position);
+    setVisible(true);
+  };
+
 
   const defaultAvatar = (
     <img
@@ -73,10 +81,10 @@ const Useralldatapostrecived = () => {
       console.error("Error fetching user posts:", error);
     }
     setLoading(false);
-    
+
   };
 
-  console.log([{data}]);
+  console.log([{ data }]);
   const handleLike = async (_id) => {
     const user = Cookies.get("user"); // Retrieve user cookie
 
@@ -171,8 +179,82 @@ const Useralldatapostrecived = () => {
         <div className="trposta">
           {data.length > 0
             ? data.map((usera) => (
-                <div className="pcontent container" key={usera._id}>
-                  <a className="alikcontent">
+              <div className="pcontent container" key={usera._id} >
+                <a className="alikcontent">
+                  <div className="usertickandname d-flex">
+                    <a
+                      className="allaccespostuser"
+                      href={`/user/userid/${encodeURIComponent(
+                        usera.user_fName
+                      )}`}
+                    >
+                      <div className="userfirstdetails">
+                        <Avatar sx={{ bgcolor: green[400] }}>
+                          {usera.user_fName?.substring(0, 1)}
+                        </Avatar>
+                        <p className="pi flex">
+                          {usera.user_fName} <br />
+
+                          <TimeAgo>
+                            datetime={moment([usera.createdAt]).tz(
+                              "Asia/Kolkata"
+                            )}
+                          </TimeAgo>
+                          <p>{[usera.createdAt]}</p>
+                          {/* <p>{DateTime.fromISO(usera.createdAt)}</p> */}
+                        </p>
+                      </div>
+                    </a>
+                    <Chip
+                      className="folowbutton"
+                      color="primary"
+                      label={
+                        followingAuthors.includes(usera.user_fName)
+                          ? "Following"
+                          : "Follow"
+                      }
+                      variant="outlined"
+                      onClick={() => followbutton(usera.user_fName)}
+                      disabled={followingAuthors.includes(usera.user_fName)}
+                    >
+                    </Chip>
+                    <hr />
+                  </div>
+                  <img src={usera.image} alt="Blog"  onClick={() => show('bottom')} />
+                  <br />
+                  <br />
+                  <h3  onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</h3>
+                  <div className="toptoolfe">
+                    <motion.button
+                      className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
+                        }`}
+                      whileTap={{ scale: 1.3 }}
+                      whileHover={{ scale: 1.1 }}
+                      onClick={() => handleLike(usera._id)}
+                    >
+                      <motion.span
+                        className="heart"
+                        initial={{ scale: 0.8 }}
+                        animate={
+                          likedPosts.has(usera._id)
+                            ? { scale: [1, 1.4, 1] }
+                            : {}
+                        }
+                      >
+                        {likedPosts.has(usera._id)
+                          ? defaultAvatarl
+                          : defaultAvatar}
+                      </motion.span>
+                      <p className="color-black" id="viewsa"><b>{usera.likes}</b></p>
+                    </motion.button>
+
+                    <p className="pi" id="views">
+                      {defaultAvatara}
+                      <p id="viewsb"><b>{usera.views}</b> </p>
+                    </p>
+                  </div>
+                </a>
+                <Dialog  visible={visible} style={{ width: '30vw',margin: '0px' }} onHide={() => { if (!visible) return; setVisible(false); }}>
                     <div className="usertickandname d-flex">
                       <a
                         className="allaccespostuser"
@@ -184,13 +266,9 @@ const Useralldatapostrecived = () => {
                           <Avatar sx={{ bgcolor: green[400] }}>
                             {usera.user_fName?.substring(0, 1)}
                           </Avatar>
-                          {/* <img src={user.user_tick || defaultAvatar} alt="" /> */}
                           <p className="pi flex">
                             {usera.user_fName} <br />
-                            {/* <div className="time "  moment="true">
-                            {user.createdAt}
-                            
-                          </div> */}
+
                             <TimeAgo>
                               datetime={moment([usera.createdAt]).tz(
                                 "Asia/Kolkata"
@@ -214,35 +292,16 @@ const Useralldatapostrecived = () => {
                         disabled={followingAuthors.includes(usera.user_fName)}
                       >
                       </Chip>
-                      {/* <button
-                        onClick={() => followbutton(user.user_fName)}
-                        disabled={followingAuthors.includes(user.user_fName)}
-                      >
-                        {followingAuthors.includes(user.user_fName)
-                          ? "Following"
-                          : "Follow"}
-                      </button> */}
-
                       <hr />
                     </div>
-                    {/* <img src={user.blog_img} alt="Blog" /> */}
-                    {/* <div className="gapss"></div>
-                     */}
+                    <img src={usera.image} alt="Blog" />
                     <br />
                     <br />
-                    <h3>{usera.blog_title?.substring(0, 40) || "Loading"}</h3>
-                    <a
-                      className="atag"
-                      href={`/user/blogpage/${encodeURIComponent(usera._id)}`}
-                    >
-                      Read more
-                    </a>
-
+                    <h3>{usera.writecontnet?.substring(0, 40) || "Loading"}</h3>
                     <div className="toptoolfe">
                       <motion.button
-                        className={`like-button ${
-                          likedPosts.has(usera._id) ? "liked" : ""
-                        }`}
+                        className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
+                          }`}
                         whileTap={{ scale: 1.3 }}
                         whileHover={{ scale: 1.1 }}
                         onClick={() => handleLike(usera._id)}
@@ -268,9 +327,9 @@ const Useralldatapostrecived = () => {
                         <p id="viewsb"><b>{usera.views}</b> </p>
                       </p>
                     </div>
-                  </a>
-                </div>
-              ))
+                </Dialog>
+              </div>
+            ))
             : renderSkeleton()}
         </div>
       </div>
@@ -285,6 +344,7 @@ const Useralldatapostrecived = () => {
           <p>No more posts to show.</p>
         )}
       </div>
+
     </div>
   );
 };

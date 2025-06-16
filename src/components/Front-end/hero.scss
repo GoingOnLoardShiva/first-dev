@@ -1,55 +1,7 @@
 .pd{
     padding: 5px;
     background-color: rgb(238, 243, 239);;
-    .line{
-        background-color: black;
-        width: 100%;
-        border-width: 2px;
-        color: black;
-    }
-    .dropdowna{
-        justify-content: space-between;
-        padding-left: 100px;
-        padding-right: 100px;
-        .btclass{
-            color: rgb(0, 0, 0);
-        }
-        .dropdown{
-            color: rgb(0, 0, 0);
-            a{
-                text-decoration: none;
-            }
-            .btclass{
-                // color: black;
-            }
-        }
-        .dropdownab{
-            .btn{
-                // background-color: rgba(0, 128, 0, 0.527);
-                border-color: transparent;
-                a{
-                    text-decoration: none;
-                    color: rgb(0, 0, 0);
-                }
-            }
-        }
-        .dropdownac{
-            .btn{
-                // background-color: rgba(255, 0, 0, 0.473);
-                border-color: transparent;
-                a{
-                    text-decoration: none;
-                    color: black;
-                }
-            }
-        }
-        .dropdown-menu{
-            display: none;
-        }
-    }
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
+    padding-top: 100px;
     @media (max-width: 950px) {
         .dropdowna{
             padding-left: 10px;

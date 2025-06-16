@@ -17,6 +17,7 @@ import Button from "@mui/material/Button";
 import { Dialog } from "primereact/dialog";
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Useimgupload from "./usercomponents/Useimgupload";
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(false);
@@ -38,6 +39,8 @@ const UserProfile = () => {
   // console.log(userimg, "userimg");
 
   const [visible, setVisible] = useState(false);
+  const [visibleb, setVisibleb] = useState(false);
+  const [visiblea, setVisiblea] = useState(false);
   const [position, setPosition] = useState("center");
   const footerContent = (
     <div>
@@ -78,49 +81,10 @@ const UserProfile = () => {
 
   const toast = useRef(null);
 
-  const fileUploadRef = useRef(null);
-  const triggerFileUpload = () => {};
-
-  const handleUpload = async ({ files }) => {
-    const file = files[0];
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("email_id", userEmail);
-
-    try {
-      const res = await axios.post(`${url}/uploadProfileImage`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "access-key": key,
-        },
-      });
-
-      if (res.data.imageUrl) {
-        setUserimage(res.data.imageUrl);
-        toast.current.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Profile picture updated!",
-          life: 3000,
-        });
-        Cookies.set(
-          "user",
-          JSON.stringify({ ...user, img: res.data.imageUrl })
-        );
-      }
-    } catch (err) {
-      toast.current.show({
-        severity: "error",
-        summary: "Error",
-        detail: "Image upload failed!",
-        life: 3000,
-      });
-    }
-  };
 
   useEffect(() => {
     const fetchUserPosts = async () => {
-      const email = userEmail; 
+      const email = userEmail;
 
       if (!email) {
         console.error("No email found for user.");
@@ -131,13 +95,13 @@ const UserProfile = () => {
         const response = await axios.get(
           url + /getUserpost/,
           {
-            params: { email }, 
+            params: { email },
           },
           { headers: { "access-key": key } }
         );
 
         if (response.status === 200) {
-          setUserPosts(response.data.posts); 
+          setUserPosts(response.data.posts);
         } else {
           console.error("Failed to fetch posts");
         }
@@ -165,7 +129,7 @@ const UserProfile = () => {
 
     const fetchUserImage = async () => {
       try {
-        const response = await axios.get(url +/userimagerc/+ userEmail, {
+        const response = await axios.get(url + /userimagerc/ + userEmail, {
           headers: { "access-key": key },
         });
         if (response.code === 200) {
@@ -184,7 +148,7 @@ const UserProfile = () => {
       setLoading(false);
     };
     const fetchUserViews = async () => {
-      const response = await axios.get(url +/userviews/ + userEmail, {
+      const response = await axios.get(url + /userviews/ + userEmail, {
         headers: { "access-key": key },
       });
       if (response.status === 200) {
@@ -231,7 +195,6 @@ const UserProfile = () => {
                   icon="pi pi-arrow-up"
                   onClick={() => show("bottom")}
                   className="p-button-success"
-                  // style={{ minWidth: "10rem" }}
                   id="a"
                 >
                   <div className="useremailp">
@@ -248,28 +211,19 @@ const UserProfile = () => {
 
             <div className="userdtext">
               <div className="se d-flex gap-2 align-items-center justify-content-center">
-                <UserPost />
-                <Chip
-                  label="Upload Profile Picture"
-                  className="texta"
-                  variant="outlined"
-                  color="success"
-                  clickable
-                  onClick={triggerFileUpload} // Trigger file upload dialog
-                />
 
-                {/* Hidden FileUpload Component */}
-                <FileUpload
-                  ref={fileUploadRef}
-                  name="avatar"
-                  accept="image/*"
-                  maxFileSize={1000000}
-                  customUpload
-                  uploadHandler={handleUpload}
-                  mode="basic"
-                  auto
-                  style={{ display: "none" }} // Hide the FileUpload component
+                <Chip
+                  label="Create post" icon="pi pi-external-link" onClick={() => setVisibleb(true)}  // Trigger file upload dialog
                 />
+                <Chip
+                  label="Upload Picture" icon="pi pi-external-link" onClick={() => setVisiblea(true)}  // Trigger file upload dialog
+                />
+                <Dialog header="Header" visible={visiblea} style={{ width: '50vw' }} onHide={() => { if (!visiblea) return; setVisiblea(false); }}>
+                  <Useimgupload />
+                </Dialog>
+                <Dialog header="Header" visible={visibleb} style={{ width: '50vw' }} onHide={() => { if (!visibleb) return; setVisibleb(false); }}>
+                  <UserPost />
+                </Dialog>
               </div>
             </div>
           </div>
@@ -287,30 +241,24 @@ const UserProfile = () => {
                           <li className="flex" key={index._id}>
                             <a
                               className="atag"
-                              href={`/user/blogpage/${
-                                index?._id
-                                  ? encodeURIComponent(
-                                      index._id.toString().trim()
-                                    )
-                                  : ""
-                              }`}
+                              href={`/user/blogpage/${index?._id
+                                ? encodeURIComponent(
+                                  index._id.toString().trim()
+                                )
+                                : ""
+                                }`}
                               onClick={() =>
                                 console.log("Navigating to:", index?._id)
                               }
                             >
-                              {/* <img src={post.blog_img} alt="" /> */}
+                              <img src={post.image} alt="" />
                               <div className="userdetailwithdata ">
                                 <div className="userafirsttext">
-                                  {post.blog_title
-                                    ? post.blog_title.substring(0, 30)
+                                  {post.writecontnet
+                                    ? post.writecontnet.substring(0, 30)
                                     : "Loading"}
                                 </div>
-                                <p>
-                                  {post.blog_Description
-                                    ? post.blog_Description.substring(0, 100)
-                                    : "Loading"}
-                                </p>
-                                <br />
+                                {/* <br /> */}
                                 <div className="likeview d-flex gap-3">
                                   <p>{post.likes}Likes</p>
                                   <p>{post.views}Views</p>
@@ -400,7 +348,7 @@ const UserProfile = () => {
           {/* {userimg.followAc} */}
           {userimg?.followAc?.map((user, index) => (
             <div key={index} className="follow-card d-flex gap-2">
-              <Avatar label={user.substring(0,1)} className="mr-5" size="xlarge" />
+              <Avatar label={user.substring(0, 1)} className="mr-5" size="xlarge" />
               <p className="username">{user}...</p>
             </div>
           ))}

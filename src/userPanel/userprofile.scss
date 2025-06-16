@@ -1,5 +1,5 @@
 .usercontent {
-  padding-top: 50px;
+  padding-top: 120px;
   color: black;
   // background: linear-gradient(#00ff73, rgba(255, 255, 255, 0));
 
@@ -77,16 +77,28 @@
               a {
                 text-decoration: none;
                 color: black;
-                background-color: #fff3f3;
+                // background-color: #fff3f3;
                 // background-color: black;
                 padding: 10px;
+                margin: 0px;
                 img {
                   width: 280px;
                   height: 200px;
+                  margin: 0px;
+                }
+                .userdetailwithdata{
+                  margin: 0px;
+                  .likeview{
+                    margin: 0px;
+                    p{
+                      margin: 0px;
+                    }
+                  }
                 }
               }
               p {
                 font-size: 15px;
+                margin: 0px;
               }
             }
           }

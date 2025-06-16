@@ -60,62 +60,37 @@ const Header = () => {
               navigate("/");
             }}
           />
-          {/* <button
-            onClick={() => {
-              Cookies.remove("user");
-              navigate("/");
-            }}
-          >
-            Logout
-          </button> */}
         </Sidebar>
       </div>
       <div className="logo d-flex">
-        <img
-          className="ologo"
-          src={window.location.origin + "/codetech.svg"}
-          alt=""
-        />
+        <a href="/">
+          <img
+            className="ologo"
+            src={window.location.origin + "/codetech.svg"}
+            alt=""
+          /></a>
+
         <div className="login d-flex">
           <Chip
             label="Dasboard"
             icon={<FaceIcon />}
             className="text"
             component="a"
-            href="/user/:uid/myprofile"
+            href="/admin/:uid"
             variant="outlined"
             clickable
           />
-          {/* <Chip
-            icon={<FaceIcon />}
-            className="text"
-            label="With Icon"
-            href="/user/:uid/myprofile"
-            variant="outlined"
-          /> */}
-          {/* <Button className="text">
-            
-            <a className="texta" href="/user/:uid/myprofile">
-              My Profile
-            </a>
-          </Button> */}
           <Chip
             label="Menu"
             icon={<MenuIcon />}
             className="text"
             component="a"
-            // href="/user/:uid/myprofile"
             variant="outlined"
             clickable
             onClick={() => setVisible(true)}
           />
-          {/* <Button
-            className="pi pi-align-justify"
-            onClick={() => setVisible(true)}
-          /> */}
         </div>
       </div>
-      {/* <div className="line" /> */}
     </div>
   );
 };
