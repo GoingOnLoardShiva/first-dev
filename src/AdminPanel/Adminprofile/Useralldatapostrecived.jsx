@@ -255,6 +255,7 @@ const Useralldatapostrecived = () => {
                   </div>
                 </a>
                 <Dialog className="dilogbox" visible={visible} style={{ width: '100vw', margin: '0px', padding: "0px" }} onHide={() => { if (!visible) return; setVisible(false); }}>
+                  
                   <div className="posttoat d-flex gap-5" style={{ margin: '0px' }}>
                     <a
                       className="allaccespostuser"
@@ -298,17 +299,18 @@ const Useralldatapostrecived = () => {
                   <br />
                   <br />
                   <h5 className="h5tag" style={{ margin: "0px" }}>{usera.writecontnet?.substring(0, 40) || "Loading"}</h5>
-                  <div className="toptoolfe">
+                  <div className="toptoolfe" style={{ display: 'flex', gap: "10px"}}>
                     <motion.button
                       className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
                         }`}
                       whileTap={{ scale: 1.3 }}
                       whileHover={{ scale: 1.1 }}
                       onClick={() => handleLike(usera._id)}
-                      style={{ border: 'none', background: 'transparent', padding: '0px' }}
+                      style={{display: 'flex', border: 'none', background: 'transparent', padding: '0px' }}
                     >
                       <motion.span
                         className="heart"
+                        style={{ display: 'flex'}}
                         initial={{ scale: 0.8 }}
                         animate={
                           likedPosts.has(usera._id)
@@ -323,7 +325,7 @@ const Useralldatapostrecived = () => {
                       <p className="color-black" id="viewsa"><b>{usera.likes}</b></p>
                     </motion.button>
 
-                    <p className="pi" id="views">
+                    <p className="pi" id="views" style={{ display: 'flex'}}>
                       {defaultAvatara}
                       <p id="viewsb"><b>{usera.views}</b> </p>
                     </p>
