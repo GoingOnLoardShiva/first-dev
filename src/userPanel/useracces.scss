@@ -8,15 +8,20 @@
     // height: 100vh;
     background: #f0f0f0;
     text-align: center;
+    padding-top: 50px;
     .useraccesContent{
         
         .useraccesContent1{
             .useraccesContent2{
                 margin-top: 50px;
-                img{
-                    width: 80px;
-                    height: 80px;
-                    border-radius: 30px;
+                display: flex;
+                gap: 10px;
+                // margin: 0px;
+                .userdetaonacc{
+                    margin: 0px;
+                    p{
+                        margin: 0px;
+                    }
                 }
             }
         }
@@ -25,11 +30,11 @@
             background-color: white;
             border-radius: 20px;
             .useracdetailscontainer{
-                background-color: rgb(245, 239, 239);
+                // background-color: rgb(245, 239, 239);
                 border-radius: 30px;
                 padding-left: 10px ;
                 // padding-right: 10px ;
-                gap: 20px;
+                gap: 50px;
                 margin-top: 5px;
                 // background: linear-gradient(#00ff73, rgba(255, 255, 255, 0));
                 .alikcontentac{
@@ -37,7 +42,7 @@
                     text-decoration: none;
                     color: black;
                     img{
-                        width: 250px;
+                        max-width: auto;
                         height: 150px;
                         border-radius: 20px;
                     }

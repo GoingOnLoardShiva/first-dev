@@ -7,6 +7,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Skeleton } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import Avatar from "@mui/material/Avatar";
 import TimeAgo from "timeago-react";
 
 interface TabPanelProps {
@@ -108,6 +110,12 @@ const UserProfileAcces = () => {
       </div>
     ));
   };
+  const formatNumber = (num) => {
+    if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+    if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+    if (num >= 1e3) return (num / 1e3).toFixed(1) + 'K';
+    return num?.toString();
+  };
   const defaultAvatar =
     "https://img.freepik.com/premium-photo/png-cartoon-adult-white-background-photography_53876-905932.jpg?uid=R188847859&ga=GA1.1.1946957145.1736441514&semt=ais_hybrid&w=740";
 
@@ -119,8 +127,20 @@ const UserProfileAcces = () => {
         <div className="useraccesContent">
           <div className="useraccesContent1">
             <div className="useraccesContent2">
-              <img src={data.img || defaultAvatar} alt="" />
-              <p>{user_fName}</p>
+              {/* <img src={data.img} alt="" /> */}
+              <p> <Avatar
+                src={data.img}
+                sx={{ bgcolor: grey[500], width: 50, height: 50, alignItems: "center" }}
+              /></p>
+              <div className="userdetaonacc">
+                <p>{user_fName}</p>
+                <p>
+                  Followers{" "}
+                  {data && data.followAc && typeof data.followAc === "object"
+                    ? Object.keys(data.followAc).length
+                    : 0}
+                </p>
+              </div>
             </div>
             <div className="useraccesContent3">
               {/* <p>{data.email_id} H</p> */}
@@ -142,35 +162,27 @@ const UserProfileAcces = () => {
               <CustomTabPanel value={value} index={0}>
                 {userPosts.length > 0
                   ? userPosts.map((user) => (
-                      <div className="useracdetailscontainer" key={user._id}>
-                        <a className="alikcontentac">
-                          {/* <img src={user.blog_img} alt="Blog" /> */}
-                          {/* <div className="gapss"></div>
+                    <div className="useracdetailscontainer" key={user._id}>
+                      <a className="alikcontentac">
+                        <img src={user.image} alt="Blog" />
+                        {/* <div className="gapss"></div>
                            */}
-                          <br />
-                          {/* <br /> */}
-                          <h3>
-                            {user.blog_title?.substring(0, 20) || "Loading"}..
-                          </h3>
+                        <br />
+                        {/* <br /> */}
+                        <h3>
+                          {user.writecontnet?.substring(0, 20) || "Loading"}..
+                        </h3>
 
-                          <div className="toptoolfe d-flex">
-                            <b></b> <p>{user.likes} Like</p>
-                            <b></b>
-                            <p className="views pi pi-chart-bar " id="views">
-                              <b></b> {user.views} <b></b>
-                            </p>
-                            <a
-                              className="atagac"
-                              href={`/user/blogpage/${encodeURIComponent(
-                                user._id
-                              )}`}
-                            >
-                              Read now
-                            </a>
-                          </div>
-                        </a>
-                      </div>
-                    ))
+                        <div className="toptoolfe d-flex">
+                          <b></b> <p>{user.likes} Like</p>
+                          <b></b>
+                          <p className="views pi pi-chart-bar " id="views">
+                            <b></b> {user.views} <b></b>
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                  ))
                   : renderSkeleton()}
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
