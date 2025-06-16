@@ -22,7 +22,8 @@
         justify-content: space-between;
 
         .ologo {
-            width: 100px;
+            width: 75px;
+            margin-left: 150px;
         }
 
         .login {
@@ -42,8 +43,7 @@
 
         @media (max-width: 500px) {
             .ologo {
-                width: 100px;
-                height: 70px;
+                margin-left: 10px;
             }
         }
     }

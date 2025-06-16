@@ -66,7 +66,7 @@ const Header = () => {
         <a href="/">
           <img
             className="ologo"
-            src={window.location.origin + "/codetech.svg"}
+            src={window.location.origin + "/You.png"}
             alt=""
           /></a>
 

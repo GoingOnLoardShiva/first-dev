@@ -51,7 +51,7 @@ const Header = () => {
       </div>
       <div className="logo d-flex">
         <a href="/">
-          <img className="ologo" src="/codetech.svg" alt="" />
+          <img className="ologo" src={window.location.origin + "/You.png"} alt="" />
         </a>
         <div className="login d-flex">
           {userData ? (

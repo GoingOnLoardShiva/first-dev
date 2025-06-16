@@ -1,33 +1,46 @@
-.login-container{
+.login-container {
     align-content: center;
     text-align: center;
     padding-top: 100px;
     padding-bottom: 100px;
     border-width: 5px;
     border-color: #fff6f5;
-    background-color: rgb(0, 255, 55);
+    background: rgba(0, 0, 0, 0.151);
+    /* semi-transparent */
+    backdrop-filter: blur(10px);
+    /* blur background */
+    -webkit-backdrop-filter: blur(10px);
+    /* Safari support */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* subtle border */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     color: white;
     display: flex;
-    .logos{
+
+    .logos {
         // display: flex;
         margin-left: auto;
         margin-right: auto;
-        .ologo{
-            width: 300px;
-            height: 100px;
+
+        .ologo {
+            width: 80px;
+            // height: 100px;
             margin-left: auto;
             margin-right: auto;
         }
-        img{
+
+        img {
             width: 50px;
             height: 50px;
             mix-blend-mode: screen;
         }
-        h2{
+
+        h2 {
             margin-top: 5px;
         }
     }
-    .logincontent{
+
+    .logincontent {
         gap: 20px;
         display: grid;
         width: 360px;
@@ -37,44 +50,60 @@
         margin-right: auto;
         border-radius: 30px;
         padding: 20px;
-        background: linear-gradient(rgba(0, 184, 40, 0.63),rgb(0, 255, 55));
-        .extraauth{
+        background: rgba(0, 0, 0, 0.151);
+        /* semi-transparent */
+        backdrop-filter: blur(10px);
+        /* blur background */
+        -webkit-backdrop-filter: blur(10px);
+        /* Safari support */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        /* subtle border */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+        .extraauth {
             display: flex;
             gap: 100px;
             text-align: center;
             margin-left: auto;
             margin-right: auto;
             color: black;
-            .g{
+
+            .g {
                 // background: linear-gradient(150deg,#14281D,rgb(0, 255, 55));
                 text-align: center;
                 padding: 10px;
                 border-radius: 5px;
                 gap: 10px;
-                a{
+
+                a {
                     color: rgb(255, 255, 255);
                 }
             }
-            .f{
+
+            .f {
                 // background: linear-gradient(150deg,#14281D,rgb(0, 255, 55));
                 text-align: center;
-                border-color: #14281D;
+                // border-color: #14281D;
+                border: none;
                 padding: 10px;
                 border-radius: 5px;
-                a{
+
+                a {
                     color: rgb(255, 255, 255);
                 }
             }
         }
-        Button{
-            background: linear-gradient(150deg,#1bff82,rgb(0, 255, 55));
+
+        Button {
+            background: rgba(0, 0, 0, 0.151);
+            border: none;
         }
 
-        a{
+        a {
             text-decoration: none;
             color: white;
         }
-        
+
     }
 
 }

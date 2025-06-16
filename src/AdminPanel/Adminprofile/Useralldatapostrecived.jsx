@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./list.scss";
 import { Skeleton } from "@mui/material";
-import TimeAgo from "timeago-react";
+// import TimeAgo from "timeago-react";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 // import moment from "moment";
@@ -13,6 +13,8 @@ import Chip from "@mui/material/Chip";
 import { DateTime } from "luxon"; // Import Luxon
 import Stack from "@mui/material/Stack";
 import { Dialog } from "primereact/dialog";
+import TimeAgo from "timeago-react"
+// import Chip from "@mui/material/Chip";
 
 const Useralldatapostrecived = () => {
   const url = process.env.REACT_APP_HOST_URL;
@@ -29,6 +31,11 @@ const Useralldatapostrecived = () => {
     setPosition(position);
     setVisible(true);
   };
+  const formatDate = (date) => {
+    return moment(date).format("DD MMMM")
+  };
+  // const timeAgo = new TimeAgo('en-US')
+  // const timeAgo = moment("YYYY-MM-DD").fromNow();
 
 
   const defaultAvatar = (
@@ -194,14 +201,7 @@ const Useralldatapostrecived = () => {
                         </Avatar>
                         <p className="pi flex">
                           {usera.user_fName} <br />
-
-                          <TimeAgo>
-                            datetime={moment([usera.createdAt]).tz(
-                              "Asia/Kolkata"
-                            )}
-                          </TimeAgo>
-                          <p>{[usera.createdAt]}</p>
-                          {/* <p>{DateTime.fromISO(usera.createdAt)}</p> */}
+                          <p style={{ fontSize: "10px",marginLeft: "0px" }}>{formatDate (usera.createdAt)}</p>
                         </p>
                       </div>
                     </a>
@@ -220,10 +220,10 @@ const Useralldatapostrecived = () => {
                     </Chip>
                     <hr />
                   </div>
-                  <img src={usera.image} alt="Blog"  onClick={() => show('bottom')} />
+                  <img src={usera.image} alt="Blog" onClick={() => show('bottom')} />
                   <br />
                   <br />
-                  <h3  onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</h3>
+                  <h3 onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</h3>
                   <div className="toptoolfe">
                     <motion.button
                       className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
@@ -254,79 +254,80 @@ const Useralldatapostrecived = () => {
                     </p>
                   </div>
                 </a>
-                <Dialog  visible={visible} style={{ width: '30vw',margin: '0px' }} onHide={() => { if (!visible) return; setVisible(false); }}>
-                    <div className="usertickandname d-flex">
-                      <a
-                        className="allaccespostuser"
-                        href={`/user/userid/${encodeURIComponent(
-                          usera.user_fName
-                        )}`}
-                      >
-                        <div className="userfirstdetails">
-                          <Avatar sx={{ bgcolor: green[400] }}>
-                            {usera.user_fName?.substring(0, 1)}
-                          </Avatar>
-                          <p className="pi flex">
-                            {usera.user_fName} <br />
+                <Dialog className="dilogbox" visible={visible} style={{ width: '21vw', margin: '0px', padding: "0px" }} onHide={() => { if (!visible) return; setVisible(false); }}>
+                  <div className="posttoat d-flex gap-5" style={{ margin: '0px' }}>
+                    <a
+                      className="allaccespostuser"
+                      href={`/user/userid/${encodeURIComponent(
+                        usera.user_fName
+                      )}`}
+                    >
+                      <div className="userfirstdetails" style={{ display: 'flex', margin: '0px', gap: "10px" }}>
+                        <Avatar sx={{ bgcolor: green[400] }}>
+                          {usera.user_fName?.substring(0, 1)}
+                        </Avatar>
+                        <p className="pi flex">
+                          {usera.user_fName} <br />
 
-                            <TimeAgo>
-                              datetime={moment([usera.createdAt]).tz(
-                                "Asia/Kolkata"
-                              )}
-                            </TimeAgo>
-                            <p>{[usera.createdAt]}</p>
-                            {/* <p>{DateTime.fromISO(usera.createdAt)}</p> */}
-                          </p>
-                        </div>
-                      </a>
-                      <Chip
-                        className="folowbutton"
-                        color="primary"
-                        label={
-                          followingAuthors.includes(usera.user_fName)
-                            ? "Following"
-                            : "Follow"
+                          <TimeAgo>
+                            datetime={moment([usera.createdAt]).tz(
+                              "Asia/Kolkata"
+                            )}
+                          </TimeAgo>
+                          <p>{[usera.createdAt]}</p>
+                          {/* <p>{DateTime.fromISO(usera.createdAt)}</p> */}
+                        </p>
+                      </div>
+                    </a>
+                    <Chip
+                      className="folowbutton"
+                      color="primary"
+                      label={
+                        followingAuthors.includes(usera.user_fName)
+                          ? "Following"
+                          : "Follow"
+                      }
+                      variant="outlined"
+                      onClick={() => followbutton(usera.user_fName)}
+                      disabled={followingAuthors.includes(usera.user_fName)}
+                    >
+                    </Chip>
+                    <hr />
+                  </div>
+                  <img src={usera.image} style={{ width: '270px', margin: '0px', padding: "0px" }} alt="Blog" />
+                  <br />
+                  <br />
+                  <h5 className="h5tag" style={{ margin: "0px" }}>{usera.writecontnet?.substring(0, 40) || "Loading"}</h5>
+                  <div className="toptoolfe">
+                    <motion.button
+                      className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
+                        }`}
+                      whileTap={{ scale: 1.3 }}
+                      whileHover={{ scale: 1.1 }}
+                      onClick={() => handleLike(usera._id)}
+                      style={{ border: 'none', background: 'transparent', padding: '0px' }}
+                    >
+                      <motion.span
+                        className="heart"
+                        initial={{ scale: 0.8 }}
+                        animate={
+                          likedPosts.has(usera._id)
+                            ? { scale: [1, 1.4, 1] }
+                            : {}
                         }
-                        variant="outlined"
-                        onClick={() => followbutton(usera.user_fName)}
-                        disabled={followingAuthors.includes(usera.user_fName)}
                       >
-                      </Chip>
-                      <hr />
-                    </div>
-                    <img src={usera.image} alt="Blog" />
-                    <br />
-                    <br />
-                    <h3>{usera.writecontnet?.substring(0, 40) || "Loading"}</h3>
-                    <div className="toptoolfe">
-                      <motion.button
-                        className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
-                          }`}
-                        whileTap={{ scale: 1.3 }}
-                        whileHover={{ scale: 1.1 }}
-                        onClick={() => handleLike(usera._id)}
-                      >
-                        <motion.span
-                          className="heart"
-                          initial={{ scale: 0.8 }}
-                          animate={
-                            likedPosts.has(usera._id)
-                              ? { scale: [1, 1.4, 1] }
-                              : {}
-                          }
-                        >
-                          {likedPosts.has(usera._id)
-                            ? defaultAvatarl
-                            : defaultAvatar}
-                        </motion.span>
-                        <p className="color-black" id="viewsa"><b>{usera.likes}</b></p>
-                      </motion.button>
+                        {likedPosts.has(usera._id)
+                          ? defaultAvatarl
+                          : defaultAvatar}
+                      </motion.span>
+                      <p className="color-black" id="viewsa"><b>{usera.likes}</b></p>
+                    </motion.button>
 
-                      <p className="pi" id="views">
-                        {defaultAvatara}
-                        <p id="viewsb"><b>{usera.views}</b> </p>
-                      </p>
-                    </div>
+                    <p className="pi" id="views">
+                      {defaultAvatara}
+                      <p id="viewsb"><b>{usera.views}</b> </p>
+                    </p>
+                  </div>
                 </Dialog>
               </div>
             ))
@@ -337,9 +338,9 @@ const Useralldatapostrecived = () => {
       {/* Load More Button */}
       <div className="text-center mt-6">
         {hasMore ? (
-          <button onClick={() => fetchUserPosts(page)} disabled={loading}>
+          <Chip label="Load More" onClick={() => fetchUserPosts(page)} disabled={loading}>
             {loading ? "Loading..." : "Load More"}
-          </button>
+          </Chip>
         ) : (
           <p>No more posts to show.</p>
         )}

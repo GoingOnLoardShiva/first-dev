@@ -154,7 +154,7 @@ const UserPost = () => {
       <Tooltip target=".custom-upload-btn" content="Upload Post" position="bottom" />
       <Tooltip target=".custom-cancel-btn" content="Clear Image" position="bottom" />
 
-      <h3 className="mb-3">Create Post</h3>
+      {/* <h3 className="mb-3">Create Post</h3> */}
       <InputTextarea
         autoResize
         rows={4}

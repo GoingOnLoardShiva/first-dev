@@ -1,68 +1,85 @@
-.Foot{
+.Foot {
     justify-content: space-between;
     display: flex;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 80px;
     padding-right: 130px;
-    background-color: rgb(3, 71, 34);
+    background: rgba(0, 0, 0, 0.151);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     color: white;
-    .quicklink{
+
+    .quicklink {
         justify-content: space-between;
         gap: 100px;
     }
-    .subscrib{
+
+    .subscrib {
         gap: 10px;
-        input{
+
+        input {
             border-radius: 10px;
             width: 300px;
             border-color: transparent;
             outline-width: 0px;
-            background: rgb(3, 71, 34);
+            // background: rgb(3, 71, 34);
             color: white;
         }
-        .at{
+
+        .at {
             height: 50px;
             border-radius: 5px;
         }
-        button{
+
+        button {
             background: rgb(3, 71, 34);
             color: white;
             border-width: 0px;
         }
     }
 }
-.copy{
+
+.copy {
     display: flex;
     justify-content: space-between;
-    background: rgb(3, 71, 34);
+    // background: rgb(3, 71, 34);
     color: white;
     padding-left: 80px;
     padding-TOP: 10px;
     padding-right: 130px;
-    a{
+
+    a {
         text-decoration: none;
     }
-    p{
-        a{
+
+    p {
+        a {
             color: red;
         }
     }
 }
+
 @media (max-width: 575px) {
-    .Foot{
+    .Foot {
         display: grid;
         padding-left: 40px;
     }
-    .copy{
+
+    .copy {
         padding-left: 45px;
         display: flex;
         gap: 50px;
         padding-right: 50px;
-        p{
+
+        p {
             display: flex;
         }
-        .taa{
+
+        .taa {
             display: none;
         }
     }

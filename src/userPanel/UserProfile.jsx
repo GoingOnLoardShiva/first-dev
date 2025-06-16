@@ -218,10 +218,10 @@ const UserProfile = () => {
                 <Chip
                   label="Upload Picture" icon="pi pi-external-link" onClick={() => setVisiblea(true)}  // Trigger file upload dialog
                 />
-                <Dialog header="Header" visible={visiblea} style={{ width: '50vw' }} onHide={() => { if (!visiblea) return; setVisiblea(false); }}>
+                <Dialog header="Upload Picture" visible={visiblea} style={{ width: '100vw' }} onHide={() => { if (!visiblea) return; setVisiblea(false); }}>
                   <Useimgupload />
                 </Dialog>
-                <Dialog header="Header" visible={visibleb} style={{ width: '50vw' }} onHide={() => { if (!visibleb) return; setVisibleb(false); }}>
+                <Dialog header="Create Post" visible={visibleb} style={{ width: '100vw' }} onHide={() => { if (!visibleb) return; setVisibleb(false); }}>
                   <UserPost />
                 </Dialog>
               </div>

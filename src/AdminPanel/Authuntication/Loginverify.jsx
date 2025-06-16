@@ -72,7 +72,7 @@ const Login = () => {
         <div className="logos">
           <img
             className="ologo"
-            src={window.location.origin + "/codetech.svg"}
+            src={window.location.origin + "/You.png"}
             alt=""
           />
           <h2> Login</h2>

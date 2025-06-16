@@ -1,6 +1,6 @@
-.headera{
- justify-content: space-between;
-    background-color: rgb(0, 255, 55);
+.headera {
+    justify-content: space-between;
+    // background-color: rgb(0, 255, 55);
     position: fixed;
     background: rgba(0, 0, 0, 0.151);
     /* semi-transparent */
@@ -17,22 +17,34 @@
     height: 50px;
     padding-right: 10px;
     padding-left: 10px;
-    .logo{
+
+    .logo {
         justify-content: space-between;
-        a{
-            width: 100px;
-            img{
-                width: 100px;
+
+        a {
+            img {
+                width: 75px;
                 // margin-left: 50px;
-                
+                // padding-left: 100px;
+                margin-left: 150px;
+                // margin: 0px;
+                // align-items: center;
+
+            }
+
+            @media (max-width: 500px) {
+                img {
+                    margin-left: 10px;
+                }
             }
         }
-        
-        .login{
+
+        .login {
             align-items: center;
             gap: 50px;
-            .textab{
-                background: linear-gradient(150deg,#14281D,#000000);
+
+            .textab {
+                background: linear-gradient(150deg, #14281D, #000000);
                 text-align: center;
                 height: fit-content;
                 width: fit-content;
@@ -41,27 +53,31 @@
                 padding-top: 5px;
                 padding-bottom: 5px;
                 border-radius: 5px;
-                .texta{
+
+                .texta {
                     // background-color: black;
                     color: rgb(0, 0, 0);
                     text-decoration: none;
                 }
             }
-            .textab:hover{
+
+            .textab:hover {
                 background-color: rgb(0, 0, 0);
                 color: black;
                 transform: 2;
                 scale: 1.1;
-                .texta{
+
+                .texta {
                     // background-color: black;
                     color: black;
                     text-decoration: none;
                 }
             }
-            .pi{
+
+            .pi {
                 border-radius: 10px;
             }
- 
+
         }
     }
 }
