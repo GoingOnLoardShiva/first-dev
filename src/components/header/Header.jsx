@@ -11,19 +11,25 @@ import MenuIcon from '@mui/icons-material/Menu';
 const Header = () => {
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
-  // Get user from localStorage
+
+  // ✅ Get user data from localStorage
   const userData = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
   const customHeader = (
     <div className="d-flex align-items-center gap-2">
       {userData && (
         <>
-          <Avatar image={userData.img} shape="circle" />
-          <span className="font-bold">{userData.useName}</span>
+          <Avatar image={userData.user?.[0]?.img || ""} shape="circle" />
         </>
       )}
     </div>
   );
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("loggedIn");
+    navigate("/");
+  };
 
   return (
     <div className="headera">
@@ -36,43 +42,44 @@ const Header = () => {
           {userData && (
             <>
               <p>
-                <strong>Email:</strong> {userData.useName}
+                <strong>Email:</strong> {userData.user?.[0]?.email_id || "N/A"}
               </p>
-              <button
-                onClick={() => {
-                  localStorage.removeItem("user"); // Remove from localStorage
-                  navigate("/");
-                }}
-              >
-                Logout
-              </button>
+              <p>
+                <strong>Name:</strong> {userData.user?.[0]?.user_fName || "User"}
+              </p>
+              <button onClick={handleLogout}>Logout</button>
             </>
           )}
         </Sidebar>
       </div>
+
       <div className="logo d-flex">
         <a href="/">
-          <img className="ologo" src={window.location.origin + "/You.png"} alt="" />
+          <img className="ologo" src={window.location.origin + "/You.png"} alt="logo" />
         </a>
+
         <div className="login d-flex">
           {userData ? (
-            // Show Dashboard button if user cookie exists
-            <Chip
-              label="Dashboard"
-              color="primary"
-              className="texta"
-              component="a"
-              href={
-                userData.role === "admin"
-                  ? `/admin/${userData.secureUID}`
-                  : `/user/${userData.secureUID}`
-              }
-              variant="outlined"
-              clickable
-            />
-
+            <>
+              <Chip
+                label="Dashboard"
+                color="primary"
+                className="texta"
+                component="a"
+                href={`/user/${userData.secureUID}`}
+                variant="outlined"
+                clickable
+              />
+              <Chip
+                label="Menu"
+                icon={<MenuIcon />}
+                className="texta"
+                variant="outlined"
+                clickable
+                onClick={() => setVisible(true)}
+              />
+            </>
           ) : (
-            // Show Login and Sign In buttons if user cookie does not exist
             <>
               <Chip
                 label="Login"

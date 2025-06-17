@@ -13,9 +13,11 @@ const Login = () => {
   const toast = useRef(null);
   const navigate = useNavigate();
   const [otpSent, setOtpSent] = useState(false);
+  const [login, setLogin] = useState(false);
+  const [sendotp, setsendotp] = useState(true);
   const url = process.env.REACT_APP_HOST_URL;
   const [otp, setOtp] = useState("");
-  const verifyotp = async () =>{
+  const verifyotp = async () => {
     try {
       const res = await axios.post(url + "/loginsendotp", {
         email_id,
@@ -29,6 +31,9 @@ const Login = () => {
           life: 3000,
         });
         setOtpSent(true);
+        setLogin(true);
+        setsendotp(false);
+        
       }
     } catch (error) {
       toast.current.show({
@@ -54,7 +59,7 @@ const Login = () => {
     try {
       const res = await axios.post(
         url + "/LoginData",
-        { email_id, pass_word,otp },
+        { email_id, pass_word, otp },
         { headers: { "skip-auth": "true" } }
         // { withCredentials: true }
       );
@@ -132,8 +137,14 @@ const Login = () => {
             <a href="/"> Facbook</a>
           </div>
         </div>
-        <Button label="Login" severity="success" onClick={handleLogin} />
-        <Button label="Send Otp" severity="success" onClick={verifyotp} />
+        {login && (
+           <Button label="Login" severity="success" onClick={handleLogin} />
+        )}
+        {sendotp && (
+           <Button label="Send Otp" severity="success" onClick={verifyotp} />
+        )}
+       
+        
         <button>
           <a href="/">Back</a>
         </button>

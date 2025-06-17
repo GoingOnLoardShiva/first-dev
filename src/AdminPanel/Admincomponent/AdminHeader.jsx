@@ -17,8 +17,8 @@ import FaceIcon from "@mui/icons-material/Face";
 import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = () => {
-  const userData = localStorage.getItem("user"); // Get user data from cookies
-  const user = userData ? JSON.parse(userData) : null; // Parse if exists
+  // ✅ Get user data from localStorage
+  const userData = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
   // const avatar = user?.img || null; // Get avatar image
   const firstLetter = user?.name?.charAt(0).toUpperCase() || "?";
@@ -33,7 +33,7 @@ const Header = () => {
 
   const customHeader = (
     <div>
-      <Avatar sx={{ bgcolor: green[400] }}>{user.useName?.substring(0, 1)}</Avatar>
+      <Avatar image={userData.user?.[0]?.img || ""} shape="circle" />
     </div>
   );
   return (
@@ -46,13 +46,12 @@ const Header = () => {
           icons={customIcons}
         >
           <p>
-            <strong>Email:</strong> {user.email}
-            {/* <strong>role:</strong> {user.role} */}
+            <strong>Email:</strong> {userData.user?.[0]?.email_id || "N/A"}
           </p>
           <p>
-            {/* <strong>Email:</strong> {user.email} */}
-            <strong>role:</strong> {user.role}
+            <strong>Name:</strong> {userData.user?.[0]?.user_fName || "User"}
           </p>
+
           <Chip
             label="Logout"
             onClick={() => {

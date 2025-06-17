@@ -18,6 +18,8 @@ const Sigin = () => {
   const [user_dob, setDob] = useState("");
   const [role, setRole] = useState("user");
   const [otpSent, setOtpSent] = useState(false);
+  const [regOtp, setRejotp] = useState(false);
+  const [sendOtp, setSendotp] = useState(true);
   const [otp, setOtp] = useState("");
 
   const toast = useRef(null);
@@ -43,6 +45,8 @@ const Sigin = () => {
           life: 3000,
         });
         setOtpSent(true);
+        setRejotp(true)
+        setSendotp(false)
       }
     } catch (error) {
       toast.current.show({
@@ -68,7 +72,6 @@ const Sigin = () => {
 
       if (res.status === 200) {
         localStorage.setItem("user", JSON.stringify(res.data), { expires: 7 });
-        localStorage.setItem("role", res.data.role, { expires: 7 });
 
         toast.current.show({
           severity: "success",
@@ -111,10 +114,15 @@ const Sigin = () => {
         {otpSent && (
           <InputText type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} />
         )}
+        {regOtp && (
+            <Button label="Register" severity="success" onClick={handleLogin} />
+        )}
+        {sendOtp && (
+             <Button label="Send OTP" severity="info" onClick={handleSendOtp} />
+        )}
 
-        <Button label="Send OTP" severity="info" onClick={handleSendOtp} />
-                  <Button label="Register" severity="success" onClick={handleLogin} />
-        
+       
+                
         <button><a href="/">Back</a></button>
       </div>
     </div>
