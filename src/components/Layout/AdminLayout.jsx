@@ -1,7 +1,6 @@
 import React from "react";
-import UserHeader from "../../AdminPanel/usercomponet/UserHeader";
-import UserFooter from "../../AdminPanel/usercomponet/UserFooter";
-
+import AdminFooter from "../../AdminPanel/Admincomponent/AdminFooter";
+import AdminHeader from "../../AdminPanel/Admincomponent/AdminHeader"
 import { Outlet } from "react-router";
 
 
@@ -10,13 +9,13 @@ const userlayoutfile = () => {
   return (
     <div>
       <header>
-        <UserHeader/>
+        <AdminHeader/>
       </header>
       <main>
         <Outlet />
       </main>
       <footer>
-        <UserFooter/>
+        <AdminFooter />
       </footer>
     </div>
   );

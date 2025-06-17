@@ -1,5 +1,6 @@
 import "./App.css";
 import Layout from "./components/Layout/Layout";
+import AdminLayout from "./components/Layout/AdminLayout";
 import ULayout from "./components/Layout/userlayoutfile";
 import Hero from "./components/Front-end/Hero";
 import Li from "./components/Front-end/List";
@@ -18,6 +19,7 @@ import Userimgup from "./userPanel/usercomponents/Useimgupload"
 
 function App() {
   const HomeLayout = () => <Layout />;
+  const AdminLayout = () => <AdminLayout />;
   const UserLayout = () => <ULayout />;
 
   const router = createBrowserRouter([
@@ -38,7 +40,7 @@ function App() {
       path: "/admin",
       element: (
         <ProtectedRoute role="admin">
-          <UserLayout />
+          <AdminLayout />
         </ProtectedRoute>
       ),
       children: [
@@ -55,8 +57,7 @@ function App() {
         </ProtectedRoute>
       ),
       children: [
-        { path: "/user/:uid", element: <Userhome /> },
-        { path: "/user/:uid/myprofile", element: <UserProfile /> },
+        { path: "/user/:uid", element: <UserProfile /> },
         { path: "/user/userid/:user_fName", element: <UserProfileAcces /> },
       ],
     },

@@ -77,7 +77,7 @@ const Header = () => {
             icon={<FaceIcon />}
             className="text"
             component="a"
-            href="/admin/:uid"
+            href="/User/:uid/myprofile"
             variant="outlined"
             clickable
           />

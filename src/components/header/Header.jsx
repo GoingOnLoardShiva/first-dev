@@ -4,21 +4,21 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "./Head.scss";
 import { Sidebar } from "primereact/sidebar";
 import { Avatar } from "primereact/avatar";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 
 const Header = () => {
-  const userData = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null; // Set to null if cookie doesn't exist
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
+  // Get user from localStorage
+  const userData = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
   const customHeader = (
     <div className="d-flex align-items-center gap-2">
       {userData && (
         <>
           <Avatar image={userData.img} shape="circle" />
-          <span className="font-bold">{userData.name}</span>
+          <span className="font-bold">{userData.useName}</span>
         </>
       )}
     </div>
@@ -35,11 +35,11 @@ const Header = () => {
           {userData && (
             <>
               <p>
-                <strong>Email:</strong> {userData.email}
+                <strong>Email:</strong> {userData.useName}
               </p>
               <button
                 onClick={() => {
-                  Cookies.remove("user");
+                  localStorage.removeItem("user"); // Remove from localStorage
                   navigate("/");
                 }}
               >
@@ -61,7 +61,11 @@ const Header = () => {
               color="primary"
               className="texta"
               component="a"
-              href="/user/:uid/myprofile"
+              href={
+                userData.role === "admin"
+                  ? `/admin/${userData.secureUID}`
+                  : `/user/${userData.secureUID}`
+              }
               variant="outlined"
               clickable
             />

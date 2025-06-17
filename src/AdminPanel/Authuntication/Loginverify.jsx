@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
@@ -8,14 +7,14 @@ import { v4 as uuidv4 } from "uuid";
 import "./Loginv.scss";
 
 const Login = () => {
-  const [email_id, setEmail] = useState("");
-  const [pass_word, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const toast = useRef(null);
   const navigate = useNavigate();
   const url = process.env.REACT_APP_HOST_URL;
 
   const handleLogin = async () => {
-    if (!email_id || !pass_word) {
+    if (!email || !password) {
       toast.current.show({
         severity: "warn",
         summary: "Validation Error",
@@ -26,32 +25,29 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post(
+      const response = await axios.post(
         url + "/LoginData",
-        { email_id, pass_word },
+        { email_id: email, pass_word: password },
         { headers: { "skip-auth": "true" } }
-        // { withCredentials: true }
       );
 
-      if (res.status === 200) {
+      if (response.status === 200) {
         const secureUID = uuidv4();
-        Cookies.set("user", JSON.stringify(res.data, secureUID), {
-          expires: 7,
-        });
-        Cookies.set("role", res.data.role, { expires: 7 });
 
-        toast.current.show({
-          severity: "success",
-          summary: "Login Successful",
-          detail: "Redirecting...",
-          life: 2000,
-        });
+        // Combine response data with secureUID
+        const userData = {
+          ...response.data,
+          secureUID: secureUID,
+        };
+
+        // Save user data to localStorage
+        localStorage.setItem("user", JSON.stringify(userData));
 
         setTimeout(() => {
           navigate(
-            res.data.role === "admin"
-              ? `/admin/${secureUID}`
-              : `/User/${secureUID}`
+            response.data.role === "admin"
+              ? "/admin/" + secureUID
+              : "/User/" + secureUID
           );
         }, 2000);
       }
@@ -73,32 +69,36 @@ const Login = () => {
           <img
             className="ologo"
             src={window.location.origin + "/You.png"}
-            alt=""
+            alt="Logo"
           />
-          <h2> Login</h2>
+          <h2>Login</h2>
         </div>
+
         <input
           type="email"
           placeholder="Email"
-          value={email_id}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
           type="password"
           placeholder="Password"
-          value={pass_word}
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
         <div className="extraauth">
           <div className="g pi pi-google">
-            <a href="/"> Google</a>
+            <a href="/">Google</a>
           </div>
           <div className="f pi pi-facebook">
-            <a href="/"> Facbook</a>
+            <a href="/">Facebook</a>
           </div>
         </div>
+
         <Button label="Login" severity="success" onClick={handleLogin} />
+
         <button>
           <a href="/">Back</a>
         </button>
@@ -108,3 +108,10 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
+
+
+
+

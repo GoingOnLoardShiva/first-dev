@@ -26,7 +26,7 @@ const UserProfile = () => {
   const [userPosts, setUserPosts] = useState([]); // Initialize as an empty array
   const [data, setudata] = useState({}); // Initialize as an empty array
   const [thisemail, setUserEmail] = useState(""); // Track email state
-  const userData = Cookies.get("user");
+  const userData = localStorage.getItem("user");
   const user = userData ? JSON.parse(userData) : null;
   const avatar = user?.img || null; // Get avatar image
   const firstLetter = user?.name?.charAt(0).toUpperCase() || "?";

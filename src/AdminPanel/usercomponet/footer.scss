@@ -1,0 +1,85 @@
+.Foot {
+    justify-content: space-between;
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 80px;
+    padding-right: 130px;
+    background: rgba(0, 0, 0, 0.151);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: black;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+    .quicklink {
+        justify-content: space-between;
+        gap: 100px;
+    }
+
+    .subscrib {
+        gap: 10px;
+
+        input {
+            border-radius: 10px;
+            width: 300px;
+            border-color: transparent;
+            outline-width: 0px;
+            background: rgba(255, 255, 255, 0.459);
+            color: white;
+        }
+
+        .at {
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.459);
+            color: rgb(0, 0, 0);
+            border-width: 0px;
+        }
+    }
+}
+
+.copy {
+    display: flex;
+    justify-content: space-between;
+    // background: rgb(15, 51, 31);
+    color: rgb(0, 0, 0);
+    padding-left: 80px;
+    padding-TOP: 10px;
+    padding-right: 130px;
+
+    a {
+        text-decoration: none;
+    }
+
+    p {
+        a {
+            color: red;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .Foot {
+        display: grid;
+        padding-left: 40px;
+    }
+
+    .copy {
+        padding-left: 45px;
+        display: flex;
+        gap: 50px;
+        padding-right: 50px;
+
+        p {
+            display: flex;
+        }
+
+        .taa {
+            display: none;
+        }
+    }
+}
