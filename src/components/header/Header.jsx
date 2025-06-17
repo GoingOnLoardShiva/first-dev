@@ -6,6 +6,7 @@ import { Sidebar } from "primereact/sidebar";
 import { Avatar } from "primereact/avatar";
 import { useNavigate } from "react-router-dom";
 import Chip from "@mui/material/Chip";
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
@@ -69,6 +70,7 @@ const Header = () => {
               variant="outlined"
               clickable
             />
+
           ) : (
             // Show Login and Sign In buttons if user cookie does not exist
             <>

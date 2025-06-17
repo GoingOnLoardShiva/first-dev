@@ -27,10 +27,13 @@ const UserProfile = () => {
   const [data, setudata] = useState({}); // Initialize as an empty array
   const [thisemail, setUserEmail] = useState(""); // Track email state
   const userData = localStorage.getItem("user");
-  const user = userData ? JSON.parse(userData) : null;
+  const parsed = userData ? JSON.parse(userData) : null;
+  const user = parsed?.user?.[0] || null;
+  const userEmail = user?.email_id || null;
+  const userRole = parsed?.role || "";
+  const secureUID = parsed?.secureUID || "";
   const avatar = user?.img || null; // Get avatar image
   const firstLetter = user?.name?.charAt(0).toUpperCase() || "?";
-  const userEmail = user ? user.email : null; // User email from cookies
   const url = process.env.REACT_APP_HOST_URL;
   const key = process.env.REACT_APP_APIKEY;
   const [userimg, setUserimg] = useState({});
@@ -83,82 +86,66 @@ const UserProfile = () => {
 
 
   useEffect(() => {
+    const userData = localStorage.getItem("user");
+    const parsed = userData ? JSON.parse(userData) : null;
+    const user = parsed?.user?.[0] || null;
+    const userEmail = user?.email_id;
+
+    if (!userEmail) {
+      console.error("No email found for user.");
+      return;
+    }
+
     const fetchUserPosts = async () => {
-      const email = userEmail;
-
-      if (!email) {
-        console.error("No email found for user.");
-        return;
-      }
-
       try {
-        const response = await axios.get(
-          url + /getUserpost/,
-          {
-            params: { email },
-          },
-          { headers: { "access-key": key } }
-        );
-
+        const response = await axios.get(`${url}/getUserpost/`, {
+          params: { email: userEmail },
+          headers: { "access-key": key },
+        });
         if (response.status === 200) {
           setUserPosts(response.data.posts);
-        } else {
-          console.error("Failed to fetch posts");
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
-      // const responsea = await axios.get(
-      //   `${url}/getUserpost`,
-      //   {
-      //     params: { email }, // Send the email to the backend to fetch posts
-      //   },
-      //   { headers: { "access-key": key } }
-      // );
-
-      // if (responsea.status === 200) {
-      //   setudata(responsea.data.posts); // Set the posts to the state
-      // } else {
-      //   console.error("Failed to fetch posts");
-      // }
     };
-
-    if (userEmail) {
-      fetchUserPosts();
-    }
 
     const fetchUserImage = async () => {
       try {
-        const response = await axios.get(url + /userimagerc/ + userEmail, {
+        const response = await axios.get(`${url}/userimagerc/${userEmail}`, {
           headers: { "access-key": key },
         });
-        if (response.code === 200) {
+        if (response.status === 200) {
           setUserimage(response.data.user);
-          Cookies.set(
-            "userimg",
-            JSON.stringify({ ...user, img: response.data.user })
-          );
+          setUserimg(response.data.user);
+          setUserac(response.data.followCount || 0);
+          Cookies.set("userimg", JSON.stringify({ ...user, img: response.data.user?.img || "" }));
         }
-        setUserimg(response.data.user);
-        setUserac(response.data.followCount);
-        console.log(userac);
       } catch (error) {
         console.error("Error fetching user image:", error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
+
     const fetchUserViews = async () => {
-      const response = await axios.get(url + /userviews/ + userEmail, {
-        headers: { "access-key": key },
-      });
-      if (response.status === 200) {
-        setUserv(response.data.user);
-        console.log(response.data.user);
+      try {
+        const response = await axios.get(`${url}/userviews/${userEmail}`, {
+          headers: { "access-key": key },
+        });
+        if (response.status === 200) {
+          setUserv(response.data.user);
+        }
+      } catch (error) {
+        console.error("Error fetching views:", error);
       }
     };
-    fetchUserViews();
+
+    fetchUserPosts();
     fetchUserImage();
-  }, [userEmail]);
+    fetchUserViews();
+  }, []);
+
 
   return (
     <div>
@@ -181,10 +168,11 @@ const UserProfile = () => {
                   alt="Profile"
                   sx={{ width: 64, height: 64, bgcolor: green[400] }}
                 >
-                  {user.email?.substring(0, 1)}
+                  {user?.email_id?.substring(0, 1).toUpperCase() || "?"}
                 </Avatar>
+
                 <p className="useremailp">
-                  {user ? `${user.email.substring(0, 5)}....` : ""}{" "}
+                  {user?.email_id ? `${user.email_id.substring(0, 5)}....` : ""}
                   <p>{user?.role}</p>
                 </p>
                 <p className="line"></p>
@@ -241,15 +229,6 @@ const UserProfile = () => {
                           <li className="flex" key={index._id}>
                             <a
                               className="atag"
-                              href={`/user/blogpage/${index?._id
-                                ? encodeURIComponent(
-                                  index._id.toString().trim()
-                                )
-                                : ""
-                                }`}
-                              onClick={() =>
-                                console.log("Navigating to:", index?._id)
-                              }
                             >
                               <img src={post.image} alt="" />
                               <div className="userdetailwithdata ">

@@ -58,7 +58,7 @@ function App() {
       ),
       children: [
         { path: "/user/:uid", element: <UserProfile /> },
-        { path: "/user/userid/:user_fName", element: <UserProfileAcces /> },
+        { path: "/user/:uid/:user_fName", element: <UserProfileAcces /> },
       ],
     },
   ]);

@@ -31,7 +31,7 @@ const Sigin = () => {
 
   const handleSendOtp = async () => {
     try {
-      const res = await axios.post( url + "/send-otp", {
+      const res = await axios.post( url + "/sendotp", {
         useremail_id,
       });
 
@@ -56,7 +56,7 @@ const Sigin = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post(url + "/verify-otp", {
+      const res = await axios.post(url + "/verifyotp", {
         useremail_id,
         otp,
         user_password,
@@ -67,8 +67,8 @@ const Sigin = () => {
       });
 
       if (res.status === 200) {
-        Cookies.set("user", JSON.stringify(res.data), { expires: 7 });
-        Cookies.set("role", res.data.role, { expires: 7 });
+        localStorage.setItem("user", JSON.stringify(res.data), { expires: 7 });
+        localStorage.setItem("role", res.data.role, { expires: 7 });
 
         toast.current.show({
           severity: "success",
@@ -113,7 +113,8 @@ const Sigin = () => {
         )}
 
         <Button label="Send OTP" severity="info" onClick={handleSendOtp} />
-        <Button label="Register" severity="success" onClick={handleLogin} />
+                  <Button label="Register" severity="success" onClick={handleLogin} />
+        
         <button><a href="/">Back</a></button>
       </div>
     </div>

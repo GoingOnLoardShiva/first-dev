@@ -9,7 +9,7 @@ import { Tag } from 'primereact/tag';
 import { InputTextarea } from 'primereact/inputtextarea';
 
 const UserPost = () => {
-  const userData = Cookies.get("user");
+  const userData = localStorage.getItem("user");
   const user = userData ? JSON.parse(userData) : null;
   const toast = useRef(null);
   const fileUploadRef = useRef(null);
@@ -20,8 +20,8 @@ const UserPost = () => {
 
   const uploadHandler = async ({ files }) => {
     const formData = new FormData();
-    const userEmail = user?.email;
-    const useName = user?.useName;
+    const userEmail = user?.email_id;
+    const useName = user?.user_fName;
 
     if (!userEmail) {
       toast.current.show({ severity: 'error', summary: 'Error', detail: 'User email not found' });
