@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
@@ -9,8 +9,9 @@ import { Tag } from 'primereact/tag';
 import { InputTextarea } from 'primereact/inputtextarea';
 
 const UserPost = () => {
-  const userData = localStorage.getItem("user");
-  const user = userData ? JSON.parse(userData) : null;
+  const [userEmail, setUserEmail] = useState(null);
+  const [useName, setUseName] = useState('');
+
   const toast = useRef(null);
   const fileUploadRef = useRef(null);
   const [totalSize, setTotalSize] = useState(0);
@@ -18,10 +19,34 @@ const UserPost = () => {
   const key = process.env.REACT_APP_APIKEY;
   const [writecontnet, setWritecontnet] = useState('');
 
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      try {
+        const parsed = JSON.parse(userData);
+        const email = parsed?.user?.[0]?.email_id;
+        const name = parsed?.user?.[0]?.user_fName;
+
+        if (email) {
+          setUserEmail(email);
+          setUseName(name); // <-- set this in state
+        } else {
+          console.warn("Email not found in user object:", parsed);
+          toast.current.show({ severity: 'error', summary: 'Error', detail: 'Email field missing in user data' });
+        }
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Invalid user data format' });
+      }
+    } else {
+      toast.current.show({ severity: 'warn', summary: 'Not logged in', detail: 'Please log in to upload your image.' });
+    }
+  }, []);
+
+
   const uploadHandler = async ({ files }) => {
     const formData = new FormData();
-    const userEmail = user?.email_id;
-    const useName = user?.user_fName;
+
 
     if (!userEmail) {
       toast.current.show({ severity: 'error', summary: 'Error', detail: 'User email not found' });

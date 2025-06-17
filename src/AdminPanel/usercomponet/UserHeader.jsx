@@ -46,7 +46,7 @@ const Header = () => {
           icons={customIcons}
         >
           <p>
-            <strong>Email:</strong> {user.email}
+            <strong>Email:</strong> {user.email_id}
             {/* <strong>role:</strong> {user.role} */}
           </p>
           <p>
