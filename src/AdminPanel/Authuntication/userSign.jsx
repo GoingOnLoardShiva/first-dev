@@ -28,7 +28,6 @@ const Sigin = () => {
 
   const roles = [
     { label: "User", value: "user" },
-    { label: "Editor", value: "editor" },
   ];
 
   const handleSendOtp = async () => {

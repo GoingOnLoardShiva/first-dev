@@ -1,94 +1,115 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "./header.scss";
 import { Sidebar } from "primereact/sidebar";
-import { Button } from "primereact/button";
-// import { Avatar } from "primereact/avatar";
-import { Outlet, Link } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Avatar } from "primereact/avatar";
 import { useNavigate } from "react-router-dom";
-import SecureLink from "../Authuntication/SecuireLink";
-import { green } from "@mui/material/colors";
-import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
-import FaceIcon from "@mui/icons-material/Face";
 import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = () => {
+  const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
+
   // ✅ Get user data from localStorage
   const userData = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
-  // const avatar = user?.img || null; // Get avatar image
-  const firstLetter = user?.name?.charAt(0).toUpperCase() || "?";
-  const [visible, setVisible] = useState(false);
-  const [visiblea, setVisiblea] = useState(false);
-  const navigate = useNavigate();
-  const customIcons = (
-    <React.Fragment>
-      <button className="p-sidebar-icon p-link mr-2"></button>
-    </React.Fragment>
-  );
-
   const customHeader = (
-    <div>
-      <Avatar image={userData.user?.[0]?.img || ""} shape="circle" />
+    <div className="d-flex align-items-center gap-2">
+      {userData && (
+        <>
+          <Avatar image={userData.user?.[0]?.img || ""} shape="circle" />
+        </>
+      )}
     </div>
   );
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("loggedIn");
+    navigate("/");
+  };
+
   return (
-    <div className="header">
+    <div className="headera">
       <div className="headercontentnt">
         <Sidebar
           header={customHeader}
           visible={visible}
           onHide={() => setVisible(false)}
-          icons={customIcons}
         >
-          <p>
-            <strong>Email:</strong> {userData.user?.[0]?.email_id || "N/A"}
-          </p>
-          <p>
-            <strong>Name:</strong> {userData.user?.[0]?.user_fName || "User"}
-          </p>
-
-          <Chip
-            label="Logout"
-            onClick={() => {
-              Cookies.remove("user");
-              localStorage.removeItem("user");
-              navigate("/");
-            }}
-          />
+          {userData && (
+            <>
+              <p>
+                <strong>Email:</strong> {userData.user?.[0]?.email_id || "N/A"}
+              </p>
+              <p>
+                <strong>Name:</strong> {userData.user?.[0]?.user_fName || "User"}
+              </p>
+              <Chip
+                label="Logout"
+                color="primary"
+                className="texta"
+                component="a"
+                onClick={handleLogout}
+                variant="outlined"
+                clickable
+              />
+              {/* <button >Logout</button> */}
+            </>
+          )}
         </Sidebar>
       </div>
+
       <div className="logo d-flex">
         <a href="/">
-          <img
-            className="ologo"
-            src={window.location.origin + "/You.png"}
-            alt=""
-          /></a>
+          <img className="ologo" src={window.location.origin + "/You.png"} alt="logo" />
+        </a>
 
         <div className="login d-flex">
-          <Chip
-            label="Dasboard"
-            icon={<FaceIcon />}
-            className="text"
-            component="a"
-            href="/admin/:uid"
-            variant="outlined"
-            clickable
-          />
-          <Chip
-            label="Menu"
-            icon={<MenuIcon />}
-            className="text"
-            component="a"
-            variant="outlined"
-            clickable
-            onClick={() => setVisible(true)}
-          />
+          {userData ? (
+            <>
+              <Chip
+                label="Dashboard"
+                color="primary"
+                className="texta"
+                component="a"
+                href={`/user/${userData.secureUID}`}
+                variant="outlined"
+                clickable
+              />
+              <Chip
+                label="Menu"
+                icon={<MenuIcon />}
+                className="texta"
+                variant="outlined"
+                clickable
+                onClick={() => setVisible(true)}
+              />
+            </>
+          ) : (
+            <>
+              <Chip
+                label="Login"
+                color="primary"
+                className="texta"
+                component="a"
+                href="/login"
+                variant="outlined"
+                clickable
+              />
+              <Chip
+                label="Sign In"
+                className="texta"
+                component="a"
+                href="/sign"
+                variant="outlined"
+                color="success"
+                clickable
+              />
+            </>
+          )}
         </div>
       </div>
     </div>
