@@ -14,9 +14,75 @@ import { DateTime } from "luxon"; // Import Luxon
 import Stack from "@mui/material/Stack";
 import { Dialog } from "primereact/dialog";
 import TimeAgo from "timeago-react"
+import { Global } from '@emotion/react';
+import { styled } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Chip from "@mui/material/Chip";
 
-const Useralldatapostrecived = () => {
+
+
+
+
+
+
+
+
+
+
+const drawerBleeding = 56;
+
+interface Props {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window?: () => Window;
+}
+
+const Root = styled('div')(({ theme }) => ({
+  height: '100%',
+  backgroundColor: grey[100],
+  ...theme.applyStyles('dark', {
+    backgroundColor: (theme.vars || theme).palette.background.default,
+  }),
+}));
+
+const StyledBox = styled('div')(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.applyStyles('dark', {
+    backgroundColor: grey[800],
+  }),
+}));
+
+const Puller = styled('div')(({ theme }) => ({
+  width: 30,
+  height: 6,
+  backgroundColor: grey[300],
+  borderRadius: 3,
+  position: 'absolute',
+  top: 8,
+  left: 'calc(50% - 15px)',
+  ...theme.applyStyles('dark', {
+    backgroundColor: grey[900],
+  }),
+}));
+
+const Useralldatapostrecived = (props: Props) => {
+
+  const { window } = props;
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
+  // This is used only for the example
+  const container = window !== undefined ? () => window().document.body : undefined;
+
   const url = process.env.REACT_APP_HOST_URL;
   const key = process.env.REACT_APP_APIKEY;
   const [data, setUserdata] = useState([]); // Store posts
@@ -77,7 +143,7 @@ const Useralldatapostrecived = () => {
   const followverify = async () => {
     const userCookie = Cookies.get("user");
     const user = userCookie ? JSON.parse(userCookie) : null;
-    
+
 
     if (!user) {
       alert("You must be logged in to follow users.");
@@ -241,7 +307,7 @@ const Useralldatapostrecived = () => {
             ? data.map((usera) => (
               <div className="pcontent container" key={usera._id} >
                 <a className="alikcontent">
-                  <div className="usertickandname d-flex">
+                  <div className="usertickandname d-flex" style={{ margin: "0px" }}>
                     <a
                       className="allaccespostuser"
                       href={`/user/userid/${encodeURIComponent(
@@ -274,118 +340,154 @@ const Useralldatapostrecived = () => {
                     </Chip>
                     <hr />
                   </div>
-                  <img src={usera.image} alt="Blog" onClick={() => show('bottom')} />
+                  <div className="imgscale" style={{ margin: "0px", width: "300px", height: "200px", backgroundColor: "white", margin: "0px", padding: "0px", overflow: "hidden", backgroundClip: "cover" }}>
+                    <img src={usera.image} style={{ margin: "0px" }} alt="Blog" onClick={toggleDrawer(true)} />
+                  </div>
+
                   <br />
                   <br />
-                  <h3 onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</h3>
-                  <div className="toptoolfe">
+                  <p style={{ margin: "0px", fontSize: "20px" }} onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</p>
+                  <div className="toptoolfe" style={{ margin: "0px" }}>
                     <motion.button
                       className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
                         }`}
                       whileTap={{ scale: 1.3 }}
                       whileHover={{ scale: 1.1 }}
                       onClick={() => handleLike(usera._id)}
+                      style={{ margin: "0px" }}
                     >
                       <motion.span
                         className="heart"
                         initial={{ scale: 0.8 }}
                         animate={
                           likedPosts.has(usera._id)
-                            ? { scale: [1, 1.4, 1] }
+                            ? { scale: [0.5, 0.6, 0.5] }
                             : {}
                         }
+                        style={{ margin: "0px" }}
                       >
                         {likedPosts.has(usera._id)
                           ? defaultAvatarl
                           : defaultAvatar}
                       </motion.span>
-                      <p className="color-black" id="viewsa"><b>{usera.likes}</b></p>
+                      <p style={{ margin: "0px" }} className="color-black" id="viewsa"><b>{usera.likes}</b></p>
                     </motion.button>
 
-                    <p className="pi" id="views">
+                    {/* <p className="pi" id="views" style={{ margin: "0px" }}>
                       {defaultAvatara}
                       <p id="viewsb"><b>{usera.views}</b> </p>
-                    </p>
+                    </p> */}
                   </div>
+                  <Root >
+                    <CssBaseline style={{ height: "1000px" }} />
+                    <Global
+                      styles={{
+                        '.MuiDrawer-root > .MuiPaper-root': {
+                          height: '80%', // Increase drawer height here
+                          maxWidth: '500px',
+                          justifyContent:"center",
+                          display: "flex",
+                          margin:"auto", // Increase drawer height here
+                          overflow: 'visible',
+                        },
+                      }}
+
+
+                    />
+                    <SwipeableDrawer
+                      container={container}
+                      anchor="bottom"
+                      open={open}
+                      onClose={toggleDrawer(false)}
+                      onOpen={toggleDrawer(true)}
+                      swipeAreaWidth={drawerBleeding}
+                      disableSwipeToOpen={false}
+                      keepMounted
+
+
+                    >
+                      <StyledBox
+                        sx={{
+                          position: 'absolute',
+                          top: -drawerBleeding,
+                          borderTopLeftRadius: 8,
+                          borderTopRightRadius: 8,
+                          visibility: 'visible',
+                          right: 0,
+                          left: 0,
+                        }}
+                      // style={{ height: "100%" }}
+                      //  style={{padding: "10px"}}
+                      // style={{ margin: "0px", width: "300px", }}
+                      >
+                        <Puller />
+                        {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>51 results</Typography> */}
+                      </StyledBox>
+                      <StyledBox sx={{ px: 2, pb: 2, padding: "20px", height: '100%', width: "400px", margin: "auto", msOverflowStyle: "none", scrollbarWidth: "none", overflow: 'auto' }}>
+                        {/* <Skeleton variant="rectangular" height="100%" /> */}
+                        <div className="userfirstdetails" style={{ display: "flex" }}>
+                          <Avatar
+                            src={usera.userProfileImage}
+                            sx={{ bgcolor: grey[400], width: 40, height: 40 }}
+                          />
+                          <p className="pi flex">
+                            {usera.user_fName} <br />
+                            <p style={{ fontSize: "10px", marginLeft: "0px" }}>{formatDate(usera.createdAt)}</p>
+                          </p>
+                          <Chip
+                            className="folowbutton"
+                            color="primary"
+                            style={{ marginLeft: "auto" }}
+                            label={
+                              followingAuthors.includes(usera.user_fName)
+                                ? "Following"
+                                : "Follow"
+                            }
+                            variant="outlined"
+                            onClick={() => followbutton(usera.user_fName)}
+                            disabled={followingAuthors.includes(usera.user_fName)}
+                          >
+                          </Chip>
+                        </div>
+                        <div className="imgscale" >
+                          <img src={usera.image} style={{ margin: "0px", width: "300px", justifyContent: "center", display: "flex", alignItems: "center", margin: "auto" }} alt="Blog" />
+                        </div>
+                        <p style={{ margin: "0px", fontSize: "20px" }} onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</p>
+                        <div className="toptoolfe" style={{ margin: "0px" }}>
+                          <motion.button
+                            className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
+                              }`}
+                            whileTap={{ scale: 1.3 }}
+                            whileHover={{ scale: 1.1 }}
+                            onClick={() => handleLike(usera._id)}
+                            style={{ margin: "0px", border: 'none', backgroundColor: 'transparent',display: 'flex', alignItems: 'center' }}
+                          >
+                            <motion.span
+                              className="heart"
+                              initial={{ scale: 0.8 }}
+                              animate={
+                                likedPosts.has(usera._id)
+                                  ? { scale: [1, 1.4, 1] }
+                                  : {}
+                              }
+                              style={{ margin: "0px" }}
+                            >
+                              {likedPosts.has(usera._id)
+                                ? defaultAvatarl
+                                : defaultAvatar}
+                            </motion.span>
+                            <p style={{ margin: "0px" }} className="color-black" id="viewsa"><b>{usera.likes}</b></p>
+                          </motion.button>
+
+                          {/* <p className="pi" id="views" style={{ margin: "0px" }}>
+                      {defaultAvatara}
+                      <p id="viewsb"><b>{usera.views}</b> </p>
+                    </p> */}
+                        </div>
+                      </StyledBox>
+                    </SwipeableDrawer>
+                  </Root>
                 </a>
-                <Dialog className="dilogbox" visible={visible} style={{ width: '100vw', margin: '0px', padding: "0px" }} onHide={() => { if (!visible) return; setVisible(false); }}>
-
-                  <div className="posttoat d-flex gap-5" style={{ margin: '0px' }}>
-                    <a
-                      className="allaccespostuser"
-                      href={`/user/userid/${encodeURIComponent(
-                        usera.user_fName
-                      )}`}
-                    >
-                      <div className="userfirstdetails" style={{ textDecoration: 'none', display: 'flex', margin: '0px', gap: "10px" }}>
-                        <Avatar
-                          src={usera.userProfileImage}
-                          sx={{ bgcolor: grey[400], width: 40, height: 40 }}
-                        />
-                        <p className="pi flex" style={{ textDecoration: 'underline', color: 'black', }}>
-                          {usera.user_fName} <br />
-
-                          <TimeAgo>
-                            datetime={moment([usera.createdAt]).tz(
-                              "Asia/Kolkata"
-                            )}
-                          </TimeAgo>
-                          <p>{[usera.createdAt]}</p>
-                          {/* <p>{DateTime.fromISO(usera.createdAt)}</p> */}
-                        </p>
-                      </div>
-                    </a>
-                    <Chip
-                      className="folowbutton"
-                      color="primary"
-                      label={
-                        followingAuthors.includes(usera.user_fName)
-                          ? "Following"
-                          : "Follow"
-                      }
-                      variant="outlined"
-                      onClick={() => followbutton(usera.user_fName)}
-                      disabled={followingAuthors.includes(usera.user_fName)}
-                    >
-                    </Chip>
-                    <hr />
-                  </div>
-                  <img src={usera.image} style={{ width: '270px', margin: '0px', padding: "0px" }} alt="Blog" />
-                  <br />
-                  <br />
-                  <h5 className="h5tag" style={{ margin: "0px" }}>{usera.writecontnet?.substring(0, 40) || "Loading"}</h5>
-                  <div className="toptoolfe" style={{ display: 'flex', gap: "10px" }}>
-                    <motion.button
-                      className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
-                        }`}
-                      whileTap={{ scale: 1.3 }}
-                      whileHover={{ scale: 1.1 }}
-                      onClick={() => handleLike(usera._id)}
-                      style={{ display: 'flex', border: 'none', background: 'transparent', padding: '0px', margin: '0px' }}
-                    >
-                      <motion.span
-                        className="heart"
-                        style={{ display: 'flex', margin: '0px', padding: '0px' }}
-                        initial={{ scale: 0.8 }}
-                        animate={
-                          likedPosts.has(usera._id)
-                            ? { scale: [1, 1.4, 1] }
-                            : {}
-                        }
-                      >
-                        {likedPosts.has(usera._id)
-                          ? defaultAvatarl
-                          : defaultAvatar}
-                      </motion.span>
-                      <p className="color-black" style={{ display: 'flex', margin: '0px', padding: '0px' }} id="viewsa"><b>{usera.likes}</b></p>
-                    </motion.button>
-
-                    <p className="pi" id="views" style={{ display: 'flex' }}>
-                      {defaultAvatara}
-                      <p id="viewsb"><b>{usera.views}</b> </p>
-                    </p>
-                  </div>
-                </Dialog>
               </div>
             ))
             : renderSkeleton()}
