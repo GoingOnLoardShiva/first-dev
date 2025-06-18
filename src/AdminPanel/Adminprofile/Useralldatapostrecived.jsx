@@ -245,15 +245,15 @@ const Useralldatapostrecived = (props: Props) => {
   };
 
   const followbutton = async (user_fName) => {
-    const userCookie = Cookies.get("user");
-    const user = userCookie ? JSON.parse(userCookie) : null;
+    // const userCookie = Cookies.get("user");
+    const user = userObject
 
     if (!user) {
       alert("You must be logged in to follow users.");
       return;
     }
 
-    const userEmail = user.email;
+    // const userEmail = user.email;
 
     try {
       const response = await axios.post(url + "/followuser", {

@@ -168,11 +168,11 @@ const UserProfile = () => {
                   alt="Profile"
                   sx={{ width: 64, height: 64, bgcolor: green[400] }}
                 >
-                  {user?.email_id?.substring(0, 1).toUpperCase() || "?"}
+                  {/* {user?.email_id?.substring(0, 1).toUpperCase() || "?"} */}
                 </Avatar>
 
                 <p className="useremailp">
-                  {user?.email_id ? `${user.email_id.substring(0, 5)}....` : ""}
+                  {/* {user?.email_id ? `${user.email_id.substring(0, 5)}....` : ""} */}
                   <p>{user?.role}</p>
                 </p>
                 <p className="line"></p>
@@ -327,7 +327,7 @@ const UserProfile = () => {
           {/* {userimg.followAc} */}
           {userimg?.followAc?.map((user, index) => (
             <div key={index} className="follow-card d-flex gap-2">
-              <Avatar label={user.substring(0, 1)} className="mr-5" size="xlarge" />
+              <Avatar className="mr-5" size="xlarge" />
               <p className="username">{user}...</p>
             </div>
           ))}
