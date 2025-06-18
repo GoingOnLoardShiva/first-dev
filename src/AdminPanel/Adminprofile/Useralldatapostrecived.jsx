@@ -74,6 +74,29 @@ const Useralldatapostrecived = () => {
     fetchUserPosts(1, true);
     // fetchUserImage() 
   }, []);
+  const followverify = async () => {
+    const userCookie = Cookies.get("user");
+    const user = userCookie ? JSON.parse(userCookie) : null;
+    
+
+    if (!user) {
+      alert("You must be logged in to follow users.");
+      return;
+    }
+
+    const userEmail = user.email;
+
+    try {
+      const response = await axios.get(url + "/followverify", {
+        headers: { "access-key": key },
+      });
+      if (response.data.followingAuthors) {
+        setFollowingAuthors(response.data.followingAuthors);
+      }
+    } catch (error) {
+      console.error("Error verifying follows:", error);
+    }
+  }
   const fetchUserImage = async () => {
     // const userEmail = user;
     try {
@@ -172,6 +195,7 @@ const Useralldatapostrecived = () => {
         user_fName,
       });
       setFollowingAuthors((prev) => [...prev, user_fName]);
+
     } catch (error) {
       if (error.response?.data?.message === "You have already followed") {
         alert("You have already followed this user.");

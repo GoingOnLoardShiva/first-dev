@@ -70,8 +70,6 @@ const Sigin = () => {
       });
 
       if (res.status === 200) {
-        localStorage.setItem("user", JSON.stringify(res.data), { expires: 7 });
-
         toast.current.show({
           severity: "success",
           summary: "Registration Successful",
