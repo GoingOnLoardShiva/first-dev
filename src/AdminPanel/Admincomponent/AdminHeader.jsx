@@ -9,14 +9,11 @@ import Chip from "@mui/material/Chip";
 import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = () => {
-  const [visible, setVisible] = useState(false);
-  const navigate = useNavigate();
 
   // ✅ Get user data from localStorage
   const userData = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
   // const avatar = user?.img || null; // Get avatar image
-  const firstLetter = user?.name?.charAt(0).toUpperCase() || "?";
   const [visible, setVisible] = useState(false);
   const [visiblea, setVisiblea] = useState(false);
   const navigate = useNavigate();
