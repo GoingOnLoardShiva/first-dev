@@ -344,7 +344,7 @@ const Useralldatapostrecived = (props: Props) => {
                     </Chip>
                     <hr />
                   </div>
-                  <div className="imgscale" style={{ margin: "0px", width: "300px", height: "200px", backgroundColor: "white", margin: "0px", padding: "0px", overflow: "hidden", backgroundClip: "cover" }}>
+                  <div className="imgscale" style={{ margin: "0px", width: "300px", borderRadius: "10px", backgroundColor: "white", margin: "0px", padding: "0px", overflow: "hidden", backgroundClip: "cover" }}>
                     <img src={usera.image} style={{ margin: "0px" }} alt="Blog" onClick={toggleDrawer(true)} />
                   </div>
 
