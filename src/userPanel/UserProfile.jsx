@@ -31,6 +31,7 @@ const UserProfile = () => {
   const user = parsed?.user?.[0] || null;
   const userEmail = user?.email_id || null;
   const userRole = parsed?.role || "";
+  const Userfname = user?.user_fName || "";
   const secureUID = parsed?.secureUID || "";
   const avatar = user?.img || null; // Get avatar image
   const firstLetter = user?.name?.charAt(0).toUpperCase() || "?";
@@ -90,6 +91,7 @@ const UserProfile = () => {
     const parsed = userData ? JSON.parse(userData) : null;
     const user = parsed?.user?.[0] || null;
     const userEmail = user?.email_id;
+
 
     if (!userEmail) {
       console.error("No email found for user.");
@@ -168,11 +170,11 @@ const UserProfile = () => {
                   alt="Profile"
                   sx={{ width: 64, height: 64, bgcolor: green[400] }}
                 >
-                  {/* {user?.email_id?.substring(0, 1).toUpperCase() || "?"} */}
+                  {Userfname}
                 </Avatar>
 
                 <p className="useremailp">
-                  {/* {user?.email_id ? `${user.email_id.substring(0, 5)}....` : ""} */}
+                  {Userfname }
                   <p>{user?.role}</p>
                 </p>
                 <p className="line"></p>
@@ -218,7 +220,7 @@ const UserProfile = () => {
           <div className="userpost">
             <hr className="bg-red" />
             <TabView style={{ background: "transparent" }}>
-              <TabPanel header="My Post" leftIcon="pi pi-desktop mr-2">
+              <TabPanel header="My Post" leftIcon="pi pi-desktop mr-2 ">
                 <div className="userpostdetailswithpost gap-5">
                   {userPosts.length === 0 ? (
                     <p>Loading...</p>

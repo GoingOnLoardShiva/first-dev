@@ -69,7 +69,7 @@ const Header = () => {
         <div className="login d-flex">
           {userData ? (
             <>
-              <Chip
+              {/* <Chip
                 label="Dashboard"
                 color="primary"
                 className="texta"
@@ -77,7 +77,7 @@ const Header = () => {
                 href={`/user/${userData.secureUID}`}
                 variant="outlined"
                 clickable
-              />
+              /> */}
               <Chip
                 label="Menu"
                 icon={<MenuIcon />}

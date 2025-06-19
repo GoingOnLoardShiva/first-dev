@@ -128,8 +128,8 @@ const Useralldatapostrecived = (props: Props) => {
   const defaultAvatarl = (
     <img
       className="imagani"
-      style={{ width: "40px", height: "40px" }}
-      src="/love.gif"
+      style={{ width: "40px", height: "40px", background: "transparent"}}
+      src="/loveab.gif"
       alt=""
     />
   );
@@ -363,7 +363,7 @@ const Useralldatapostrecived = (props: Props) => {
                         initial={{ scale: 0.8 }}
                         animate={
                           likedPosts.has(usera._id)
-                            ? { scale: [0.5, 0.6, 0.5] }
+                            ? { scale: [1, 0.5, 1.1] }
                             : {}
                         }
                         style={{ margin: "0px" }}
