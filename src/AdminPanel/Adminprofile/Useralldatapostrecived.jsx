@@ -345,9 +345,6 @@ const Useralldatapostrecived = (props: Props) => {
                   <div className="imgscale" style={{ margin: "0px", width: "300px", borderRadius: "10px", backgroundColor: "white", margin: "0px", padding: "0px", overflow: "hidden", backgroundClip: "cover" }}>
                     <img src={usera.image} style={{ margin: "0px" }} alt="Blog" onClick={toggleDrawer(true)} />
                   </div>
-
-                  <br />
-                  <br />
                   <p style={{ margin: "0px", fontSize: "20px" }} onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</p>
                   <div className="toptoolfe" style={{ margin: "0px" }}>
                     <motion.button
