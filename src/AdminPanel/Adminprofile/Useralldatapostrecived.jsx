@@ -425,7 +425,7 @@ const Useralldatapostrecived = (props: Props) => {
                       {selectedPost && (
 
 
-                        <StyledBox sx={{ px: 2, pb: 2, padding: "20px", height: '100%', width: "340px", margin: "auto", msOverflowStyle: "none", scrollbarWidth: "none", overflow: 'auto' }}>
+                        <StyledBox sx={{ px: 2, pb: 2, padding: "20px", height: '100%', width: "350px", margin: "auto", msOverflowStyle: "none", scrollbarWidth: "none", overflow: 'auto' }}>
                           {/* <Skeleton variant="rectangular" height="100%" /> */}
                           <div className="userfirstdetails" style={{ display: "flex" ,gap: "10px"}}>
                             <Avatar

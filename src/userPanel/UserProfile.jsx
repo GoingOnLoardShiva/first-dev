@@ -48,9 +48,9 @@ const UserProfile = () => {
   const [userimg, setUserimg] = useState({});
   const [userve, setUserv] = useState(0);
   const [userac, setUserac] = useState(0);
-    const formatDate = (date) => {
-      return moment(date).format("DD MMMM")
-    };
+  const formatDate = (date) => {
+    return moment(date).format("DD MMMM")
+  };
   // console.log(userimg, "userimg");
 
   const [visible, setVisible] = useState(false);
@@ -184,11 +184,11 @@ const UserProfile = () => {
                   {Userfname}
                 </Avatar>
 
-                <p className="useremailp" style={{fontWeight: "bold"}}>
+                <p className="useremailp" style={{ fontWeight: "bold" }}>
                   {Userfname}
-                  <p style={{fontSize: "12px",fontWeight: "bold"}}>Creator</p>
+                  <p style={{ fontSize: "12px", fontWeight: "bold" }}>Creator</p>
                 </p>
-                <p className="line"></p>
+                <p className="line" ></p>
                 {/* <hr /> */}
                 <a
                   // href=""
@@ -197,18 +197,20 @@ const UserProfile = () => {
                   onClick={() => show("bottom")}
                   className="p-button-success"
                   id="a"
-                  style={{alignItems: "center",}}
+                  style={{ alignItems: "center", }}
                 >
                   <div className="useremailp">
-                    <p className="userf" style={{fontWeight: "bold"}}>
-                      Followers <p style={{fontSize: "12px",fontWeight: "bold"}}>{userac}</p>
+                    <p className="userf" style={{ fontWeight: "bold" }}>
+                      Followers <p style={{ fontSize: "12px", fontWeight: "bold" }}>{userac}</p>
                     </p>
                   </div>
                 </a>
 
-                <p className="line" style={{margin: "10px"}}></p>
+                <p className="line" style={{marginLeft: "15px"}}></p>
 
-                <SettingsSuggestIcon className="usericon" />
+                <IconButton style={{ marginBottom: "35px" }}>  
+                  <MoreVertIcon />
+                </IconButton>
               </div>
             </div>
 
@@ -253,8 +255,8 @@ const UserProfile = () => {
                               <p className="useremailp ">
                                 {Userfname}
                                 <p>{formatDate(userimg.createdAt)}</p>
-                                
-                                
+
+
                               </p>
                             </div>
 
