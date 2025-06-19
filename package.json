@@ -8,6 +8,7 @@
         "@lyket/react": "^2.1.0",
         "@mui/icons-material": "^6.4.7",
         "@mui/material": "^6.4.10",
+        "@radix-ui/themes": "^3.2.1",
         "@testing-library/dom": "^10.4.0",
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^16.2.0",

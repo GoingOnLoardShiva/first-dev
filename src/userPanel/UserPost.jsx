@@ -188,6 +188,7 @@ const UserPost = () => {
         value={writecontnet}
         onChange={(e) => setWritecontnet(e.target.value)}
         className="mb-4 w-full"
+        style={{width: '100%', height: '100px', resize: 'none'}}
       />
 
       <FileUpload

@@ -15,6 +15,14 @@ import Chip from "@mui/material/Chip";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { Dialog } from "primereact/dialog";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import moment from "moment-timezone";
+
+
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Useimgupload from "./usercomponents/Useimgupload";
@@ -40,6 +48,9 @@ const UserProfile = () => {
   const [userimg, setUserimg] = useState({});
   const [userve, setUserv] = useState(0);
   const [userac, setUserac] = useState(0);
+    const formatDate = (date) => {
+      return moment(date).format("DD MMMM")
+    };
   // console.log(userimg, "userimg");
 
   const [visible, setVisible] = useState(false);
@@ -173,9 +184,9 @@ const UserProfile = () => {
                   {Userfname}
                 </Avatar>
 
-                <p className="useremailp">
-                  {Userfname }
-                  <p>{user?.role}</p>
+                <p className="useremailp" style={{fontWeight: "bold"}}>
+                  {Userfname}
+                  <p style={{fontSize: "12px",fontWeight: "bold"}}>Creator</p>
                 </p>
                 <p className="line"></p>
                 {/* <hr /> */}
@@ -186,15 +197,17 @@ const UserProfile = () => {
                   onClick={() => show("bottom")}
                   className="p-button-success"
                   id="a"
+                  style={{alignItems: "center",}}
                 >
                   <div className="useremailp">
-                    <p className="userf">
-                      Followers <p>{userac}</p>
+                    <p className="userf" style={{fontWeight: "bold"}}>
+                      Followers <p style={{fontSize: "12px",fontWeight: "bold"}}>{userac}</p>
                     </p>
                   </div>
                 </a>
 
-                <p className="line"></p>
+                <p className="line" style={{margin: "10px"}}></p>
+
                 <SettingsSuggestIcon className="usericon" />
               </div>
             </div>
@@ -220,37 +233,45 @@ const UserProfile = () => {
           <div className="userpost">
             <hr className="bg-red" />
             <TabView style={{ background: "transparent" }}>
-              <TabPanel header="My Post" leftIcon="pi pi-desktop mr-2 ">
+              <TabPanel header="My Post" leftIcon="pi pi-desktop">
                 <div className="userpostdetailswithpost gap-5">
                   {userPosts.length === 0 ? (
                     <p>Loading...</p>
                   ) : (
                     <ul>
                       {userPosts.map((post, index) => (
-                        <div className="userpostwithgap d-flex">
-                          <li className="flex" key={index._id}>
-                            <a
-                              className="atag"
-                            >
-                              <img src={post.image} alt="" />
-                              <div className="userdetailwithdata ">
-                                <div className="userafirsttext">
-                                  {post.writecontnet
-                                    ? post.writecontnet.substring(0, 30)
-                                    : "Loading"}
-                                </div>
-                                {/* <br /> */}
-                                <div className="likeview d-flex gap-3">
-                                  <p>{post.likes}Likes</p>
-                                  <p>{post.views}Views</p>
-                                </div>
-                              </div>
-                            </a>
-                          </li>
+                        <div key={index._id} style={{ gap: "20px", }} className="userpostwithgap ">
+                          <div className="userdeatilswithacs">
+                            <div className="postuseradmin d-flex gap-2 align-items-center">
+                              <Avatar
+                                className="imageavt"
+                                src={userimg.img || avatar}
+                                alt="Profile"
+                                sx={{ width: 40, height: 40, bgcolor: green[400] }}
+                              >
+                              </Avatar>
+                              <p className="useremailp ">
+                                {Userfname}
+                                <p>{formatDate(userimg.createdAt)}</p>
+                                
+                                
+                              </p>
+                            </div>
+
+                            <IconButton className="delete" >
+                              <MoreVertIcon />
+                            </IconButton>
+                          </div>
+                          <div className="accesimguser">
+                            <img src={post.image} alt="" />
+                          </div>
+
+
                         </div>
                       ))}
                     </ul>
                   )}
+
                 </div>
               </TabPanel>
               {/* <TabPanel header="Likes" leftIcon="pi pi-heart ml-2">

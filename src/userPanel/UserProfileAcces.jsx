@@ -10,6 +10,8 @@ import { Skeleton } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import TimeAgo from "timeago-react";
+import "@radix-ui/themes/styles.css";
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -77,7 +79,7 @@ const UserProfileAcces = () => {
           }
         );
 
-        console.log("API Response:", responsea.data);
+        // console.log("API Response:", responsea.data);
 
         if (responsea.status === 200) {
           // Check if it's an array or single object
@@ -147,7 +149,7 @@ const UserProfileAcces = () => {
             </div>
           </div>
           <div className="useraccesContent4">
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: "100%" }} style={{ width: "300px" }}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs
                   value={value}

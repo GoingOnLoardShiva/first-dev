@@ -83,7 +83,7 @@ const List = () => {
                         ? encodeURIComponent(user._id.toString().trim())
                         : ""
                     }`}
-                    onClick={() => console.log("Navigating to:", user?._id)}
+                    onClick={() => user?._id}
                   >
                     Read more
                   </a>

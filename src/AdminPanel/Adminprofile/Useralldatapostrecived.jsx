@@ -173,7 +173,7 @@ const Useralldatapostrecived = (props: Props) => {
       if (response.code === 200) {
         setpostusede(response.data);
       }
-      console.log("User image fetched successfully:", response.data);
+      // console.log("User image fetched successfully:", response.data);
     } catch (error) {
       console.error("Error fetching user image:", error);
     }
@@ -210,7 +210,7 @@ const Useralldatapostrecived = (props: Props) => {
 
   };
 
-  console.log([{ data }]);
+  // console.log([{ data }]);
   const handleLike = async (_id) => {
     const user = JSON.parse(localStorage.getItem("user")); // Retrieve user cookie
 
@@ -425,9 +425,9 @@ const Useralldatapostrecived = (props: Props) => {
                       {selectedPost && (
 
 
-                        <StyledBox sx={{ px: 2, pb: 2, padding: "20px", height: '100%', width: "400px", margin: "auto", msOverflowStyle: "none", scrollbarWidth: "none", overflow: 'auto' }}>
+                        <StyledBox sx={{ px: 2, pb: 2, padding: "20px", height: '100%', width: "380px", margin: "auto", msOverflowStyle: "none", scrollbarWidth: "none", overflow: 'auto' }}>
                           {/* <Skeleton variant="rectangular" height="100%" /> */}
-                          <div className="userfirstdetails" style={{ display: "flex" }}>
+                          <div className="userfirstdetails" style={{ display: "flex" ,gap: "10px"}}>
                             <Avatar
                               src={selectedPost.userProfileImage}
                               sx={{ bgcolor: grey[400], width: 40, height: 40 }}

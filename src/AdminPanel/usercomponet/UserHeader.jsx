@@ -92,6 +92,7 @@ const Header = () => {
               <Chip
                 label="Login"
                 color="primary"
+                
                 className="texta"
                 component="a"
                 href="/login"

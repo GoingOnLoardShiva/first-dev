@@ -8,125 +8,126 @@
     .userftext {
       .useritem {
         color: black;
-        .usersetup{
-          .line{
+
+        .usersetup {
+          .line {
             background-color: #f8e3e3;
             width: 2px;
             height: 50px;
             gap: 10px;
             // margin-top: 5px;
           }
-          #a{
+
+          #a {
             text-decoration: none;
             color: black;
             // display: none;
             width: 50px;
-            .useremailp{
-              margin-top: 5px;
+
+            .useremailp {
+              // margin-top: 5px;
               font-style: bold;
               text-decoration: none;
             }
           }
 
         }
-    
+
       }
-      .userdtext{
-        .se{
-          .userpup{
+
+      .userdtext {
+        .se {
+          .userpup {
             color: black;
           }
         }
       }
     }
+
     .userpost {
       width: 360px;
-      margin:auto;
-      #TabView{
+      margin: auto;
+
+      #TabView {
         background-color: black;
       }
+
       .userpostdetailswithpost {
         // background-color: #00ff73;
         border-radius: 20px;
         padding-top: 10px;
-        display: flex;
-        justify-content: center;
+        // display: flex;
+        // justify-content: center;
         gap: 30px;
+
         ul {
-          gap: 30px;
+          gap: 50px;
+          // display: flex;
 
           .userpostwithgap {
-            
-            gap: 30px;
-            display: flex;
+            display: grid;
+            margin-top: 60px;
 
-            li {
-                
-              width: 300px;
+            .userdeatilswithacs{
+              margin: 0px;
               display: flex;
-              gap: 20px;
-              text-align: start;
               justify-content: space-between;
-              font-size: 25px;
-              // background: linear-gradient(rgb(51, 255, 85),rgba(255, 255, 255, 0),);
-              box-shadow: 1px 2px 10px inset rgb(21, 32, 92),rgb(0, 0, 0);
-              border-radius: 20px;
-              gap: 20px;
-              
-              a {
-                text-decoration: none;
-                color: black;
-                // background-color: #fff3f3;
-                // background-color: black;
-                padding: 10px;
-                margin: 0px;
-                img {
-                  max-width: 100%;
-                  height: 200px;
+              .postuseradmin{
+                align-items: center;
+                .useremailp{
+                  // display: grid;
                   margin: 0px;
-                  display: flex;
-                  justify-content: center;
-                }
-                .userdetailwithdata{
-                  margin: 0px;
-                  .likeview{
+                  p{
                     margin: 0px;
-                    p{
-                      margin: 0px;
-                    }
+                    font-size: 10px;
                   }
                 }
               }
-              p {
-                font-size: 15px;
+            }
+            .accesimguser {
+              overflow: hidden;
+
+              img {
+                background-clip: content-box;
+                max-width: 250px;
+                max-height: 300px;
+                scale: 1.5;
                 margin: 0px;
+                display: flex;
+                justify-content: center;
               }
+
             }
           }
         }
       }
+
       .monetizationfirst {
         text-align: start;
         padding: 20px;
         background-color: #ffffff;
         border-radius: 20px;
         padding: 10px;
-        .monete{
+
+        .monete {
+          text-align: center;
+
+          .mon {
             text-align: center;
-            .mon{
-                text-align: center;
-                font-size: 30px;
-            }
-        }
-        Button{
-          color: black;
-        }
-        .fstep{
-            padding-top: 30px;
-            
+            font-size: 30px;
+          }
         }
 
-        
+        Button {
+          color: black;
+        }
+
+        .fstep {
+          padding-top: 30px;
+
+        }
+
+
       }
     }
 
