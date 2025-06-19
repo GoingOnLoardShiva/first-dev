@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./list.scss";
+import "./lista.scss";
 import { Skeleton } from "@mui/material";
 // import TimeAgo from "timeago-react";
 import { motion } from "framer-motion";
@@ -300,8 +300,6 @@ const Useralldatapostrecived = (props: Props) => {
 
   return (
     <div className="heroa">
-      <h1 className="h1text"></h1>
-      <br />
       <div className="gridcontenta">
         <div className="trposta">
           {data.length > 0
@@ -318,7 +316,7 @@ const Useralldatapostrecived = (props: Props) => {
                         usera.user_fName
                       )}`}
                     >
-                      <div className="userfirstdetails">
+                      <div className="userfirstdetails d-flex gap-2">
                         <Avatar
                           src={usera.userProfileImage}
                           sx={{ bgcolor: grey[400], width: 40, height: 40 }}

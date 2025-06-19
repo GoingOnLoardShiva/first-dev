@@ -1,94 +1,89 @@
-.heroa{
-  padding: 20px;
-  color: rgb(0, 0, 0);
-  .gridcontenta{
-    .trposta{
-      display: grid;
-      gap: 40px;
-      grid-template-columns: repeat(4, 1fr); 
-      .pcontent{
-        background: linear-gradient(rgb(8, 1, 1),rgba(255, 255, 255, 0),);
-        box-shadow: 1px 2px 10px inset rgba(21, 32, 92, 0),rgba(0, 0, 0, 0.685);
-        height: fit-content;
-        width: 330px;
-        padding: 10px;
-        border-radius: 20px;
-        .usertickandname{
-          // display: flex;
-          // justify-content: space-between;
-          // text-align: start;
-          .userfirstdetails{
-            display: flex;
-            img{
-              width: 30px;
-              height: 30px;
-              margin-top: 5px;
-              // margin-bottom:px;
-              border-radius: 30px;
-              color: black;
-              background-color: white;
-            }
-            p{
-              margin-left: 10px;
-              color: rgb(0, 0, 0);
-              // margin-top: 5px;
-            }
-            button{
-              background-color: transparent;
-              color: blue;
-            }
-            .pfodate{
-              color: rgb(0, 0, 0);
-            }
-          }
-          hr{
-            color: rgb(0, 0, 0);
-          }
+// .heroa{
+//   padding: 20px;
+//   color: rgb(0, 0, 0);
+//   .gridcontenta{
+//     .trposta{
+//       display: grid;
+//       gap: 40px;
+//       grid-template-columns: repeat(4, 1fr); 
+//       .pcontent{
+//         background: linear-gradient(rgb(105, 100, 100),rgba(255, 255, 255, 0),);
+//         box-shadow: 1px 2px 10px inset rgba(80, 80, 80, 0),rgba(0, 0, 0, 0.685);
+//         height: fit-content;
+//         width: 330px;
+//         padding: 10px;
+//         border-radius: 20px;
+//         .usertickandname{
+//           display: flex;
+//           justify-content: space-between;
+//           // text-align: start;
+//           margin-left: auto;
+//           .userfirstdetails{
+//             display: flex;
+//             p{
+//               margin-left: 10px;
+//               color: rgb(0, 0, 0);
+//               text-decoration: none;
+//               // margin-top: 5px;
+//             }
+//             button{
+//               background-color: transparent;
+//               color: blue;
+//             }
+//             .pfodate{
+//               color: rgb(0, 0, 0);
+//             }
+//           }
+//           hr{
+//             color: rgb(0, 0, 0);
+//           }
 
-          .timestyle{
-            margin-left: 0px;
-            // margin-top: 20px;
-            font-size: 10px;
-          }
-        }
-        .alikcontent{
-          width: 300px;
-          text-decoration: none;
-          color: rgb(0, 0, 0);
+//           .timestyle{
+//             margin-left: 0px;
+//             // margin-top: 20px;
+//             font-size: 10px;
+//           }
+//         }
+//         .alikcontent{
+//           width: 300px;
+//           text-decoration: none;
+//           color: rgb(0, 0, 0);
 
-        }
+//         }
 
-      }
-      img{
-        border-radius: 20px;
-      }
+//       }
+//       img{
+//         // border-radius: 20px;
+//         max-width: 100%;
+//         height: fit-content;
+//       }
 
-    }
-    .card{
-      margin-left: 40%;
-    }
-    @media (max-width: 1200px) {
-      .trposta{
-        grid-template-columns: repeat(3, 1fr); 
-      }
-    }
-    @media (max-width: 1000px) {
-      .trposta{
-        grid-template-columns: repeat(2, 1fr); 
-      }
-    }
-    @media (max-width: 700px) {
-      .trposta{
-        grid-template-columns: repeat(1, 1fr); 
-      }
-    }
-    @media (max-width: 500px) {
-      .trposta{
-        grid-template-columns: repeat(1, 1fr); 
-        .pcontent{
-          width: 330px;
-        }
-      }
-    }
-  }
-}
+//     }
+//     .card{
+//       margin-left: 40%;
+//     }
+//     @media (max-width: 1200px) {
+//       .trposta{
+//         grid-template-columns: repeat(3, 1fr); 
+//       }
+//     }
+//     @media (max-width: 1000px) {
+//       .trposta{
+//         grid-template-columns: repeat(2, 1fr); 
+//       }
+//     }
+//     @media (max-width: 700px) {
+//       .trposta{
+//         grid-template-columns: repeat(1, 1fr); 
+//       }
+//     }
+//     @media (max-width: 500px) {
+//       .trposta{
+//         grid-template-columns: repeat(1, 1fr); 
+//         .pcontent{
+//           width: 330px;
+//         }
+//       }
+//     }
+//   }
+// }
