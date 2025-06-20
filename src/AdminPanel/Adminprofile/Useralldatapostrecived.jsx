@@ -382,7 +382,7 @@ const Useralldatapostrecived = (props: Props) => {
                     <Global
                       styles={{
                         '.MuiDrawer-root > .MuiPaper-root': {
-                          height: '80%', // Increase drawer height here
+                          maxHeight: '80%', // Increase drawer height here
                           maxWidth: '500px',
                           borderRadius: '10px',
                           justifyContent: "center",
@@ -425,7 +425,7 @@ const Useralldatapostrecived = (props: Props) => {
                       {selectedPost && (
 
 
-                        <StyledBox sx={{ px: 2, pb: 2, padding: "20px", height: '100%', width: "350px", margin: "auto", msOverflowStyle: "none", scrollbarWidth: "none", overflow: 'auto' }}>
+                        <StyledBox sx={{ px: 2, pb: 2, padding: "20px", height: '80%', width: "350px", margin: "auto", msOverflowStyle: "none", scrollbarWidth: "none", overflow: 'auto' , borderTopLeftRadius: '30px', borderTopRightRadius: '30px'}}>
                           {/* <Skeleton variant="rectangular" height="100%" /> */}
                           <div className="userfirstdetails" style={{ display: "flex" ,gap: "10px"}}>
                             <Avatar
