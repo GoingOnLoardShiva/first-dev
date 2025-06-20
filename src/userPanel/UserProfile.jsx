@@ -115,7 +115,10 @@ const UserProfile = (props: Props) => {
   };
   // console.log(userimg, "userimg");
 
-
+  const formatRelativeTime = (date) => {
+    if (!date) return "No date";
+    return moment(date).fromNow(); // Example: "2 days ago"
+  };
 
   //Drawer
   const { window } = props;
@@ -259,7 +262,7 @@ const UserProfile = (props: Props) => {
                 >
                   {/* {Userfname} */}
                 </Avatar>
-                <div className="userverifiyed" style={{position: "absolute",marginRight: "230px",marginTop: "45px"}}>
+                <div className="userverifiyed" style={{ position: "absolute", marginRight: "230px", marginTop: "45px" }}>
                   {userimg.verified && (
                     <CheckCircleIcon style={{ color: blue[500], fontSize: 18 }} titleAccess="Verified User" />
                   )}
@@ -397,24 +400,26 @@ const UserProfile = (props: Props) => {
                     <ul>
                       {userPosts.map((post, index) => (
                         <div key={index._id} style={{ gap: "20px", }} className="userpostwithgap ">
-                          <div className="userdeatilswithacs">
-                            <div className="postuseradmin d-flex gap-2 align-items-center">
+                          <div className="userdeatilswithacs d-flex " style={{ alignItems: "center" }}>
+                            <div className="userfirstdetails d-flex gap-2" >
+
                               <Avatar
-                                className="imageavt"
-                                src={userimg.img || avatar}
-                                alt="Profile"
-                                sx={{ width: 40, height: 40, bgcolor: green[400] }}
-                              >
-                              </Avatar>
-                              <p className="useremailp ">
-                                {Userfname}
-                                <p>{formatDate(userimg.createAt)}</p>
+                                style={{ margin: "0px" }}
+                                src={userimg.img}
+                                sx={{ bgcolor: grey[400], width: 40, height: 40 }}
+                              />
+                              <p className="pi flex">
+                                <div className="pverify d-flex" style={{ alignItems: "center" }}>
+                                  {userimg.user_fName} <br />
+                                  {userimg.verified && (
+                                    <CheckCircleIcon style={{ color: blue[500], fontSize: 18 }} titleAccess="Verified User" />
+                                  )}
+                                </div>
 
-
+                                <p style={{ fontSize: "11px", marginLeft: "0px", marginTop: "2px", display: "flex" }}>{formatDate(userimg.createAt)} <b></b><p> <b></b>{formatRelativeTime(userimg.createAt)}</p></p>
                               </p>
                             </div>
-
-                            <IconButton >
+                            <IconButton style={{position: "relative",marginBottom: "35px"}} >
                               <MoreVertIcon />
                             </IconButton>
 
