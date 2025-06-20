@@ -11,6 +11,8 @@ import { grey } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import TimeAgo from "timeago-react";
 import "@radix-ui/themes/styles.css";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // MUI icon
+import { blue } from '@mui/material/colors';
 
 
 interface TabPanelProps {
@@ -135,7 +137,14 @@ const UserProfileAcces = () => {
                 sx={{ bgcolor: grey[500], width: 50, height: 50, alignItems: "center" }}
               /></p>
               <div className="userdetaonacc">
-                <p>{user_fName}</p>
+                <div className="pverify d-flex" style={{alignItems: "center"}}>
+                  {data.user_fName} <br />
+                  {data.verified && (
+                    <CheckCircleIcon style={{ color: blue[500], fontSize: 18 }} titleAccess="Verified User" />
+                  )}
+                </div>
+                {/* <p>{user_fName}</p> */} 
+
                 <p>
                   Followers{" "}
                   {data && data.followAc && typeof data.followAc === "object"

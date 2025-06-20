@@ -446,8 +446,13 @@ const Useralldatapostrecived = (props: Props) => {
                               sx={{ bgcolor: grey[400], width: 40, height: 40 }}
                             />
                             <p className="pi flex">
-                              {usera.user_fName} <br />
-                              <p style={{ fontSize: "10px", marginLeft: "0px" }}>{formatDate(selectedPost.createdAt)}</p>
+                              <div className="pverify d-flex">
+                                {selectedPost.user_fName} <br />
+                                {selectedPost.verified && (
+                                  <CheckCircleIcon style={{ color: blue[500], fontSize: 18 }} titleAccess="Verified User" />
+                                )}
+                              </div>
+                              <p style={{ fontSize: "11px", marginLeft: "0px", marginTop: "2px", display: "flex" }}>{formatDate(selectedPost.createAt)} <p>{formatRelativeTime(selectedPost.createAt)}</p></p>
                             </p>
                             <Chip
                               className="folowbutton"

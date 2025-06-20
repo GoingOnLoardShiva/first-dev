@@ -35,6 +35,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // MUI icon
+import { blue } from '@mui/material/colors';
 
 
 
@@ -255,8 +257,14 @@ const UserProfile = (props: Props) => {
                   alt="Profile"
                   sx={{ width: 64, height: 64, bgcolor: green[400] }}
                 >
-                  {Userfname}
+                  {/* {Userfname} */}
                 </Avatar>
+                <div className="userverifiyed" style={{position: "absolute",marginRight: "230px",marginTop: "45px"}}>
+                  {userimg.verified && (
+                    <CheckCircleIcon style={{ color: blue[500], fontSize: 18 }} titleAccess="Verified User" />
+                  )}
+                </div>
+
 
                 <p className="useremailp" style={{ fontWeight: "bold" }}>
                   {Userfname}
@@ -466,7 +474,7 @@ const UserProfile = (props: Props) => {
                         </div>
                       </div>
                       <Chip
-                        label="Monetize Account" disabled  icon="pi pi-external-link"
+                        label="Monetize Account" disabled icon="pi pi-external-link"
                       />
                     </div>
                   </div>
