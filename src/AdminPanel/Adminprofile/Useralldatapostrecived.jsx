@@ -384,6 +384,7 @@ const Useralldatapostrecived = (props: Props) => {
                         '.MuiDrawer-root > .MuiPaper-root': {
                           height: '80%', // Increase drawer height here
                           maxWidth: '500px',
+                          borderRadius: '10px',
                           justifyContent: "center",
                           display: "flex",
                           margin: "auto", // Increase drawer height here
@@ -415,9 +416,8 @@ const Useralldatapostrecived = (props: Props) => {
                           right: 0,
                           left: 0,
                         }}
-                      // style={{ height: "100%" }}
-                      //  style={{padding: "10px"}}
-                      // style={{ margin: "0px", width: "300px", }}
+                        
+
                       >
                         <Puller />
                         {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>51 results</Typography> */}

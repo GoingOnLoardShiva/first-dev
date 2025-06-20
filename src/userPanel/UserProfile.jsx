@@ -21,13 +21,73 @@ import Tooltip from '@mui/material/Tooltip';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import moment from "moment-timezone";
+import { Global } from '@emotion/react';
+// import { styled } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { grey } from '@mui/material/colors';
+// import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import SettingsIcon from '@mui/icons-material/Settings';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import IosShareIcon from '@mui/icons-material/IosShare';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+
 
 
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Useimgupload from "./usercomponents/Useimgupload";
 
-const UserProfile = () => {
+
+
+
+//drawer
+const drawerBleeding = 56;
+
+interface Props {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window?: () => Window;
+}
+
+const Root = styled('div')(({ theme }) => ({
+  height: '100%',
+  backgroundColor: grey[100],
+  ...theme.applyStyles('dark', {
+    backgroundColor: (theme.vars || theme).palette.background.default,
+  }),
+}));
+
+const StyledBox = styled('div')(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.applyStyles('dark', {
+    backgroundColor: grey[800],
+  }),
+}));
+
+const Puller = styled('div')(({ theme }) => ({
+  width: 30,
+  height: 6,
+  backgroundColor: grey[300],
+  borderRadius: 3,
+  position: 'absolute',
+  top: 8,
+  left: 'calc(50% - 15px)',
+  ...theme.applyStyles('dark', {
+    backgroundColor: grey[900],
+  }),
+}));
+
+
+
+
+const UserProfile = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const [Userimage, setUserimage] = useState("");
   const [Userviews, setUserviews] = useState([]);
@@ -52,6 +112,19 @@ const UserProfile = () => {
     return moment(date).format("DD MMMM")
   };
   // console.log(userimg, "userimg");
+
+
+
+  //Drawer
+  const { window } = props;
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
+  // This is used only for the example
+  const container = window !== undefined ? () => window().document.body : undefined;
 
   const [visible, setVisible] = useState(false);
   const [visibleb, setVisibleb] = useState(false);
@@ -206,11 +279,83 @@ const UserProfile = () => {
                   </div>
                 </a>
 
-                <p className="line" style={{marginLeft: "15px"}}></p>
-
-                <IconButton style={{ marginBottom: "35px" }}>  
+                <p className="line" style={{ marginLeft: "15px" }}></p>
+                <IconButton style={{ marginBottom: "35px" }} onClick={toggleDrawer(true)}>
                   <MoreVertIcon />
                 </IconButton>
+                <Root>
+                  <CssBaseline />
+                  <Global
+                    styles={{
+                      '.MuiDrawer-root > .MuiPaper-root': {
+                        height: 'fitcontent', // Increase drawer height here
+                        maxWidth: '500px',
+                        justifyContent: "center",
+                        display: "flex",
+                        margin: "auto", // Increase drawer height here
+                        overflow: 'visible',
+                        borderRadius: '50px', // Add border radius to the drawer
+                      },
+                    }}
+                  />
+                  {/* <Box sx={{ textAlign: 'center', pt: 1 }}>
+                    <Button onClick={toggleDrawer(true)}>Open</Button>
+                  </Box> */}
+                  <SwipeableDrawer
+                    container={container}
+                    anchor="bottom"
+                    open={open}
+                    onClose={toggleDrawer(false)}
+                    onOpen={toggleDrawer(true)}
+                    swipeAreaWidth={drawerBleeding}
+                    disableSwipeToOpen={false}
+                    keepMounted
+                    style={{ borderRadius: '50px', }}
+                  >
+                    <StyledBox
+                      sx={{
+                        position: 'absolute',
+                        top: -drawerBleeding,
+                        borderTopLeftRadius: 8,
+                        borderTopRightRadius: 8,
+                        visibility: 'visible',
+                        right: 0,
+                        left: 0,
+                      }}
+                      style={{ borderRadius: '50px', }}
+                    >
+                      {/* <Puller /> */}
+                      {/* <SettingsIcon/> */}
+                      {/* <Typography sx={{ p: 2, color: 'text.secondary' }}  ></Typography> */}
+                    </StyledBox>
+
+                    <StyledBox sx={{ padding: "40px", height: '100%', overflow: 'auto', borderTopLeftRadius: '20px', borderTopRightRadius: '20px' }}>
+                      {/* <Skeleton variant="rectangular" height="100%" /> */}
+                      <div className="setting" style={{alignItems: "ceneter",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px"}}>
+                        <SettingsIcon />
+                        Setting
+                      </div>
+                      <div className="setting" style={{alignItems: "ceneter",marginTop: "10px",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px"}}>
+                        <AccountCircleIcon />
+                         Account Setting
+                      </div>
+                      <div className="setting" style={{alignItems: "ceneter",marginTop: "10px",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px",}}>
+                        <AdminPanelSettingsIcon />
+                         Security Setting
+                      </div>
+                      <div className="setting" style={{alignItems: "ceneter",marginTop: "10px",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px"}}>
+                        <MonetizationOnIcon />
+                         Monetization Setting
+                      </div>
+                      <div className="setting" style={{alignItems: "ceneter",marginTop: "10px",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px"}}>
+                        <IosShareIcon />
+                         Share
+                      </div>
+
+                    </StyledBox>
+                  </SwipeableDrawer>
+                </Root>
+
               </div>
             </div>
 
@@ -260,15 +405,14 @@ const UserProfile = () => {
                               </p>
                             </div>
 
-                            <IconButton className="delete" >
+                            <IconButton >
                               <MoreVertIcon />
                             </IconButton>
+
                           </div>
                           <div className="accesimguser">
                             <img src={post.image} alt="" />
                           </div>
-
-
                         </div>
                       ))}
                     </ul>

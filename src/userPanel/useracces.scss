@@ -64,3 +64,16 @@
 
     }
 }
+.setting{
+    // animation-delay: 0.5s;
+    transition: 0.5s;
+}
+.setting:hover{
+    // display: none;
+    scale: 1.1;
+    background-color: white;
+    
+    transition: all ease-in-out 0.5s;
+
+
+}
