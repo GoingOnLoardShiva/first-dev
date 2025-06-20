@@ -408,7 +408,7 @@ const UserProfile = (props: Props) => {
                               </Avatar>
                               <p className="useremailp ">
                                 {Userfname}
-                                <p>{formatDate(userimg.createdAt)}</p>
+                                <p>{formatDate(userimg.createAt)}</p>
 
 
                               </p>
