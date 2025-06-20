@@ -21,6 +21,8 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // MUI icon
+import { blue } from '@mui/material/colors';
 // import Chip from "@mui/material/Chip";
 
 
@@ -112,7 +114,10 @@ const Useralldatapostrecived = (props: Props) => {
     if (!date) return "Invalid Date";
     return moment(date).format("DD MMMM");
   };
-
+  const formatRelativeTime = (date) => {
+    if (!date) return "No date";
+    return moment(date).fromNow(); // Example: "2 days ago"
+  };
   // const timeAgo = new TimeAgo('en-US')
   // const timeAgo = moment("YYYY-MM-DD").fromNow();
   const [selectedPost, setSelectedPost] = useState(null);
@@ -324,8 +329,14 @@ const Useralldatapostrecived = (props: Props) => {
                           sx={{ bgcolor: grey[400], width: 40, height: 40 }}
                         />
                         <p className="pi flex">
-                          {usera.user_fName} <br />
-                          <p style={{ fontSize: "10px", marginLeft: "0px" }}>{formatDate(usera.createAt)}</p>
+                          <div className="pverify d-flex">
+                            {usera.user_fName} <br />
+                            {usera.verified && (
+                              <CheckCircleIcon style={{ color: blue[500], fontSize: 18 }} titleAccess="Verified User" />
+                            )}
+                          </div>
+
+                          <p style={{ fontSize: "11px", marginLeft: "0px", marginTop: "2px", display: "flex" }}>{formatDate(usera.createAt)} <p>{formatRelativeTime(usera.createAt)}</p></p>
                         </p>
                       </div>
                     </a>
