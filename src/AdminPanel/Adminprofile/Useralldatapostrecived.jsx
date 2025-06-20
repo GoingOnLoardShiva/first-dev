@@ -129,7 +129,7 @@ const Useralldatapostrecived = (props: Props) => {
     <img
       className="imagani"
       style={{ width: "40px", height: "40px", background: "transparent"}}
-      src="/loveab.gif"
+      src="/lovea.gif"
       alt=""
     />
   );

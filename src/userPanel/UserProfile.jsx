@@ -162,7 +162,7 @@ const UserProfile = (props: Props) => {
   const valueTemplatea = (valuea) => {
     return (
       <React.Fragment>
-        {valuea}/<b>1000</b>
+        {valuea}/<b>200</b>
       </React.Fragment>
     );
   };
@@ -221,6 +221,7 @@ const UserProfile = (props: Props) => {
         });
         if (response.status === 200) {
           setUserv(response.data.user);
+          console.log(userve)
         }
       } catch (error) {
         console.error("Error fetching views:", error);
@@ -331,25 +332,25 @@ const UserProfile = (props: Props) => {
 
                     <StyledBox sx={{ padding: "40px", height: '100%', overflow: 'auto', borderTopLeftRadius: '20px', borderTopRightRadius: '20px' }}>
                       {/* <Skeleton variant="rectangular" height="100%" /> */}
-                      <div className="setting" style={{alignItems: "ceneter",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px"}}>
+                      <div className="setting" style={{ alignItems: "ceneter", background: "rgba(212, 212, 212, 0.322)", padding: "10px", borderRadius: "20px" }}>
                         <SettingsIcon />
                         Setting
                       </div>
-                      <div className="setting" style={{alignItems: "ceneter",marginTop: "10px",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px"}}>
+                      <div className="setting" style={{ alignItems: "ceneter", marginTop: "10px", background: "rgba(212, 212, 212, 0.322)", padding: "10px", borderRadius: "20px" }}>
                         <AccountCircleIcon />
-                         Account Setting
+                        Account Setting
                       </div>
-                      <div className="setting" style={{alignItems: "ceneter",marginTop: "10px",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px",}}>
+                      <div className="setting" style={{ alignItems: "ceneter", marginTop: "10px", background: "rgba(212, 212, 212, 0.322)", padding: "10px", borderRadius: "20px", }}>
                         <AdminPanelSettingsIcon />
-                         Security Setting
+                        Security Setting
                       </div>
-                      <div className="setting" style={{alignItems: "ceneter",marginTop: "10px",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px"}}>
+                      <div className="setting" style={{ alignItems: "ceneter", marginTop: "10px", background: "rgba(212, 212, 212, 0.322)", padding: "10px", borderRadius: "20px" }}>
                         <MonetizationOnIcon />
-                         Monetization Setting
+                        Monetization Setting
                       </div>
-                      <div className="setting" style={{alignItems: "ceneter",marginTop: "10px",background: "rgba(212, 212, 212, 0.322)",padding:"10px",borderRadius: "20px"}}>
+                      <div className="setting" style={{ alignItems: "ceneter", marginTop: "10px", background: "rgba(212, 212, 212, 0.322)", padding: "10px", borderRadius: "20px" }}>
                         <IosShareIcon />
-                         Share
+                        Share
                       </div>
 
                     </StyledBox>
@@ -460,16 +461,12 @@ const UserProfile = (props: Props) => {
                               displayValueTemplate={valueTemplatea}
                             ></ProgressBar>
                           </div>
-                          <p>1000 views Required / {userve} views </p>
+                          <p>1000 Likes Required / {userve} Likes </p>
                           <p>Hurry Up Get Your Monetize Account</p>
                         </div>
                       </div>
-                      <Button
-                        icon="pi pi-check"
-                        disabled
-                        tooltip="You are Not eligible"
-                        tooltipOptions={{ showOnDisabled: true }}
-                        label="Apply"
+                      <Chip
+                        label="Monetize Account" disabled  icon="pi pi-external-link"
                       />
                     </div>
                   </div>

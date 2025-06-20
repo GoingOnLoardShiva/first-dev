@@ -100,13 +100,13 @@ const Sigin = () => {
           <h2>Create Account</h2>
         </div>
 
-        <Dropdown value={role} options={roles} onChange={(e) => setRole(e.value)} placeholder="Select Role" />
+        <Dropdown value={role} hidden options={roles} onChange={(e) => setRole(e.value)} placeholder="Select Role" />
 
-        <InputText type="email" placeholder="Enter Your Email" value={useremail_id} onChange={(e) => setEmail(e.target.value)} />
-        <InputText type="text" placeholder="Enter Your Full Name" value={useName} onChange={(e) => SetUname(e.target.value)} />
+        <InputText type="email" placeholder="Enter  Email" value={useremail_id} onChange={(e) => setEmail(e.target.value)} />
+        <InputText type="text" placeholder="Enter Full Name" value={useName} onChange={(e) => SetUname(e.target.value)} />
         <InputText type="date" placeholder="Enter Your Date Of Birth" value={user_dob} onChange={(e) => setDob(e.target.value)} />
-        <InputText type="password" placeholder="Enter Your Password" value={user_password} onChange={(e) => setPassword(e.target.value)} />
-        <InputText type="password" placeholder="Enter Your Confirm Password" value={user_conform_password} onChange={(e) => setConformPassword(e.target.value)} />
+        <InputText type="password" placeholder="Enter 6 Digit Password" value={user_password} onChange={(e) => setPassword(e.target.value)} />
+        <InputText type="password" placeholder="Enter 6 Digit Confirm Password" value={user_conform_password} onChange={(e) => setConformPassword(e.target.value)} />
 
         {otpSent && (
           <InputText type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} />
