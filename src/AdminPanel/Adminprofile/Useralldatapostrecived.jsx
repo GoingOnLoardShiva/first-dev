@@ -109,8 +109,10 @@ const Useralldatapostrecived = (props: Props) => {
     setVisible(true);
   };
   const formatDate = (date) => {
-    return moment(date).format("DD MMMM")
+    if (!date) return "Invalid Date";
+    return moment(date).format("DD MMMM");
   };
+
   // const timeAgo = new TimeAgo('en-US')
   // const timeAgo = moment("YYYY-MM-DD").fromNow();
   const [selectedPost, setSelectedPost] = useState(null);
@@ -128,7 +130,7 @@ const Useralldatapostrecived = (props: Props) => {
   const defaultAvatarl = (
     <img
       className="imagani"
-      style={{ width: "40px", height: "40px", background: "transparent"}}
+      style={{ width: "40px", height: "40px", background: "transparent" }}
       src="/lovea.gif"
       alt=""
     />
@@ -323,7 +325,7 @@ const Useralldatapostrecived = (props: Props) => {
                         />
                         <p className="pi flex">
                           {usera.user_fName} <br />
-                          <p style={{ fontSize: "10px", marginLeft: "0px" }}>{formatDate(usera.createdAt)}</p>
+                          <p style={{ fontSize: "10px", marginLeft: "0px" }}>{formatDate(usera.createAt)}</p>
                         </p>
                       </div>
                     </a>
@@ -416,7 +418,7 @@ const Useralldatapostrecived = (props: Props) => {
                           right: 0,
                           left: 0,
                         }}
-                        
+
 
                       >
                         <Puller />
@@ -425,9 +427,9 @@ const Useralldatapostrecived = (props: Props) => {
                       {selectedPost && (
 
 
-                        <StyledBox sx={{ px: 2, pb: 2, padding: "20px", height: '80%', width: "350px", margin: "auto", msOverflowStyle: "none", scrollbarWidth: "none", overflow: 'auto' , borderTopLeftRadius: '30px', borderTopRightRadius: '30px'}}>
+                        <StyledBox sx={{ px: 2, pb: 2, padding: "20px", height: '80%', width: "350px", margin: "auto", msOverflowStyle: "none", scrollbarWidth: "none", overflow: 'auto', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}>
                           {/* <Skeleton variant="rectangular" height="100%" /> */}
-                          <div className="userfirstdetails" style={{ display: "flex" ,gap: "10px"}}>
+                          <div className="userfirstdetails" style={{ display: "flex", gap: "10px" }}>
                             <Avatar
                               src={selectedPost.userProfileImage}
                               sx={{ bgcolor: grey[400], width: 40, height: 40 }}
