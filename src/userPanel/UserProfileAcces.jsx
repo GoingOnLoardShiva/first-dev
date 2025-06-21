@@ -13,6 +13,7 @@ import TimeAgo from "timeago-react";
 import "@radix-ui/themes/styles.css";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // MUI icon
 import { blue } from '@mui/material/colors';
+import moment from "moment-timezone";
 
 
 interface TabPanelProps {
@@ -58,6 +59,11 @@ const UserProfileAcces = () => {
   const [data, setData] = useState([]);
 
   //   const { email_id } = useParams();
+
+  const formatDate = (date) => {
+    if (!date) return "Invalid Date";
+    return moment(date).format("DD MMMM");
+  };
 
   useEffect(() => {
     const useproacc = async () => {
@@ -137,13 +143,13 @@ const UserProfileAcces = () => {
                 sx={{ bgcolor: grey[500], width: 50, height: 50, alignItems: "center" }}
               /></p>
               <div className="userdetaonacc">
-                <div className="pverify d-flex" style={{alignItems: "center"}}>
+                <div className="pverify d-flex" style={{ alignItems: "center" }}>
                   {data.user_fName} <br />
                   {data.verified && (
                     <CheckCircleIcon style={{ color: blue[500], fontSize: 18 }} titleAccess="Verified User" />
                   )}
                 </div>
-                {/* <p>{user_fName}</p> */} 
+                {/* <p>{user_fName}</p> */}
 
                 <p>
                   Followers{" "}
@@ -173,8 +179,27 @@ const UserProfileAcces = () => {
               <CustomTabPanel value={value} index={0}>
                 {userPosts.length > 0
                   ? userPosts.map((user) => (
-                    <div className="useracdetailscontainer" key={user._id}>
-                      <a className="alikcontentac">
+                    <div className="useracdetailscontainer" key={user._id} style={{ gap: "10px" }}>
+                      <div className="pverify d-flex" >
+                        <div className="userallhead d-flex" style={{ alignItems: "center" }}>
+                          <Avatar
+                            src={data.img}
+                            sx={{ bgcolor: grey[500], width: 30, height: 30, alignItems: "center",gap: "10px" }}
+                          />
+                          <div className="name" style={{ textAlign: "start", margin: "0px" }}>
+                            {data.user_fName}
+                            <p style={{ margin: "0px", fontSize: "10px" }}>{formatDate(user.createAt)}</p>
+
+                          </div>
+
+                        </div>
+                        {data.verified && (
+                          <CheckCircleIcon style={{ color: blue[500], fontSize: 18,marginTop:"5px" }} titleAccess="Verified User" />
+                        )}
+
+                      </div>
+                      <br />
+                      <a className="alikcontentac" style={{ paddingTop: "10px" }}>
                         <img src={user.image} alt="Blog" />
                         {/* <div className="gapss"></div>
                            */}
