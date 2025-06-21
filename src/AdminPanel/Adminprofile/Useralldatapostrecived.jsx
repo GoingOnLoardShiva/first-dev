@@ -23,12 +23,11 @@ import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // MUI icon
 import { blue } from '@mui/material/colors';
-// import Chip from "@mui/material/Chip";
-
-
-
-
-
+import SendIcon from '@mui/icons-material/Send';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
 
 
 
@@ -96,6 +95,9 @@ const Useralldatapostrecived = (props: Props) => {
   const [visible, setVisible] = useState(false);
   const [position, setPosition] = useState('center');
 
+
+  const defultlikeimg = FavoriteBorderIcon
+
   const localUserData = JSON.parse(localStorage.getItem("user"));
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const currentUserEmail = currentUser?.user?.[0]?.email_id;
@@ -136,7 +138,7 @@ const Useralldatapostrecived = (props: Props) => {
     <img
       className="imagani"
       style={{ width: "40px", height: "40px", background: "transparent" }}
-      src="/lovea.gif"
+      src="/love.gif"
       alt=""
     />
   );
@@ -322,14 +324,16 @@ const Useralldatapostrecived = (props: Props) => {
                       href={`/user/userid/${encodeURIComponent(
                         usera.user_fName
                       )}`}
+                      style={{ margin: "0px" }}
                     >
-                      <div className="userfirstdetails d-flex gap-2">
+                      <div className="userfirstdetails d-flex gap-2" style={{ margin: "0px" }}>
                         <Avatar
                           src={usera.userProfileImage}
                           sx={{ bgcolor: grey[400], width: 40, height: 40 }}
+                          style={{ margin: "0px" }}
                         />
-                        <p className="pi flex">
-                          <div className="pverify d-flex">
+                        <p className="pi flex" style={{ margin: "0px" }}>
+                          <div className="pverify d-flex" style={{ margin: "0px" }}>
                             {usera.user_fName} <br />
                             {usera.verified && (
                               <CheckCircleIcon style={{ color: blue[500], fontSize: 18 }} titleAccess="Verified User" />
@@ -353,38 +357,35 @@ const Useralldatapostrecived = (props: Props) => {
                       disabled={followingAuthors.includes(usera.user_fName)}
                     >
                     </Chip>
-                    <hr />
                   </div>
-                  <div className="imgscale" style={{ margin: "0px", width: "300px", borderRadius: "10px", backgroundColor: "white", margin: "0px", padding: "0px", overflow: "hidden", backgroundClip: "cover" }}>
+                  <p style={{ margin: "0px", fontSize: "15px" }} onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</p>
+                  <div className="imgscale" style={{ alignItems: "center", margin: "0px", width: "auto", borderRadius: "10px", backgroundColor: "white", margin: "0px", padding: "0px", overflow: "hidden", backgroundClip: "cover" }}>
                     <img src={usera.image} style={{ margin: "0px" }} alt="Blog" onClick={toggleDrawer(true)} />
                   </div>
-                  <p style={{ margin: "0px", fontSize: "20px" }} onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</p>
-                  <div className="toptoolfe" style={{ margin: "0px" }}>
+
+                  <div className="toptoolfe" style={{ marginTop: "10px", gap: "20px" }}>
                     <motion.button
-                      className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""
-                        }`}
+                      className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""}`}
                       whileTap={{ scale: 1.3 }}
-                      whileHover={{ scale: 1.1 }}
+                      // whileHover={{ scale: 1.1 }}
                       onClick={() => handleLike(usera._id)}
                       style={{ margin: "0px" }}
                     >
                       <motion.span
                         className="heart"
                         initial={{ scale: 0.8 }}
-                        animate={
-                          likedPosts.has(usera._id)
-                            ? { scale: [1, 0.5, 1.1] }
-                            : {}
-                        }
                         style={{ margin: "0px" }}
                       >
                         {likedPosts.has(usera._id)
-                          ? defaultAvatarl
-                          : defaultAvatar}
+                          ? <FavoriteIcon style={{ color: "#e53935" }} />
+                          : <FavoriteBorderIcon style={{ color: "#555" }} />}
                       </motion.span>
-                      <p style={{ margin: "0px" }} className="color-black" id="viewsa"><b>{usera.likes}</b></p>
+                      <p style={{ margin: "0px" }} className="color-black" id="viewsa">
+                        <b>{usera.likes}</b>
+                      </p>
                     </motion.button>
-
+                    <SendIcon />
+                    <ChatBubbleOutlineIcon />
                     {/* <p className="pi" id="views" style={{ margin: "0px" }}>
                       {defaultAvatara}
                       <p id="viewsb"><b>{usera.views}</b> </p>

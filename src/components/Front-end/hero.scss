@@ -1,11 +1,13 @@
 .pd{
-    padding: 5px;
+    // padding: 5px;
     background-color: rgb(238, 243, 239);;
     padding-top: 100px;
+    display: flex;
+    justify-content: center;
     @media (max-width: 950px) {
         .dropdowna{
-            padding-left: 10px;
-            padding-right: 10px;
+            // padding-left: 10px;
+            // padding-right: 10px;
             .dropdownab{
                 display: none;
 
@@ -17,8 +19,8 @@
     }
     @media (max-width: 500px) {
         .dropdowna{
-            padding-left: 10px;
-            padding-right: 10px;
+            // padding-left: 10px;
+            // padding-right: 10px;
             .dropdown{
                 .btn{
                     font-size: 10px;

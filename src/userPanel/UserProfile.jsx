@@ -402,7 +402,6 @@ const UserProfile = (props: Props) => {
                         <div key={index._id} style={{ gap: "20px", }} className="userpostwithgap ">
                           <div className="userdeatilswithacs d-flex " style={{ alignItems: "center" }}>
                             <div className="userfirstdetails d-flex gap-2" >
-
                               <Avatar
                                 style={{ margin: "0px" }}
                                 src={userimg.img}
@@ -415,7 +414,6 @@ const UserProfile = (props: Props) => {
                                     <CheckCircleIcon style={{ color: blue[500], fontSize: 18 }} titleAccess="Verified User" />
                                   )}
                                 </div>
-
                                 <p style={{ fontSize: "11px", marginLeft: "0px", marginTop: "2px", display: "flex" }}>{formatDate(userimg.createAt)} <b></b><p> <b></b>{formatRelativeTime(userimg.createAt)}</p></p>
                               </p>
                             </div>
