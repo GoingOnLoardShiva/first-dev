@@ -7,27 +7,28 @@ import { Avatar } from "primereact/avatar";
 import { useNavigate } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import MenuIcon from '@mui/icons-material/Menu';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import SettingsIcon from '@mui/icons-material/Settings';
+import PaidIcon from '@mui/icons-material/Paid';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import PeopleIcon from '@mui/icons-material/People';
 
 const Header = () => {
+  const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
 
   // ✅ Get user data from localStorage
   const userData = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
-
-  // const avatar = user?.img || null; // Get avatar image
-  const [visible, setVisible] = useState(false);
-  const [visiblea, setVisiblea] = useState(false);
-  const navigate = useNavigate();
-  const customIcons = (
-    <React.Fragment>
-      <button className="p-sidebar-icon p-link mr-2"></button>
-    </React.Fragment>
-  );
 
   const customHeader = (
     <div className="d-flex align-items-center gap-2">
       {userData && (
         <>
           <Avatar image={userData.user?.[0]?.img || ""} shape="circle" />
+          {userData.user?.[0]?.user_fName || "User"}
         </>
       )}
     </div>
@@ -47,26 +48,42 @@ const Header = () => {
           visible={visible}
           onHide={() => setVisible(false)}
         >
-          {userData && (
-            <>
-              <p>
-                <strong>Email:</strong> {userData.user?.[0]?.email_id || "N/A"}
-              </p>
-              <p>
-                <strong>Name:</strong> {userData.user?.[0]?.user_fName || "User"}
-              </p>
-              <Chip
-                label="Logout"
-                color="primary"
-                className="texta"
-                component="a"
-                onClick={handleLogout}
-                variant="outlined"
-                clickable
-              />
-              {/* <button >Logout</button> */}
-            </>
-          )}
+          <div className="profilecontnet " >
+            <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
+              <AccountCircleIcon />
+              <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Profile Dasboard</a>
+            </div>
+            <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
+              <PeopleIcon />
+              <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Friends</a>
+            </div>
+
+            <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
+              <ManageAccountsIcon />
+              <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>ManageAccount</a>
+            </div>
+
+            <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
+              <CheckCircleOutlineIcon />
+              <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Apply Verify Account</a>
+            </div>
+
+            <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
+              <PaidIcon />
+              <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Monetize Account</a>
+            </div>
+            <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
+              <PaymentsIcon />
+              <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Payment Method</a>
+            </div>
+            <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
+              <SettingsIcon />
+              <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Setting</a>
+            </div>
+
+
+
+          </div>
         </Sidebar>
       </div>
 
@@ -78,7 +95,7 @@ const Header = () => {
         <div className="login d-flex">
           {userData ? (
             <>
-              {/* <Chip
+              <Chip
                 label="Dashboard"
                 color="primary"
                 className="texta"
@@ -86,7 +103,7 @@ const Header = () => {
                 href={`/user/${userData.secureUID}`}
                 variant="outlined"
                 clickable
-              /> */}
+              />
               <Chip
                 label="Menu"
                 icon={<MenuIcon />}

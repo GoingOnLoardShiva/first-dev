@@ -34,6 +34,7 @@
         "react-cookie": "^7.2.2",
         "react-datetime": "^3.3.1",
         "react-dom": "^19.0.0",
+        "react-geolocated": "^4.3.0",
         "react-hook-form": "^7.55.0",
         "react-icons": "^5.5.0",
         "react-loading-skeleton": "^3.5.0",

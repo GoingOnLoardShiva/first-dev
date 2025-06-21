@@ -1,5 +1,5 @@
 // React Component: Sigin.js
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import "./Loginv.scss";
+
 
 const Sigin = () => {
   const [useremail_id, setEmail] = useState("");
@@ -22,6 +23,7 @@ const Sigin = () => {
   const [sendOtp, setSendotp] = useState(true);
   const [otp, setOtp] = useState("");
 
+
   const toast = useRef(null);
   const navigate = useNavigate();
   const url = process.env.REACT_APP_HOST_URL;
@@ -32,7 +34,7 @@ const Sigin = () => {
 
   const handleSendOtp = async () => {
     try {
-      const res = await axios.post( url + "/sendotp", {
+      const res = await axios.post(url + "/sendotp", {
         useremail_id,
       });
 
@@ -91,6 +93,7 @@ const Sigin = () => {
     }
   };
 
+
   return (
     <div className="login-container">
       <Toast ref={toast} />
@@ -107,19 +110,20 @@ const Sigin = () => {
         <InputText type="date" placeholder="Enter Your Date Of Birth" value={user_dob} onChange={(e) => setDob(e.target.value)} />
         <InputText type="password" placeholder="Enter 6 Digit Password" value={user_password} onChange={(e) => setPassword(e.target.value)} />
         <InputText type="password" placeholder="Enter 6 Digit Confirm Password" value={user_conform_password} onChange={(e) => setConformPassword(e.target.value)} />
+        {/* <InputText type="text" value={weather} onChange={(e) => setConformPassword(e.target.value)} /> */}
 
         {otpSent && (
           <InputText type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} />
         )}
         {regOtp && (
-            <Button label="Register" severity="success" onClick={handleLogin} />
+          <Button label="Register" severity="success" onClick={handleLogin} />
         )}
         {sendOtp && (
-             <Button label="Send OTP" severity="info" onClick={handleSendOtp} />
+          <Button label="Send OTP" severity="info" onClick={handleSendOtp} />
         )}
 
-       
-                
+
+
         <button><a href="/">Back</a></button>
       </div>
     </div>

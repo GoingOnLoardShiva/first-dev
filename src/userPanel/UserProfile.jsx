@@ -37,7 +37,7 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // MUI icon
 import { blue } from '@mui/material/colors';
-
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 
@@ -119,6 +119,13 @@ const UserProfile = (props: Props) => {
     if (!date) return "No date";
     return moment(date).fromNow(); // Example: "2 days ago"
   };
+
+
+  //logout
+  const handleLogout = ()=>{
+    localStorage.removeItem('user');
+    // nevigate(0)
+  }
 
   //Drawer
   const { window } = props;
@@ -362,6 +369,10 @@ const UserProfile = (props: Props) => {
                       <div className="setting" style={{ alignItems: "ceneter", marginTop: "10px", background: "rgba(212, 212, 212, 0.322)", padding: "10px", borderRadius: "20px" }}>
                         <IosShareIcon />
                         Share
+                      </div>
+                      <div className="setting"onClick={handleLogout} style={{ alignItems: "ceneter", marginTop: "10px", background: "rgba(212, 212, 212, 0.322)", padding: "10px", borderRadius: "20px" }}>
+                        <LogoutIcon  />
+                        Logout
                       </div>
 
                     </StyledBox>
