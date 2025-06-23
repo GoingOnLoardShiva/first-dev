@@ -16,7 +16,7 @@ const userlayoutfile = () => {
         <Outlet />
       </main>
       <footer>
-        <UserFooter/>
+        {/* <UserFooter/> */}
       </footer>
     </div>
   );

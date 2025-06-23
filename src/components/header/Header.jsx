@@ -17,6 +17,8 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 import PeopleIcon from '@mui/icons-material/People';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // MUI icon
 import { blue } from '@mui/material/colors';
+import MessageIcon from '@mui/icons-material/Message';
+import IconButton from '@mui/material/IconButton';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
@@ -53,7 +55,7 @@ const Header = () => {
           <div className="profilecontnet " >
             <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
               <AccountCircleIcon />
-              <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Profile Dasboard</a>
+              <a href={`/user/${userData.secureUID}`} style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Profile Dasboard</a>
             </div>
             <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
               <PeopleIcon />
@@ -70,7 +72,7 @@ const Header = () => {
             </div>
 
             <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
-              <CheckCircleIcon style={{ color: blue[500]}}  />
+              <CheckCircleIcon style={{ color: blue[500] }} />
               <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Apply Verify Account</a>
             </div>
 
@@ -101,15 +103,10 @@ const Header = () => {
         <div className="login d-flex">
           {userData ? (
             <>
-              <Chip
-                label="Dashboard"
-                color="primary"
-                className="texta"
-                component="a"
-                href={`/user/${userData.secureUID}`}
-                variant="outlined"
-                clickable
-              />
+              <IconButton href={`/user/${userData.secureUID}/Massege`} >
+                <MessageIcon />
+              </IconButton>
+
               <Chip
                 label="Menu"
                 icon={<MenuIcon />}

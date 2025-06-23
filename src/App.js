@@ -16,6 +16,8 @@ import UserProfileAcces from "./userPanel/UserProfileAcces";
 import AdminLogin from "./AdminPanel/Authuntication/AdminLogin";
 import Ssucess from "./AdminPanel/Authuntication/Ssucess";
 import Userimgup from "./userPanel/usercomponents/Useimgupload"
+import Massege from "./userPanel/usercomponents/Massenger"
+import ChatPage from "./userPanel/usercomponents/Chatpage"
 
 
 function App() {
@@ -60,6 +62,8 @@ function App() {
       children: [
         { path: "/user/:uid", element: <UserProfile /> },
         { path: "/user/:uid/:user_fName", element: <UserProfileAcces /> },
+        { path: "/user/:uid/Massege", element: <Massege /> },
+        { path: "/user/:uid/chat/:email_id", element: <ChatPage /> },
       ],
     },
   ]);

@@ -15,7 +15,7 @@ const userlayoutfile = () => {
         <Outlet />
       </main>
       <footer>
-        <AdminFooter />
+        {/* <AdminFooter /> */}
       </footer>
     </div>
   );
