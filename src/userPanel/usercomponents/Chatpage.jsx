@@ -5,7 +5,7 @@ import axios from 'axios';
 import {Avatar} from '@mui/material';
 
 
-const socket = io('http://127.0.0.1:4000'); // Adjust to your backend URL
+const socket = io('https://bac-end.onrender.com'); // Adjust to your backend URL
 
 export default function ChatPage() {
   const { email_id } = useParams(); // Receiver's email from URL
