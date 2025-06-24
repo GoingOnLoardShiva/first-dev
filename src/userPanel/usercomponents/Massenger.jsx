@@ -32,7 +32,7 @@ const ArchiveIcon = (props) => (
 
 
 
-const socket = io('http://127.0.0.1:4000',);
+const socket = io('https://bac-end.onrender.com',);
 
 export default function Massenger() {
   const [value, setValue] = useState(0);
