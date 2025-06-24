@@ -99,7 +99,7 @@ export default function ChatPage() {
       </style>
       <div className="flex flex-col h-screen bg-gray-100 font-inter" style={{ paddingTop: '64px' }}>
         <div className="bg-white d-flex gap-3 shadow-md p-4 flex items-center justify-between fixed top-0 w-full max-w-lg mx-auto z-10 rounded-b-xl">
-          <Avatar  src={follower.img} className="w-14 h-14" />
+          <Avatar  src={follower?.img} className="w-14 h-14" />
           <h3 className="text-xl font-semibold text-gray-800">
             {follower?.user_fName || email_id}
           </h3>
