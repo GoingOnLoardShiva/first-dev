@@ -41,7 +41,7 @@ export default function Massenger() {
   const [unreadCounts, setUnreadCounts] = useState({}); // Map: email_id -> count
   const navigate = useNavigate();
   // Replaced process.env.REACT_APP_HOST_URL with hardcoded URL to fix "process is not defined" error
-  const url = 'http://127.0.0.1:4000/api/v1';
+const url = process.env.REACT_APP_HOST_URL;
   const [currentUser, setCurrentUser] = useState(null);
   const [currentEmail, setCurrentEmail] = useState(null);
   const [uid, setUid] = useState(null);
