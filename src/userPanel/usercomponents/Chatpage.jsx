@@ -17,7 +17,7 @@ export default function ChatPage() {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
   // Replaced process.env.REACT_APP_HOST_URL with hardcoded URL to fix "process is not defined" error
-  const url = 'http://127.0.0.1:4000/api/v1'; // Your backend base URL
+  const url = process.env.REACT_APP_HOST_URL;
 
   // Load current user from localStorage and set state
   useEffect(() => {
