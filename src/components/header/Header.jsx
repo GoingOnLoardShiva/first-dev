@@ -53,10 +53,20 @@ const Header = () => {
           onHide={() => setVisible(false)}
         >
           <div className="profilecontnet " >
-            <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
-              <AccountCircleIcon />
-              <a href={`/user/${userData.secureUID}`} style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Profile Dasboard</a>
-            </div>
+            {userData ? (
+              <>
+                <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
+                  <AccountCircleIcon />
+                  <a href={`/user/${userData.secureUID}`} style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Profile Dasboard</a>
+                </div>
+              </>
+            ) : (
+              <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
+                <AccountCircleIcon />
+                <a href="/login" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Profile Dasboard</a>
+              </div>
+            )}
+
             <div className="godasboard" style={{ alignItems: "center", display: "flex", gap: "10px", backgroundColor: "rgba(143, 139, 139, 0.06)", padding: "10px", }}>
               <PeopleIcon />
               <a href="/" style={{ textDecoration: "none", color: "black", fontSize: "20px", alignItems: "center" }}>Friends</a>
