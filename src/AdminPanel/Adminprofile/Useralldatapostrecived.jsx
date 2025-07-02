@@ -108,6 +108,25 @@ const Useralldatapostrecived = (props: Props) => {
   const user_fName = userObject?.user_fName;
   const userImage = userObject?.img;
   const [postusede, setpostusede] = useState([])
+
+
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const likedSet = new Set();
+
+    data.forEach((post) => {
+      if (post.likedUsers && post.likedUsers.includes(user.email_id)) {
+        likedSet.add(post._id);
+      }
+    });
+
+    setLikedPosts(likedSet);
+  }, [data]);
+
+
+
+
   const show = (position) => {
     setPosition(position);
     setVisible(true);
@@ -138,7 +157,7 @@ const Useralldatapostrecived = (props: Props) => {
     <img
       className="imagani"
       style={{ width: "40px", height: "40px", background: "transparent" }}
-      src="/love.gif"
+      src="/lovea.gif"
       alt=""
     />
   );
@@ -221,32 +240,34 @@ const Useralldatapostrecived = (props: Props) => {
 
   // console.log([{ data }]);
   const handleLike = async (_id) => {
-    const user = JSON.parse(localStorage.getItem("user")); // Retrieve user cookie
-
+    const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
       alert("You must be logged in to like posts.");
       return;
     }
-    try {
-      const isLiked = likedPosts.has(_id);
+    console.log("User data:", user);
+    console.log("Post ID:", _id);
 
+    const post = data.find((p) => p._id === _id);
+    const isLiked = post?.likedUsers?.includes(user.email_id);
+
+    try {
       const response = await axios.post(`${url}/likePost`, {
         postId: _id,
         action: isLiked ? "unlike" : "like",
+        userId: currentUserEmail,
       });
 
-      setLikedPosts((prev) => {
-        const updatedLikes = new Set(prev);
-        if (isLiked) {
-          updatedLikes.delete(_id);
-        } else {
-          updatedLikes.add(_id);
-        }
-        return updatedLikes;
-      });
+      // Update UI
       setUserdata((prevData) =>
-        prevData.map((post) =>
-          post._id === _id ? { ...post, likes: response.data.likes } : post
+        prevData.map((p) =>
+          p._id === _id
+            ? {
+              ...p,
+              likes: response.data.likes,
+              likedUsers: response.data.likedUsers, // update likedUsers too
+            }
+            : p
         )
       );
     } catch (error) {
@@ -254,24 +275,59 @@ const Useralldatapostrecived = (props: Props) => {
     }
   };
 
-  const followbutton = async (user_fName) => {
-    // const userCookie = Cookies.get("user");
-    const user = userObject
 
+
+  // const followbutton = async (user_fName) => {
+  //   // const userCookie = Cookies.get("user");
+  //   const user = userObject
+
+  //   if (!user) {
+  //     alert("You must be logged in to follow users.");
+  //     return;
+  //   }
+
+  //   // const userEmail = user.email;
+
+  //   try {
+  //     const response = await axios.post(url + "/followuser", {
+  //       userEmail,
+  //       user_fName,
+  //     });
+  //     setFollowingAuthors((prev) => [...prev, user_fName]);
+
+  //   } catch (error) {
+  //     if (error.response?.data?.message === "You have already followed") {
+  //       alert("You have already followed this user.");
+  //     } else {
+  //       console.error("Follow failed:", error);
+  //       alert("Something went wrong.");
+  //     }
+  //   }
+  // };
+  const findUserInFollowing = (authorName) => {
+    const followAc = JSON.parse(localStorage.getItem("followAc") || "[]");
+    // followAc array me authorName match hota ho to true
+    return followAc.includes(authorName);
+  };
+  const followbutton = async (user_fName) => {
+    const user = userObject;
     if (!user) {
       alert("You must be logged in to follow users.");
       return;
     }
 
-    // const userEmail = user.email;
-
     try {
-      const response = await axios.post(url + "/followuser", {
+      await axios.post(url + "/followuser", {
         userEmail,
         user_fName,
       });
-      setFollowingAuthors((prev) => [...prev, user_fName]);
-
+      // localStorage bhi update karo
+      const followAc = JSON.parse(localStorage.getItem("followAc") || "[]");
+      if (!followAc.includes(user_fName)) {
+        followAc.push(user_fName);
+        localStorage.setItem("followAc", JSON.stringify(followAc));
+      }
+      setFollowingAuthors(followAc);
     } catch (error) {
       if (error.response?.data?.message === "You have already followed") {
         alert("You have already followed this user.");
@@ -281,6 +337,10 @@ const Useralldatapostrecived = (props: Props) => {
       }
     }
   };
+
+
+
+
   const renderSkeleton = () => {
     return Array.from({ length: 3 }).map((_, i) => (
       <div className="pcontent container" key={i}>
@@ -347,16 +407,11 @@ const Useralldatapostrecived = (props: Props) => {
                     <Chip
                       className="folowbutton"
                       color="primary"
-                      label={
-                        followingAuthors.includes(usera.user_fName)
-                          ? "Following"
-                          : "Follow"
-                      }
+                      label={findUserInFollowing(usera.user_fName) ? "Following" : "Follow"}
                       variant="outlined"
                       onClick={() => followbutton(usera.user_fName)}
-                      disabled={followingAuthors.includes(usera.user_fName)}
-                    >
-                    </Chip>
+                      disabled={findUserInFollowing(usera.user_fName)}
+                    />
                   </div>
                   <p style={{ margin: "0px", fontSize: "15px" }} onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</p>
                   <div className="imgscale" style={{ alignItems: "center", margin: "0px", width: "auto", borderRadius: "10px", backgroundColor: "white", margin: "0px", padding: "0px", overflow: "hidden", backgroundClip: "cover" }}>
@@ -365,25 +420,25 @@ const Useralldatapostrecived = (props: Props) => {
 
                   <div className="toptoolfe" style={{ marginTop: "10px", gap: "20px" }}>
                     <motion.button
-                      className={`like-button ${likedPosts.has(usera._id) ? "liked" : ""}`}
+                      className="like-button"
                       whileTap={{ scale: 1.3 }}
-                      // whileHover={{ scale: 1.1 }}
                       onClick={() => handleLike(usera._id)}
-                      style={{ margin: "0px" }}
+                      style={{ margin: "0px", display: "flex", alignItems: "center", gap: "5px" }}
                     >
-                      <motion.span
-                        className="heart"
-                        initial={{ scale: 0.8 }}
-                        style={{ margin: "0px" }}
-                      >
-                        {likedPosts.has(usera._id)
-                          ? <FavoriteIcon style={{ color: "#e53935" }} />
-                          : <FavoriteBorderIcon style={{ color: "#555" }} />}
+                      <motion.span className="heart" initial={{ scale: 0.8 }} style={{ margin: "0px" }}>
+                        {usera.likedUsers?.includes(currentUserEmail) ? (
+                          <FavoriteIcon style={{ color: "#e53935" }} />
+                        ) : (
+                          <FavoriteBorderIcon style={{ color: "#555" }} />
+                        )}
                       </motion.span>
+
                       <p style={{ margin: "0px" }} className="color-black" id="viewsa">
                         <b>{usera.likes}</b>
                       </p>
                     </motion.button>
+
+
                     <SendIcon />
                     <ChatBubbleOutlineIcon />
                     {/* <p className="pi" id="views" style={{ margin: "0px" }}>
