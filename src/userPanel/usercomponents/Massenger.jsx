@@ -117,6 +117,7 @@ function ChatView({ selectedFollower, currentEmail, url, onBackToList }) {
       setInput(''); // Clear the input field
     }
   };
+  
 
   // Determine header and input bar height for padding calculation
   // Tailwind's p-3 is usually 12px. Let's estimate header height based on content + padding
@@ -125,7 +126,7 @@ function ChatView({ selectedFollower, currentEmail, url, onBackToList }) {
   const inputBarHeightClass = 'h-20'; // Approximate height of the input bar
 
   return (
-    <div style={{ marginTop: "400px" }} className="flex flex-col h-screen bg-white font-sans antialiased max-w-lg mx-auto w-full border-x border-gray-200 shadow-lg">
+    <div className="flex flex-col h-screen bg-white font-sans antialiased max-w-lg mx-auto w-full border-x border-gray-200 shadow-lg">
       {/* Header for the chat view */}
       <div className={`fixed top-0 w-full max-w-lg mx-auto bg-white shadow-md p-3 flex items-center z-20 border-b border-gray-200 ${headerHeightClass}`}>
         <button onClick={onBackToList} className="text-blue-500 hover:text-blue-700 p-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
@@ -143,9 +144,9 @@ function ChatView({ selectedFollower, currentEmail, url, onBackToList }) {
 
       {/* Message Area - Adjusted padding for fixed header and input bar */}
       <div className={`flex-1 overflow-y-auto p-4 ${headerHeightClass} ${inputBarHeightClass} w-full bg-gray-50`}
-        style={{ paddingTop: 'calc(4rem + 1rem)', paddingBottom: 'calc(5rem + 1rem)' }}> {/* Adjusted to clear fixed header and input, pt-16 (64px) for header, pb-20 (80px) for input */}
+         style={{marginBottom: "50px"}}> {/* Adjusted to clear fixed header and input, pt-16 (64px) for header, pb-20 (80px) for input */}
         {isLoadingMessages ? (
-          <div className="flex justify-center items-center h-full text-gray-500">
+          <div  className="flex justify-center items-center h-full text-gray-500">
             <CircularProgress color="inherit" />
           </div>
         ) : messages.length === 0 ? (
@@ -153,7 +154,7 @@ function ChatView({ selectedFollower, currentEmail, url, onBackToList }) {
             No messages yet. Start the conversation!
           </div>
         ) : (
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col space-y-3" style={{height: '80'}}>
             {messages.map((msg, index) => (
               <div
                 key={index}
@@ -190,7 +191,7 @@ function ChatView({ selectedFollower, currentEmail, url, onBackToList }) {
             }
           }}
           className="flex-1 p-3 text-gray-800 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400 text-base shadow-sm"
-          placeholder="iMessage"
+          placeholder="Type a something..."
           aria-label="Type your message"
         />
         <button
@@ -359,11 +360,11 @@ export default function App() {
       </style>
 
       {/* Main container for the application */}
-      <div style={{ paddingTop: "100px" }} className="flex flex-col min-h-screen bg-gray-100 font-inter w-full max-w-lg mx-auto rounded-lg shadow-lg">
+      <div style={{ paddingTop: "50px" }} className="flex flex-col min-h-screen bg-gray-100 font-inter w-full max-w-lg mx-auto rounded-lg shadow-lg">
         {selectedFollower ? (
           // If a follower is selected, render the ChatView component (the "second page" merged)
           <ChatView
-            style={{ paddingTop: "50px" }}
+
             selectedFollower={selectedFollower}
             currentEmail={currentEmail}
             url={url}
@@ -373,13 +374,13 @@ export default function App() {
           // Otherwise, render the follower list and bottom navigation (the "first page")
           <>
             {/* Header for the follower list */}
-            <div style={{ marginTop: "50px" }} className={`fixed top-0 w-full max-w-lg mx-auto bg-white shadow-sm p-4 flex justify-center items-center z-10 border-b border-gray-200 ${followerListHeaderHeightClass}`}>
+            <div className={`fixed top-0 w-full max-w-lg mx-auto bg-white shadow-sm p-4 flex justify-center items-center z-10 border-b border-gray-200 ${followerListHeaderHeightClass}`}>
               <h1 className="text-xl font-bold text-gray-800">Messages</h1>
             </div>
 
             {/* Follower List Area - Adjusted padding for fixed header and bottom navigation */}
             <div className={`flex-1 overflow-y-auto p-2 ${followerListHeaderHeightClass} ${bottomNavHeightClass} w-full max-w-lg mx-auto bg-white`}
-              style={{ paddingTop: "50px" }} > {/* Adjusted to clear fixed header and bottom nav */}
+            > {/* Adjusted to clear fixed header and bottom nav */}
               <ul className="list-none p-0 m-0">
                 {isLoadingFollowers ? (
                   <div className="text-center text-gray-500 p-8"> <CircularProgress color="inherit" /></div>
