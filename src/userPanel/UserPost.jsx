@@ -1,23 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Cookies from 'js-cookie';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
 import { ProgressBar } from 'primereact/progressbar';
-import { Button } from 'primereact/button';
-import { Tooltip } from 'primereact/tooltip';
-import { Tag } from 'primereact/tag';
 import { InputTextarea } from 'primereact/inputtextarea';
+import Chip from "@mui/material/Chip";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CancelIcon from '@mui/icons-material/Cancel';
+import ImageIcon from '@mui/icons-material/Image';
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const UserPost = () => {
   const [userEmail, setUserEmail] = useState(null);
   const [useName, setUseName] = useState('');
-
-  const toast = useRef(null);
-  const fileUploadRef = useRef(null);
+  const [writecontnet, setWritecontnet] = useState('');
   const [totalSize, setTotalSize] = useState(0);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [alert, setAlert] = useState({ open: false, severity: 'success', message: '' });
+
+  const fileInputRef = useRef(null);
+
   const url = process.env.REACT_APP_HOST_URL;
   const key = process.env.REACT_APP_APIKEY;
-  const [writecontnet, setWritecontnet] = useState('');
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -29,32 +33,35 @@ const UserPost = () => {
 
         if (email) {
           setUserEmail(email);
-          setUseName(name); // <-- set this in state
+          setUseName(name);
         } else {
-          console.warn("Email not found in user object:", parsed);
-          toast.current.show({ severity: 'error', summary: 'Error', detail: 'Email field missing in user data' });
+          showAlert('error', 'Email field missing in user data');
         }
       } catch (error) {
-        console.error("Error parsing user data:", error);
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Invalid user data format' });
+        showAlert('error', 'Invalid user data format');
       }
     } else {
-      toast.current.show({ severity: 'warn', summary: 'Not logged in', detail: 'Please log in to upload your image.' });
+      showAlert('warning', 'Please log in to upload your image.');
     }
   }, []);
 
+  const showAlert = (severity, message) => {
+    setAlert({ open: true, severity, message });
 
-  const uploadHandler = async ({ files }) => {
-    const formData = new FormData();
+    setTimeout(() => {
+      setAlert((prev) => ({ ...prev, open: false }));
+    }, 3000);
+  };
 
-
-    if (!userEmail) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'User email not found' });
+  const uploadHandler = async () => {
+    if (!selectedFile) {
+      showAlert('warning', 'Please select an image first.');
       return;
     }
 
+    const formData = new FormData();
     formData.append('email_id', userEmail);
-    formData.append('file', files[0]);
+    formData.append('file', selectedFile);
     formData.append('writecontnet', writecontnet);
     formData.append('useName', useName);
 
@@ -70,116 +77,93 @@ const UserPost = () => {
       const result = await res.json();
 
       if (res.ok) {
-        toast.current.show({ severity: 'success', summary: 'Success', detail: result.message });
+        showAlert('success', result.message || 'Upload successful');
         setWritecontnet('');
+        setSelectedFile(null);
         setTotalSize(0);
-        fileUploadRef.current.clear();
+        if (fileInputRef.current) fileInputRef.current.value = '';
       } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: result.message });
+        showAlert('error', result.message || 'Upload failed');
       }
     } catch (err) {
-      toast.current.show({ severity: 'error', summary: 'Upload failed', detail: err.message });
+      showAlert('error', err.message || 'Upload failed');
     }
   };
 
-  const onTemplateSelect = (e) => {
-    let _totalSize = totalSize;
-    let files = e.files;
-    Object.keys(files).forEach((key) => {
-      _totalSize += files[key].size || 0;
-    });
-    setTotalSize(_totalSize);
+  const onFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setTotalSize(file.size);
+    }
   };
 
-  const onTemplateRemove = (file, callback) => {
-    setTotalSize(totalSize - file.size);
-    callback();
-  };
-
-  const onTemplateClear = () => {
+  const onClear = () => {
+    setSelectedFile(null);
+    setWritecontnet('');
     setTotalSize(0);
-  };
-
-  const itemTemplate = (file, props) => {
-    return (
-      <div className="flex align-items-center flex-wrap gap-3">
-        <img alt={file.name} src={file.objectURL} width={100} />
-        <div className="flex flex-column text-left">
-          <strong>{file.name}</strong>
-          <small>{new Date().toLocaleDateString()}</small>
-        </div>
-        <Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
-        <Button
-          type="button"
-          icon="pi pi-times"
-          className="p-button-outlined p-button-rounded p-button-danger ml-auto"
-          onClick={() => onTemplateRemove(file, props.onRemove)}
-        />
-      </div>
-    );
-  };
-
-  const emptyTemplate = () => (
-    <div className="flex flex-column align-items-center py-6">
-      <i className="pi pi-image p-5" style={{
-        fontSize: '5em',
-        borderRadius: '50%',
-        backgroundColor: 'var(--surface-b)',
-        color: 'var(--surface-d)'
-      }}></i>
-      <span style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }}>
-        Drag and Drop Image Here
-      </span>
-    </div>
-  );
-
-  const footerTemplate = (options) => {
-    const { className, chooseButton, uploadButton, cancelButton } = options;
-    const value = totalSize / 10000;
-    const formatedValue = fileUploadRef?.current?.formatSize(totalSize) || '0 B';
-
-    return (
-      <div className={className} style={{ display: 'flex', alignItems: 'center', backgroundColor: 'transparent' }}>
-        {chooseButton}
-        {uploadButton}
-        {cancelButton}
-        <div className="flex align-items-center gap-3 ml-auto">
-          <span>{formatedValue} / 1 MB</span>
-          <ProgressBar value={value} showValue={false} style={{ width: '10rem', height: '12px' }} />
-        </div>
-      </div>
-    );
-  };
-
-  const chooseOptions = {
-    icon: 'pi pi-fw pi-images',
-    label: 'Choose Picture',
-    iconOnly: false,
-    className: 'custom-choose-btn p-button-rounded p-button-outlined'
-  };
-
-  const uploadOptions = {
-    icon: 'pi pi-fw pi-cloud-upload',
-    label: 'Upload',
-    iconOnly: false,
-    className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined'
-  };
-
-  const cancelOptions = {
-    icon: 'pi pi-fw pi-times',
-    label: 'Cancel',
-    iconOnly: false,
-    className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined'
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   return (
     <div className="p-4 max-w-2xl mx-auto shadow-md rounded-md bg-white">
-      <Toast ref={toast} />
-      <Tooltip target=".custom-choose-btn" content="Choose Image" position="bottom" />
-      <Tooltip target=".custom-upload-btn" content="Upload Post" position="bottom" />
-      <Tooltip target=".custom-cancel-btn" content="Clear Image" position="bottom" />
+      {/* Material UI Alert */}
+      <Collapse in={alert.open}>
+        <Alert
+          severity={alert.severity}
+          action={
+            <IconButton
+              aria-label="close"
+              size="small"
+              onClick={() => setAlert((prev) => ({ ...prev, open: false }))}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          {alert.message}
+        </Alert>
+      </Collapse>
 
-      {/* <h3 className="mb-3">Create Post</h3> */}
+      {/* Chip Buttons */}
+      <div className="flex gap-5 flex-wrap mb-4" >
+        <Chip
+          icon={<ImageIcon />}
+          label="Choose Image"
+          onClick={() => fileInputRef.current.click()}
+          clickable
+          variant="outlined"
+          color="primary"
+        />
+        <Chip
+          icon={<CloudUploadIcon />}
+          label="Upload"
+          onClick={uploadHandler}
+          clickable
+          variant="outlined"
+          color="success"
+        />
+        <Chip
+          icon={<CancelIcon />}
+          label="Cancel"
+          onClick={onClear}
+          clickable
+          variant="outlined"
+          color="error"
+        />
+      </div>
+
+      {/* Hidden file input */}
+      <input
+        type="file"
+        accept="image/*"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={onFileChange}
+      />
+
+      {/* Textarea for post */}
       <InputTextarea
         autoResize
         rows={4}
@@ -188,27 +172,27 @@ const UserPost = () => {
         value={writecontnet}
         onChange={(e) => setWritecontnet(e.target.value)}
         className="mb-4 w-full"
-        style={{width: '100%', height: '100px', resize: 'none'}}
+        style={{ width: '100%', resize: 'none' }}
       />
 
-      <FileUpload
-        ref={fileUploadRef}
-        name="file"
-        customUpload
-        uploadHandler={uploadHandler}
-        accept="image/*"
-        maxFileSize={1000000}
-        multiple={false}
-        onSelect={onTemplateSelect}
-        onError={onTemplateClear}
-        onClear={onTemplateClear}
-        footerTemplate={footerTemplate}
-        itemTemplate={itemTemplate}
-        emptyTemplate={emptyTemplate}
-        chooseOptions={chooseOptions}
-        uploadOptions={uploadOptions}
-        cancelOptions={cancelOptions}
-      />
+      {/* Image Preview */}
+      {selectedFile && (
+        <div className="mb-4">
+          <img
+            src={URL.createObjectURL(selectedFile)}
+            alt="Preview"
+            className="w-full max-h-80 object-contain rounded"
+            style={{ maxWidth: '100%', maxHeight: '200px' }}
+          />
+          <div className="mt-2">
+            <ProgressBar
+              value={Math.min(totalSize / 10000, 100)}
+              showValue={false}
+              style={{ height: '10px' }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
