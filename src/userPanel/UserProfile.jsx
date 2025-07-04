@@ -14,7 +14,7 @@ import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import Chip from "@mui/material/Chip";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import { Dialog } from "primereact/dialog";
+// import { Dialog } from "primereact/dialog";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
@@ -43,7 +43,11 @@ import EditAttributesIcon from '@mui/icons-material/EditAttributes';
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Useimgupload from "./usercomponents/Useimgupload";
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 
@@ -114,6 +118,8 @@ const UserProfile = (props: Props) => {
     return moment(date).format("DD MMMM")
   };
   // console.log(userimg, "userimg");
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [selectedPostId, setSelectedPostId] = useState(null);
 
   const formatRelativeTime = (date) => {
     if (!date) return "No date";
@@ -256,6 +262,18 @@ const UserProfile = (props: Props) => {
     fetchUserImage();
     fetchUserViews();
   }, []);
+
+  const handleDeleteConfirmed = async () => {
+    try {
+      await axios.delete(`${url}/deletepost/${selectedPostId}`);
+      setUserPosts((prev) => prev.filter((p) => p._id !== selectedPostId));
+      setOpenDeleteDialog(false); // Close dialog
+      setOpenabc(false);          // Also close your drawer if needed
+    } catch (err) {
+      console.error("Delete failed", err);
+    }
+  };
+
 
 
   return (
@@ -598,25 +616,43 @@ const UserProfile = (props: Props) => {
                                 {/* <Typography sx={{ p: 2, color: 'text.secondary' }}  ></Typography> */}
                               </StyledBox>
 
-                              <StyledBox sx={{ padding: "20px", height: '100%', overflow: 'auto', borderTopLeftRadius: '20px', borderTopRightRadius: '20px',}}>
+                              <StyledBox sx={{ padding: "20px", height: '100%', overflow: 'auto', borderTopLeftRadius: '20px', borderTopRightRadius: '20px', }}>
                                 <div className="deletecontnet" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                  <div className="deletecontent">
-                                    <Tooltip title="Delete Post" placement="top" style={{borderRadius: "30px"}}>
-                                      <Button
-                                        variant="outlined"
-                                        color="error"
-                                        startIcon={<SettingsSuggestIcon />}
-                                        onClick={() => {
-                                          // Handle delete post logic here
-                                          console.log("Delete post clicked");
-                                        }}
-                                      >
-                                        Delete Post
+                                  <Tooltip title="Delete Post" placement="top" style={{ borderRadius: "30px" }}>
+                                    <Button
+                                      variant="outlined"
+                                      color="error"
+                                      startIcon={<SettingsSuggestIcon />}
+                                      onClick={() => {
+                                        setSelectedPostId(post._id); // Store the post ID
+                                        setOpenDeleteDialog(true);   // Open confirmation dialog
+                                      }}
+                                    >
+                                      Delete Post
+                                    </Button>
+                                  </Tooltip>
+                                  <Dialog
+                                    open={openDeleteDialog}
+                                    onClose={() => setOpenDeleteDialog(false)}
+                                  >
+                                    <DialogTitle>Confirm Delete</DialogTitle>
+                                    <DialogContent>
+                                      <DialogContentText>
+                                        Are you sure you want to delete this post? This action cannot be undone.
+                                      </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                      <Button onClick={() => setOpenDeleteDialog(false)} color="primary">
+                                        Cancel
                                       </Button>
-                                    </Tooltip>
-                                  </div>
+                                      <Button onClick={handleDeleteConfirmed} color="error" variant="contained">
+                                        Delete
+                                      </Button>
+                                    </DialogActions>
+                                  </Dialog>
+
                                   <div className="deletecontent">
-                                    <Tooltip title="Edit Post" placement="top" style={{borderRadius: "30px"}}>
+                                    <Tooltip title="Edit Post" placement="top" style={{ borderRadius: "30px" }}>
                                       <Button
                                         variant="outlined"
                                         color="primary"
@@ -633,7 +669,7 @@ const UserProfile = (props: Props) => {
                                 </div>
                                 <br />
                                 <div className="share" style={{ display: "flex", justifyContent: "center", }}>
-                                  <Tooltip title="Share Post" placement="top" style={{borderRadius: "30px"}}>
+                                  <Tooltip title="Share Post" placement="top" style={{ borderRadius: "30px" }}>
                                     <Button
                                       variant="outlined"
                                       color="secondary"
