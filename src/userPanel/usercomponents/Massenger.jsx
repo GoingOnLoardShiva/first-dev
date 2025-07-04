@@ -3,7 +3,7 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-
+import IconButton from '@mui/material/IconButton';
 
 // --- Icon Components (Inline SVGs for self-containment and control) ---
 const RestoreIcon = (props) => (
@@ -117,7 +117,7 @@ function ChatView({ selectedFollower, currentEmail, url, onBackToList }) {
       setInput(''); // Clear the input field
     }
   };
-  
+
 
   // Determine header and input bar height for padding calculation
   // Tailwind's p-3 is usually 12px. Let's estimate header height based on content + padding
@@ -129,11 +129,16 @@ function ChatView({ selectedFollower, currentEmail, url, onBackToList }) {
     <div className="flex flex-col h-screen bg-white font-sans antialiased max-w-lg mx-auto w-full border-x border-gray-200 shadow-lg">
       {/* Header for the chat view */}
       <div className={`fixed top-0 w-full max-w-lg mx-auto bg-white shadow-md p-3 flex items-center z-20 border-b border-gray-200 ${headerHeightClass}`}>
-        <button onClick={onBackToList} className="text-blue-500 hover:text-blue-700 p-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <IconButton className="text-blue-500 hover:text-blue-700 p-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400" onClick={onBackToList} >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-        </button>
+        </IconButton>
+        {/* <button onClick={onBackToList} className="text-blue-500 hover:text-blue-700 p-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button> */}
         <div className="flex items-center flex-grow justify-center -ml-8"> {/* Adjusted margin for centering */}
           <Avatar src={selectedFollower.img} alt={selectedFollower.user_fName} size="10" />
           <h3 className="text-lg font-semibold text-gray-800 ml-3 truncate">
@@ -144,9 +149,9 @@ function ChatView({ selectedFollower, currentEmail, url, onBackToList }) {
 
       {/* Message Area - Adjusted padding for fixed header and input bar */}
       <div className={`flex-1 overflow-y-auto p-4 ${headerHeightClass} ${inputBarHeightClass} w-full bg-gray-50`}
-         style={{marginBottom: "50px"}}> {/* Adjusted to clear fixed header and input, pt-16 (64px) for header, pb-20 (80px) for input */}
+        style={{ marginBottom: "50px" }}> {/* Adjusted to clear fixed header and input, pt-16 (64px) for header, pb-20 (80px) for input */}
         {isLoadingMessages ? (
-          <div  className="flex justify-center items-center h-full text-gray-500">
+          <div className="flex justify-center items-center h-full text-gray-500">
             <CircularProgress color="inherit" />
           </div>
         ) : messages.length === 0 ? (
@@ -154,7 +159,7 @@ function ChatView({ selectedFollower, currentEmail, url, onBackToList }) {
             No messages yet. Start the conversation!
           </div>
         ) : (
-          <div className="flex flex-col space-y-3" style={{height: '80'}}>
+          <div className="flex flex-col space-y-3" style={{ height: '80' }}>
             {messages.map((msg, index) => (
               <div
                 key={index}
