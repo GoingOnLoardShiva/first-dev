@@ -276,34 +276,6 @@ const Useralldatapostrecived = (props: Props) => {
   };
 
 
-
-  // const followbutton = async (user_fName) => {
-  //   // const userCookie = Cookies.get("user");
-  //   const user = userObject
-
-  //   if (!user) {
-  //     alert("You must be logged in to follow users.");
-  //     return;
-  //   }
-
-  //   // const userEmail = user.email;
-
-  //   try {
-  //     const response = await axios.post(url + "/followuser", {
-  //       userEmail,
-  //       user_fName,
-  //     });
-  //     setFollowingAuthors((prev) => [...prev, user_fName]);
-
-  //   } catch (error) {
-  //     if (error.response?.data?.message === "You have already followed") {
-  //       alert("You have already followed this user.");
-  //     } else {
-  //       console.error("Follow failed:", error);
-  //       alert("Something went wrong.");
-  //     }
-  //   }
-  // };
   const findUserInFollowing = (authorName) => {
     const followAc = JSON.parse(localStorage.getItem("followAc") || "[]");
     // followAc array me authorName match hota ho to true
@@ -446,22 +418,22 @@ const Useralldatapostrecived = (props: Props) => {
                       <p id="viewsb"><b>{usera.views}</b> </p>
                     </p> */}
                   </div>
-                  <Root >
-                    <CssBaseline style={{ height: "1000px" }} />
+                  <Root>
+                    <CssBaseline />
                     <Global
                       styles={{
                         '.MuiDrawer-root > .MuiPaper-root': {
-                          maxHeight: '80%', // Increase drawer height here
+                          height: 'fitcontent', // Increase drawer height here
                           maxWidth: '500px',
-                          borderRadius: '10px',
                           justifyContent: "center",
                           display: "flex",
                           margin: "auto", // Increase drawer height here
                           overflow: 'visible',
+                          borderTopLeftRadius: "20px",
+                          borderTopRightRadius: "20px"
+                           // Add border radius to the drawer
                         },
                       }}
-
-
                     />
                     <SwipeableDrawer
                       container={container}
@@ -472,8 +444,7 @@ const Useralldatapostrecived = (props: Props) => {
                       swipeAreaWidth={drawerBleeding}
                       disableSwipeToOpen={false}
                       keepMounted
-
-
+                      // style={{ borderRadius: '50px', }}
                     >
                       <StyledBox
                         sx={{
@@ -485,12 +456,13 @@ const Useralldatapostrecived = (props: Props) => {
                           right: 0,
                           left: 0,
                         }}
-
-
+                        style={{ borderRadius: '50px', }}
                       >
-                        <Puller />
-                        {/* <Typography sx={{ p: 2, color: 'text.secondary' }}>51 results</Typography> */}
+                        {/* <Puller /> */}
+                        {/* <SettingsIcon/> */}
+                        {/* <Typography sx={{ p: 2, color: 'text.secondary' }}  ></Typography> */}
                       </StyledBox>
+
                       {selectedPost && (
 
 
@@ -528,7 +500,7 @@ const Useralldatapostrecived = (props: Props) => {
                           <div className="imgscale" >
                             <img src={selectedPost.image} style={{ margin: "0px", width: "300px", justifyContent: "center", display: "flex", alignItems: "center", margin: "auto" }} alt="Blog" />
                           </div>
-                          <p style={{ margin: "0px", fontSize: "20px" }} onClick={() => show('bottom')} >{usera.writecontnet?.substring(0, 40) || "Loading"}</p>
+                          <p style={{ margin: "0px", fontSize: "20px" }} onClick={() => show('bottom')} >{selectedPost.writecontnet?.substring(0, 40) || "Loading"}</p>
                           <div className="toptoolfe" style={{ margin: "0px" }}>
                             <motion.button
                               className={`like-button ${likedPosts.has(selectedPost._id) ? "liked" : ""
@@ -562,6 +534,7 @@ const Useralldatapostrecived = (props: Props) => {
                       )}
                     </SwipeableDrawer>
                   </Root>
+
                 </a>
               </div>
             ))
