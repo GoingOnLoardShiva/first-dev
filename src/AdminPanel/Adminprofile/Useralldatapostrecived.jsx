@@ -28,7 +28,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
-
+import { decryptData } from './decryptUtil'
 
 
 
@@ -207,36 +207,39 @@ const Useralldatapostrecived = (props: Props) => {
     }
     setLoading(false);
   };
-
+  const passkey = process.env.REACT_APP_SECRET_KEY;
   const fetchUserPosts = async (currentPage, reset = false) => {
-    if (loading || !hasMore) return;
-
-    setLoading(true);
     try {
+      setLoading(true);
+
       const response = await axios.get(
         `${url}/recivedUserallPost?page=${currentPage}&limit=8`,
         { headers: { "access-key": key } }
       );
 
-      if (Array.isArray(response.data)) {
-        const newPosts = response.data.filter(
-          (post) => !data.some((existingPost) => existingPost._id === post._id)
-        );
-        Cookies.set("postdetails", JSON.stringify(response.data), { expires: 7 });
+      const { iv, encryptedData } = response.data;
+      const decrypted = decryptData(encryptedData, iv, passkey);
 
-        if (newPosts.length === 0) {
-          setHasMore(false); // No more new posts
-        } else {
-          setUserdata((prev) => (reset ? newPosts : [...prev, ...newPosts]));
-          setPage(currentPage + 1);
-        }
+      if (!Array.isArray(decrypted)) throw new Error("Decrypted data is not an array");
+
+      const newPosts = decrypted.filter(
+        post => !data.some(existing => existing._id === post._id)
+      );
+
+      if (newPosts.length === 0) {
+        setHasMore(false);
+      } else {
+        setUserdata(prev => (reset ? newPosts : [...prev, ...newPosts]));
+        setPage(prev => prev + 1);
       }
-    } catch (error) {
-      console.error("Error fetching user posts:", error);
+    } catch (err) {
+      console.error("Error fetching user posts:", err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-
   };
+
+
 
   // console.log([{ data }]);
   const handleLike = async (_id) => {
@@ -431,7 +434,7 @@ const Useralldatapostrecived = (props: Props) => {
                           overflow: 'visible',
                           borderTopLeftRadius: "20px",
                           borderTopRightRadius: "20px"
-                           // Add border radius to the drawer
+                          // Add border radius to the drawer
                         },
                       }}
                     />
@@ -444,7 +447,7 @@ const Useralldatapostrecived = (props: Props) => {
                       swipeAreaWidth={drawerBleeding}
                       disableSwipeToOpen={false}
                       keepMounted
-                      // style={{ borderRadius: '50px', }}
+                    // style={{ borderRadius: '50px', }}
                     >
                       <StyledBox
                         sx={{

@@ -1,194 +1,219 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Cookies from 'js-cookie';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
-import { ProgressBar } from 'primereact/progressbar';
-import { Button } from 'primereact/button';
-import { Tooltip } from 'primereact/tooltip';
-import { Tag } from 'primereact/tag';
+import {
+  Box, Button, Typography, Snackbar, Alert, IconButton, Stack, Avatar, Dialog, DialogActions, DialogContent
+} from '@mui/material';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Cropper from 'react-easy-crop';
+import Slider from '@mui/material/Slider';
+import { getCroppedImg } from './cropImageHelper';
 
-const Useimgupload = () => {
-  const toast = useRef(null);
-  const fileUploadRef = useRef(null);
-  const [totalSize, setTotalSize] = useState(0);
-  const [userEmail, setUserEmail] = useState(null);
+const UseImgUpload = () => {
+  const [userEmail, setUserEmail] = useState('');
+  const [imageSrc, setImageSrc] = useState(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [zoom, setZoom] = useState(1);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [alert, setAlert] = useState({ open: false, type: 'success', msg: '' });
+  const [openCrop, setOpenCrop] = useState(false);
+
+  // 🔥 NEW: Camera-related states
+  const [cameraOn, setCameraOn] = useState(false);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  const streamRef = useRef(null);
 
   const url = process.env.REACT_APP_HOST_URL;
   const key = process.env.REACT_APP_APIKEY;
 
-  // Load user email on mount
   useEffect(() => {
     const userData = localStorage.getItem("user");
     if (userData) {
-      try {
-        const user = JSON.parse(userData);
-        const email = user?.user?.[0]?.email_id;
-
-        if (email) {
-          setUserEmail(email);
-        } else {
-          console.warn("Email not found in user object:", user);
-          toast.current.show({ severity: 'error', summary: 'Error', detail: 'Email field missing in user data' });
-        }
-      } catch (error) {
-        console.error("Error parsing user data:", error);
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Invalid user data format' });
-      }
+      const parsed = JSON.parse(userData);
+      const email = parsed?.user?.[0]?.email_id;
+      if (email) setUserEmail(email);
+      else showAlert('error', 'User email not found in localStorage');
     } else {
-      toast.current.show({ severity: 'warn', summary: 'Not logged in', detail: 'Please log in to upload your image.' });
+      showAlert('warning', 'User not logged in');
     }
   }, []);
 
-  const uploadHandler = async ({ files }) => {
-    const parsed = JSON.parse(localStorage.getItem("user"));
-    const email = parsed?.user?.[0]?.email_id; // ✅ Correct access
+  const showAlert = (type, msg) => {
+    setAlert({ open: true, type, msg });
+  };
 
-    if (!userEmail) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'User email not found' });
-      return;
+  const handleImageSelect = async (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => setImageSrc(reader.result);
+      reader.readAsDataURL(file);
+      setOpenCrop(true);
+    }
+  };
+
+  const handleCropDone = async () => {
+    try {
+      const cropped = await getCroppedImg(imageSrc, croppedAreaPixels);
+      setCroppedImage(cropped);
+      setOpenCrop(false);
+    } catch (error) {
+      showAlert('error', 'Failed to crop image');
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!userEmail || !croppedImage) {
+      return showAlert('error', 'Missing email or image');
     }
 
     const formData = new FormData();
-    formData.append('email_id', email);
-    formData.append('file', files[0]);
+    formData.append('email_id', userEmail);
+    formData.append('file', croppedImage);
 
     try {
       const res = await fetch(`${url}/uploadProfileImage`, {
         method: 'POST',
-        headers: {
-          "access-key": key
-        },
-        body: formData
+        headers: { "access-key": key },
+        body: formData,
       });
 
       const result = await res.json();
-
       if (res.ok) {
-        toast.current.show({ severity: 'success', summary: 'Success', detail: result.message });
+        showAlert('success', result.message || 'Uploaded successfully');
       } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: result.message });
+        showAlert('error', result.message || 'Upload failed');
       }
     } catch (err) {
-      toast.current.show({ severity: 'error', summary: 'Upload failed', detail: err.message });
+      showAlert('error', err.message || 'Upload failed');
     }
   };
 
-
-  // Rest of your templates and config (unchanged)
-  const onTemplateSelect = (e) => {
-    let _totalSize = totalSize;
-    let files = e.files;
-    Object.keys(files).forEach((key) => {
-      _totalSize += files[key].size || 0;
-    });
-    setTotalSize(_totalSize);
+  // 🔥 NEW: Start camera
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      streamRef.current = stream;
+      if (videoRef.current) videoRef.current.srcObject = stream;
+      setCameraOn(true);
+    } catch (err) {
+      showAlert('error', 'Camera access denied or not available');
+    }
   };
 
-  const onTemplateRemove = (file, callback) => {
-    setTotalSize(totalSize - file.size);
-    callback();
+  // 🔥 NEW: Stop camera
+  const stopCamera = () => {
+    streamRef.current?.getTracks().forEach((track) => track.stop());
+    setCameraOn(false);
   };
 
-  const onTemplateClear = () => setTotalSize(0);
+  // 🔥 NEW: Capture photo
+  const capturePhoto = () => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    if (!video || !canvas) return;
 
-  const headerTemplate = (options) => {
-    const { className, chooseButton, uploadButton, cancelButton } = options;
-    const value = totalSize / 10000;
-    const formatedValue = fileUploadRef?.current?.formatSize(totalSize) || '0 B';
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0);
 
-    return (
-      <div className={className} style={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center' }}>
-        {chooseButton}
-        {uploadButton}
-        {cancelButton}
-        <div className="flex align-items-center gap-3 ml-auto">
-          <span>{formatedValue} / 1 MB</span>
-          <ProgressBar value={value} showValue={false} style={{ width: '10rem', height: '12px' }} />
-        </div>
-      </div>
-    );
-  };
-
-  const itemTemplate = (file, props) => {
-    return (
-      <div className="flex align-items-center flex-wrap">
-        <div className="flex align-items-center" style={{ width: '40%' }}>
-          <img alt={file.name} role="presentation" src={file.objectURL} width={100} />
-          <span className="flex flex-column text-left ml-3">
-            {file.name}
-            <small>{new Date().toLocaleDateString()}</small>
-          </span>
-        </div>
-        <Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
-        <Button
-          type="button"
-          icon="pi pi-times"
-          className="p-button-outlined p-button-rounded p-button-danger ml-auto"
-          onClick={() => onTemplateRemove(file, props.onRemove)}
-        />
-      </div>
-    );
-  };
-
-  const emptyTemplate = () => (
-    <div className="flex align-items-center flex-column">
-      <i
-        className="pi pi-image mt-3 p-5"
-        style={{
-          fontSize: '5em',
-          borderRadius: '50%',
-          backgroundColor: 'var(--surface-b)',
-          color: 'var(--surface-d)'
-        }}
-      />
-      <span style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }} className="my-5">
-        Drag and Drop Image Here
-      </span>
-    </div>
-  );
-
-  const chooseOptions = {
-    icon: 'pi pi-fw pi-images',
-    iconOnly: true,
-    className: 'custom-choose-btn p-button-rounded p-button-outlined'
-  };
-  const uploadOptions = {
-    icon: 'pi pi-fw pi-cloud-upload',
-    iconOnly: true,
-    className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined'
-  };
-  const cancelOptions = {
-    icon: 'pi pi-fw pi-times',
-    iconOnly: true,
-    className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined'
+    const dataUrl = canvas.toDataURL("image/jpeg");
+    setImageSrc(dataUrl);
+    setOpenCrop(true);
+    stopCamera();
   };
 
   return (
-    <div>
-      <Toast ref={toast} />
-      <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-      <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-      <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
+    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 5, textAlign: 'center' }}>
+      <Typography variant="h6" gutterBottom>Upload Profile Image</Typography>
 
-      <FileUpload
-        ref={fileUploadRef}
-        customUpload
-        uploadHandler={uploadHandler}
-        accept="image/*"
-        maxFileSize={1000000}
-        multiple={false}
-        onSelect={onTemplateSelect}
-        onError={onTemplateClear}
-        onClear={onTemplateClear}
-        headerTemplate={headerTemplate}
-        itemTemplate={itemTemplate}
-        emptyTemplate={emptyTemplate}
-        chooseOptions={chooseOptions}
-        uploadOptions={uploadOptions}
-        cancelOptions={cancelOptions}
-      />
-    </div>
+      {croppedImage && (
+        <Avatar
+          src={URL.createObjectURL(croppedImage)}
+          sx={{ width: 120, height: 120, mx: 'auto', mb: 2 }}
+        />
+      )}
+
+      <Stack direction="row" justifyContent="center" spacing={2} sx={{ mb: 2 }}>
+        <Button
+          variant="contained"
+          component="label"
+          startIcon={<PhotoCamera />}
+        >
+          Choose Image
+          <input hidden accept="image/*" type="file" onChange={handleImageSelect} />
+        </Button>
+
+        <Button variant="outlined" onClick={cameraOn ? stopCamera : startCamera}>
+          {cameraOn ? "Stop Camera" : "Use Camera"}
+        </Button>
+      </Stack>
+
+      {cameraOn && (
+        <Box sx={{ mb: 2 }}>
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            style={{ width: "100%", borderRadius: "8px" }}
+          />
+          <Button variant="contained" fullWidth sx={{ mt: 1 }} onClick={capturePhoto}>
+            Capture
+          </Button>
+          <canvas ref={canvasRef} style={{ display: "none" }} />
+        </Box>
+      )}
+
+      <Button
+        variant="contained"
+        color="success"
+        disabled={!croppedImage}
+        onClick={handleUpload}
+      >
+        Upload
+      </Button>
+
+      <Dialog open={openCrop} onClose={() => setOpenCrop(false)} maxWidth="sm" fullWidth>
+        <DialogContent>
+          <Box sx={{ position: 'relative', width: '100%', height: 300, bgColor: '#333' }}>
+            <Cropper
+              image={imageSrc}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              onCropChange={setCrop}
+              onZoomChange={setZoom}
+              onCropComplete={(_, croppedPixels) => setCroppedAreaPixels(croppedPixels)}
+              cropShape="round"
+              showGrid={false}
+            />
+          </Box>
+          <Slider
+            min={1}
+            max={3}
+            step={0.1}
+            value={zoom}
+            onChange={(e, z) => setZoom(z)}
+            sx={{ mt: 2 }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenCrop(false)}>Cancel</Button>
+          <Button onClick={handleCropDone} variant="contained">Crop</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Snackbar
+        open={alert.open}
+        autoHideDuration={3000}
+        onClose={() => setAlert({ ...alert, open: false })}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity={alert.type}>{alert.msg}</Alert>
+      </Snackbar>
+    </Box>
   );
 };
 
-export default Useimgupload;
+export default UseImgUpload;

@@ -1,16 +1,25 @@
 import React from "react";
 import AdminFooter from "../../AdminPanel/Admincomponent/AdminFooter";
 import AdminHeader from "../../AdminPanel/Admincomponent/AdminHeader"
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router-dom";
 
 
 
-const userlayoutfile = () => {
+const Userlayoutfile = () => {
+    const location = useLocation();
+  
+    const messengerPagePath = "/user/:uid/Massege"; // Make sure this matches your route path
+  
+    const isMessengerPage = location.pathname === messengerPagePath;
+
+
   return (
     <div>
-      <header>
-        <AdminHeader/>
-      </header>
+      {!isMessengerPage && (
+        <header>
+          <AdminHeader />
+        </header>
+      )}
       <main>
         <Outlet />
       </main>
@@ -21,4 +30,4 @@ const userlayoutfile = () => {
   );
 };
 
-export default userlayoutfile;
+export default Userlayoutfile;

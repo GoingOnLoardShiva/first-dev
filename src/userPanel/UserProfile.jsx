@@ -139,6 +139,7 @@ const UserProfile = (props: Props) => {
   const [opena, setOpena] = React.useState(false);
   const [openab, setOpenab] = React.useState(false);
   const [openabc, setOpenabc] = React.useState(false);
+  const [openabcd, setOpenabcd] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -151,6 +152,9 @@ const UserProfile = (props: Props) => {
   };
   const toggleDrawerabc = (newOpen: boolean) => () => {
     setOpenabc(newOpen);
+  };
+  const toggleDrawerabcd = (newOpen: boolean) => () => {
+    setOpenabcd(newOpen);
   };
 
   // This is used only for the example
@@ -515,6 +519,114 @@ const UserProfile = (props: Props) => {
                     </StyledBox>
                   </SwipeableDrawer>
                 </Root>
+                <Root>
+                  <CssBaseline />
+                  <Global
+                    styles={{
+                      '.MuiDrawer-root > .MuiPaper-root': {
+                        height: 'fitcontent', // Increase drawer height here
+                        maxWidth: '500px',
+                        justifyContent: "center",
+                        display: "flex",
+                        margin: "auto", // Increase drawer height here
+                        overflow: 'visible',
+                        borderRadius: '50px', // Add border radius to the drawer
+                      },
+                    }}
+                  />
+                  <SwipeableDrawer
+                    container={container}
+                    anchor="bottom"
+                    open={opena}
+                    onClose={toggleDrawera(false)}
+                    onOpen={toggleDrawera(true)}
+                    swipeAreaWidth={drawerBleeding}
+                    disableSwipeToOpen={false}
+                    keepMounted
+                    style={{ borderRadius: '50px', }}
+                  >
+                    <StyledBox
+                      sx={{
+                        position: 'absolute',
+                        top: -drawerBleeding,
+                        borderTopLeftRadius: 8,
+                        borderTopRightRadius: 8,
+                        visibility: 'visible',
+                        right: 0,
+                        left: 0,
+                      }}
+                      style={{ borderRadius: '50px', }}
+                    >
+                      {/* <Puller /> */}
+                      {/* <SettingsIcon/> */}
+                      {/* <Typography sx={{ p: 2, color: 'text.secondary' }}  ></Typography> */}
+                    </StyledBox>
+
+                    <StyledBox sx={{ padding: "40px", height: '100%', overflow: 'auto', borderTopLeftRadius: '20px', borderTopRightRadius: '20px' }}>
+                      <div className="faca" style={{ gap: "10px" }}>
+                        {userimg?.followAc?.map((user, index) => (
+                          <div key={index} className="follow-card d-flex gap-2 align-items-center">
+                            <Avatar className="mr-2" size="xlarge" src={user.img} />
+                            <p className="username" style={{ color: "black" }}>{user}</p>
+                          </div>
+                        ))}
+
+                      </div>
+
+
+                    </StyledBox>
+                  </SwipeableDrawer>
+                </Root>
+                <Root>
+                  <CssBaseline />
+                  <Global
+                    styles={{
+                      '.MuiDrawer-root > .MuiPaper-root': {
+                        height: 'fitcontent', // Increase drawer height here
+                        maxWidth: '500px',
+                        justifyContent: "center",
+                        display: "flex",
+                        margin: "auto", // Increase drawer height here
+                        overflow: 'visible',
+                        borderRadius: '50px', // Add border radius to the drawer
+                      },
+                    }}
+                  />
+                  <SwipeableDrawer
+                    container={container}
+                    anchor="bottom"
+                    open={openabcd}
+                    onClose={toggleDrawerabcd(false)}
+                    onOpen={toggleDrawerabcd(true)}
+                    swipeAreaWidth={drawerBleeding}
+                    disableSwipeToOpen={false}
+                    keepMounted
+                    style={{ borderRadius: '50px', }}
+                  >
+                    <StyledBox
+                      sx={{
+                        position: 'absolute',
+                        top: -drawerBleeding,
+                        borderTopLeftRadius: 8,
+                        borderTopRightRadius: 8,
+                        visibility: 'visible',
+                        right: 0,
+                        left: 0,
+                      }}
+                      style={{ borderRadius: '50px', }}
+                    >
+                      {/* <Puller /> */}
+                      {/* <SettingsIcon/> */}
+                      {/* <Typography sx={{ p: 2, color: 'text.secondary' }}  ></Typography> */}
+                    </StyledBox>
+
+                    <StyledBox sx={{ padding: "0px", height: '100%', overflow: 'auto', borderTopLeftRadius: '20px', borderTopRightRadius: '20px' }}>
+                      <Useimgupload />
+
+
+                    </StyledBox>
+                  </SwipeableDrawer>
+                </Root>
 
               </div>
             </div>
@@ -526,11 +638,11 @@ const UserProfile = (props: Props) => {
                   label="Create post" icon="pi pi-external-link" onClick={toggleDrawerab(true)}  // Trigger file upload dialog
                 />
                 <Chip
-                  label="Upload Picture" icon="pi pi-external-link" onClick={() => setVisiblea(true)}  // Trigger file upload dialog
+                  label="Upload Picture" icon="pi pi-external-link" onClick={toggleDrawerabcd(true)} // Trigger file upload dialog
                 />
-                <Dialog header="Upload Picture" visible={visiblea} style={{ width: '100vw' }} onHide={() => { if (!visiblea) return; setVisiblea(false); }}>
-                  <Useimgupload />
-                </Dialog>
+                {/* <Dialog header="Upload Picture" visible={visiblea} style={{ width: '100vw' }} onHide={() => { if (!visiblea) return; setVisiblea(false); }}>
+                  
+                </Dialog> */}
                 {/* <Dialog header="Create Post" visible={visibleb} style={{ width: '100vw' }} onHide={() => { if (!visibleb) return; setVisibleb(false); }}>
                   <UserPost />
                 </Dialog> */}

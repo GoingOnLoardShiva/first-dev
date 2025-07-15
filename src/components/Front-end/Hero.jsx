@@ -12,11 +12,14 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import Useralldatapostrecived from "../../AdminPanel/Adminprofile/Useralldatapostrecived";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import StoryPage from "../../userPanel/Story/StoryPage"
+
 
 const Hero = () => {
   return (
     <div className="pd">
       <div className="abb">
+        <StoryPage/>
         <Useralldatapostrecived />
       </div>
 
